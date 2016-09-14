@@ -1,6 +1,4 @@
 .DS_Store
 .settings
 .project
-.cproject
-
-/Debug/
+.pydevproject
