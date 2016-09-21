@@ -16,6 +16,7 @@ class PiMegaCommunicator:
         return
     
     def piSendsMsgToMega(self, msg):
+        # test
         # TODO
         return
     
