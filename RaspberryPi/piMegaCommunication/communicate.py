@@ -16,6 +16,13 @@ while True:
         print('Sending ACK')
         port.write('A')
         break
-    
+
+while True:
+    ch=port.read()
+    if(ch=='R'):
+        print('read')
+        print(ch)
+        print('Mega is ready')
+        break
 
 
