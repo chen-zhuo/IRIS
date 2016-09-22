@@ -49,10 +49,7 @@ class PiMegaCommunicator:
     
     
    
-        
+# TEST        
 packet = PiMegaCommunicator()
 packet.startup()
 
-packet.piGetsDataPacket()
-print(packet.get_device1())
-print(packet.device1)
