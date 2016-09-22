@@ -15,8 +15,7 @@ import serial
 class PiMegaCommunicator:
     device1 = 0
 
-    port = serial.Serial("/dev/ttyAMA0", baudrate=9600, timeout=3.0)
-
+    
     def startup(self):       
         print('Saying hello')
         port.write('H')
@@ -34,6 +33,8 @@ class PiMegaCommunicator:
                 break
     
     def __init__(self):
+        port = serial.Serial("/dev/ttyAMA0", baudrate=9600, timeout=3.0)
+
         return    
           
     
