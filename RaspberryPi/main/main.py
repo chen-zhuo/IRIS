@@ -11,8 +11,10 @@ import urllib.request
 from pprint import pprint
 
 def main():
+    printWelcomeMsg()
+    
     url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=COM1&Level=2'
-    fileName = 'mapOfCom1Level2.json'
+    fileName = 'mapOfCom1Storey2.json'
     
     downloadFile(url, fileName)
     
@@ -31,10 +33,23 @@ def main():
     
     print(node1X)
 
-# download the file from 'url' and save it locally as 'fileName'
+# Downloads the file from 'url' and save it locally as 'fileName'.
 def downloadFile(url, fileName):
     with urllib.request.urlopen(url) as response, open(fileName, 'wb') as file:
         shutil.copyfileobj(response, file)
+
+# Prints welcome message.
+def printWelcomeMsg():
+    print()
+    print('================================================================================')
+    print()
+    print('Welcome to IRIS.')
+    print()
+    print('IRIS (Indoor Route Instruction System) is a wearable device to provide')
+    print('in-building navigation guidance for a visually-impaired person.')
+    print()
+    print('================================================================================')
+    print()
 
 if __name__ == '__main__':
     main()

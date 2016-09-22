@@ -1,6 +1,8 @@
 '''
-This file contains map-related algorithms, such as path-finding.
+This file defines the 'Map' object class.
 '''
 
-def computeRoute():
-    return
+class Map:
+    
+    nodesList = []
+    
