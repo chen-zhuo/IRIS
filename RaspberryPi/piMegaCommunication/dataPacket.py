@@ -14,14 +14,17 @@ class DataPacket:
     numHorizontalStepsWalked = -1
     bearingsOfEachHorizontalStep = -1
     
-    def __init__(self, packetId, frontProximity, leftProximity, rightProximity, handProximity, numStairsClimbed,
-                 numHorizontalStepsWalked, bearingsOfEachHorizontalStep):
-        self.packetId = packetId
-        self.frontProximity = frontProximity
-        self.leftProximity = leftProximity
-        self.rightProximity = rightProximity
-        self.handProximity = handProximity
-        self.numStairsClimbed = numStairsClimbed
-        self.numHorizontalStepsWalked = numHorizontalStepsWalked
-        self.bearingsOfEachHorizontalStep = bearingsOfEachHorizontalStep
+   # def __init__(self, packetId, frontProximity, leftProximity, rightProximity, handProximity, numStairsClimbed,
+   #              numHorizontalStepsWalked, bearingsOfEachHorizontalStep):
+   #     self.packetId = packetId
+   #     self.frontProximity = frontProximity
+   #     self.leftProximity = leftProximity
+   #     self.rightProximity = rightProximity
+   #     self.handProximity = handProximity
+   #     self.numStairsClimbed = numStairsClimbed
+   #     self.numHorizontalStepsWalked = numHorizontalStepsWalked
+   #     self.bearingsOfEachHorizontalStep = bearingsOfEachHorizontalStep
         
+
+test = DataPacket()
+print(test.packetId)
