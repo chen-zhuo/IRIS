@@ -17,8 +17,9 @@ def testDijkstra():
         
         try:
             url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=XXX&Level=YYY'
-            url.replace('XXX', 'buildingName')
-            url.replace('YYY', 'storey')
+            url = url.replace('XXX', buildingName)
+            url = url.replace('YYY', storey)
+            print(url)
             fileName = 'mapOf' + buildingName.title() + "Storey" + storey + '.json'
             downloadFile(url, fileName)
         except:
