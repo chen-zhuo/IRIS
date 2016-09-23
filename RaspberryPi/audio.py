@@ -18,7 +18,7 @@ import random
 
 pygame.mixer.init()
 
-fileDir = '/home/pi/Documents/sound.mp3'
+#fileDir = '/home/pi/Documents/sound.mp3'
 
 #turnR.play()
 
