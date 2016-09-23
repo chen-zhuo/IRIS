@@ -8,9 +8,9 @@ navigation information) over the earphone.
 from threading import Thread
 from time import sleep
 
+import os
 import pygame # @UnresolvedImport
 import random
-from warnings import catch_warnings
 
 isAudioInitted = False
 audioDict = {} # to map 'audioName' (key) to the corresponding file name with path (value)
@@ -21,12 +21,12 @@ mainChannel = None
 # from pygame.mixer import Sound
 # from threading import Thread
 # import random
-# 
+#   
 # pygame.mixer.init()
 # 
-# #fileDir = '/home/pi/Documents/sound.mp3'
+# # fileDir = '/home/pi/Documents/sound.mp3'
 # 
-# #turnR.play()
+# # turnR.play()
 # 
 # def playNum(fileDir):
 #     if fileDir == '/home/pi/Documents/sound.mp3':
@@ -41,18 +41,18 @@ mainChannel = None
 # def loadBGM():
 #     bgm = random.choice(musicList)
 #     pygame.mixer.music.set_volume(0.9)
-# 
+#   
 #     pygame.mixer.music.load('/home/pi/Documents/sound.mp3')
 #     playBGM()
 # 
 # def playBGM():
 #     pygame.mixer.music.play()
 # 
-# #while the user is waiting
-# #def playMusic():
-# #Thread(target = loadBGM).start()
-# Thread(target = playNum(fileDir)).start()
-# print "music end"
+# # while the user is waiting
+# def playMusic():
+#     Thread(target = loadBGM).start()
+#     Thread(target = playNum(fileDir)).start()
+#     print "music end"
 
 def playAudio(audioName):
     if not isAudioInitted:
@@ -115,5 +115,6 @@ def init():
     isAudioInitted = True
 
 if __name__ == '__main__':
-    init()
-    mainChannel.play(pygame.mixer.Sound('./AudioFiles/welcomeToIris.mp3'))
+#     init()
+#     mainChannel.play(pygame.mixer.Sound('./AudioFiles/welcomeToIris.mp3'))
+    os.system('mpg123 -q ./AudioFiles/welcomeToIris.mp3')
