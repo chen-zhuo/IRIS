@@ -5,7 +5,13 @@ navigation information) over the earphone.
 @author: chen-zhuo
 '''
 
-def playAudioFile(fileName):
+'''
+Plays an audio file over the earphone. The audio file is specified by 'fileNameWithPath'.
+
+@param fileNameWithPath
+           e.g. '~/Desktop/IRIS/RaspberryPi/Audio Files/Go Straight.mp3'
+'''
+def playAudioFile(fileNameWithPath):
     # TODO
     return
 

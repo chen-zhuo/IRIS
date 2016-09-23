@@ -2,7 +2,7 @@
 @author: joelle
 '''
 
-import serial
+import serial # @UnresolvedImport
 
 class MegaCommunicator():
     

@@ -1,11 +1,11 @@
 '''
-This file is used for Week 7 demo of Dijkstra's algorithm.
+This file is used for Week 7 demo of Dijkstra's algorithms.
 
 @author: chen-zhuo
 '''
 
 from main import printWelcomeMsg
-from main import downloadFile
+from mapAlgorithm import downloadMap
 
 def testDijkstra():
     printWelcomeMsg()
@@ -23,7 +23,7 @@ def testDijkstra():
             url = url.replace('YYY', storey)
             print(url)
             fileName = 'mapOf' + buildingName.title() + "Storey" + storey + '.json'
-            downloadFile(url, fileName)
+            downloadMap(url, fileName)
         except:
             continue
 
