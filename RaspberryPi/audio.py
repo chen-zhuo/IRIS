@@ -114,7 +114,6 @@ def init():
     
     isAudioInitted = True
 
-mainChannel.play(pygame.mixer.Sound('./AudioFiles/welcomeToIris.mp3'))
-
 if __name__ == '__main__':
     init()
+    mainChannel.play(pygame.mixer.Sound('./AudioFiles/welcomeToIris.mp3'))
