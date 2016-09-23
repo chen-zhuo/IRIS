@@ -5,12 +5,12 @@ scheduling, thread instantiations, are defined here.
 @author: chen-zhuo
 '''
 
+from pprint import pprint
 import json
 import threading
 
 from algorithms import downloadMap
 from algorithms import printWelcomeMsg
-from pprint import pprint
 
 def main():
     printWelcomeMsg()

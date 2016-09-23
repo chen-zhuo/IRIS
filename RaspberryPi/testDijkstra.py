@@ -4,8 +4,8 @@ This file is used for Week 7 demo of Dijkstra's algorithms.
 @author: chen-zhuo
 '''
 
-from main import printWelcomeMsg
 from algorithms import downloadMap
+from main import printWelcomeMsg
 
 def testDijkstra():
     printWelcomeMsg()
