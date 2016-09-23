@@ -8,7 +8,6 @@ navigation information) over the earphone.
 from threading import Thread
 from time import sleep
 
-import os
 import pygame # @UnresolvedImport
 import random
 
@@ -65,7 +64,7 @@ def playAudio(audioName):
 
 def init():
     pygame.init()
-    pygame.mixer.init()
+    pygame.mixer.init(frequency = 48000, size = -16, channels = 2, buffer = 4096)
     
 #     audioDict['beep'] = pygame.mixer.Sound('./AudioFiles/beep.wav')
 #     audioDict['welcomeToIris'] = pygame.mixer.Sound('./AudioFiles/welcomeToIris.wav')
