@@ -25,9 +25,9 @@ def main():
         mapInfoRaw = json.load(jsonFile)
     
     northAt = mapInfoRaw['info']['northAt']
-    nodesList = mapInfoRaw['Map']
+    nodesList = mapInfoRaw['map']
     
-    node1X = mapInfoRaw['Map'][0]['nodeId']
+    node1X = mapInfoRaw['map'][0]['nodeId']
     
     pprint(mapInfoRaw)
     print('northAt: ' + northAt)

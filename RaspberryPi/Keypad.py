@@ -1,7 +1,7 @@
 '''
-Created on 23 Sep 2016
 
-@author: David_CHEN_ZHUO
+
+@author: chen-zhuo
 '''
 
 # #####################################################
@@ -9,7 +9,7 @@ Created on 23 Sep 2016
 # 7 of the avialable GPIO pins on the Raspberry Pi. 
 # 
 # This could easily be expanded to handle a 4x4 but I 
-# don't have one for testing. The KEYPAD constant 
+# don't have one for testing. The KEY_VALUES constant 
 # would need to be updated. Also the setting/checking
 # of the colVal part would need to be expanded to 
 # handle the extra column.
@@ -26,7 +26,7 @@ import RPi.GPIO as GPIO # @UnresolvedImport
 
 class Keypad():
     
-    KEYPAD = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['*', 0, '#']]
+    KEY_VALUES = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['*', 0, '#']]
     ROW         = [18,23,24,25]
     COLUMN      = [4,17,22]
     
@@ -77,7 +77,7 @@ class Keypad():
         
         # return the value of the key pressed
         self.exit()
-        return self.KEYPAD[rowVal][colVal]
+        return self.KEY_VALUES[rowVal][colVal]
     
     def exit(self):
         # Reinitialize all rows and columns as input at exit
