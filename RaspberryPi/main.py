@@ -1,6 +1,8 @@
 '''
 This file contains the 'main()' function, which is the starting point of the program. High-level algorithms such as task
 scheduling, thread instantiations, are defined here.
+
+@author: chen-zhuo
 '''
 
 import json

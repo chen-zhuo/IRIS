@@ -1,9 +1,11 @@
 '''
 This file is used for Week 7 demo of Dijkstra's algorithm.
+
+@author: chen-zhuo
 '''
 
-from main.main import printWelcomeMsg
-from main.main import downloadFile
+from main import printWelcomeMsg
+from main import downloadFile
 
 def testDijkstra():
     printWelcomeMsg()
