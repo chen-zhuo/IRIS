@@ -78,4 +78,4 @@ def testKeypad():
     print(digit)
 
 if __name__ == '__main__':
-    testKeypad()
+    pass
