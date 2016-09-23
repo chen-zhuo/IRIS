@@ -5,7 +5,7 @@ This file is used for Week 7 demo of Dijkstra's algorithms.
 '''
 
 from main import printWelcomeMsg
-from mapAlgorithm import downloadMap
+from algorithms import downloadMap
 
 def testDijkstra():
     printWelcomeMsg()
