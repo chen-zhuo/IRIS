@@ -6,11 +6,17 @@ file so that we can resume navigation.
 @author: chen-zhuo
 '''
 
-def writeToFile():
-    return
-
-def readFromFile():
-    return
+class LocationCalibrator:
+    
+    def __init__(self):
+        return
+    
+    def writeToFile():
+        return
+    
+    def readFromFile():
+        return
+    
 
 if __name__ == '__main__':
     pass

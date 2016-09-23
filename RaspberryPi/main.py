@@ -31,7 +31,7 @@ def main():
     
     pprint(mapInfoRaw)
     print('northAt: ' + northAt)
-#     print('Map: ' + nodesList[0])
+#     print('Map2333: ' + nodesList[0])
     
     print(node1X)
 
