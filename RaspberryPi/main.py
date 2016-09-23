@@ -16,7 +16,7 @@ def main():
     printWelcomeMsg()
     
     url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=COM1&Level=2'
-    fileName = 'mapOfCom1Storey2.json'
+    fileName = './Downloads/mapOfCom1Storey2.json'
     
     downloadFile(url, fileName)
     
