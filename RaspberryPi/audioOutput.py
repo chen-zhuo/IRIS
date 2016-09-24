@@ -24,7 +24,7 @@ played simultaneously.
 '''
 def playAudioNow(audioName):
     if isAudioInitted == False:
-        initKeypadThread()
+        initAudio()
     
     if audioDict[audioName] != None:
         os.system('mpg123 -q ' + audioDict[audioName] + ' &')
@@ -40,7 +40,7 @@ before playing this audio file.
 '''
 def playAudio(audioName):
     if isAudioInitted == False:
-        initKeypadThread()
+        initAudio()
     
     if audioDict[audioName] != None:
         audioQueue.append(audioDict[audioName])
@@ -48,22 +48,28 @@ def playAudio(audioName):
         print('Error when calling audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
 '''
-Defines 'playAudioQueueThread' which is started by 'initKeypadThread()'.
+Defines 'playAudioQueueThread' which is started by 'initAudio()'.
 '''
 def playAudioQueue():
     print('\'playAudioQueueThread\' is starting...')
+    
     global isAudioThreadActive, audioQueue
+    isAudioThreadActive = True
+    
     while isAudioThreadActive:
         if len(audioQueue) > 0:
             nextAudioNameInQueue = audioQueue[0]
             audioQueue.pop(0)
             os.system('mpg123 -q ' + audioDict[nextAudioNameInQueue])
+    
     print('\'playAudioQueueThread\' is closing...')
 
 '''
 Initializes 'audioDict' and starts 'playAudioQueueThread'.
 '''
-def initKeypadThread():
+def initAudio():
+    global isAudioInitted
+    
     audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
     
     audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
@@ -127,7 +133,7 @@ def testAudio():
     print('Starting audio test...')
     
     print('Initializing audio...')
-    initKeypadThread()
+    initAudio()
     
     print('Playing welcome audio...')
     playAudioNow(audioDict['welcomeToIris'])
