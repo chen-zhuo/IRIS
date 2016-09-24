@@ -1,5 +1,5 @@
 '''
-
+This file contains the definition of a 4 by 3 'Keypad' object class.
 
 @author: chen-zhuo
 '''
@@ -8,9 +8,9 @@ import RPi.GPIO as GPIO # @UnresolvedImport
 
 class Keypad():
     
-    KEY_VALUES = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['*', 0, '#']]
-    ROW = [7, 8, 25, 24]
-    COLUMN = [11, 9, 10]
+    KEY_VALUES = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['*', '0', '#']]
+    ROW = [7, 8, 25, 24] # raspberry pi pin numbers which are connected to the first 4 female connectors of the keypad
+    COLUMN = [11, 9, 10] # raspberry pi pin numbers which are connected to the last 3 female connectors of the keypad
     
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
@@ -62,20 +62,21 @@ class Keypad():
         return self.KEY_VALUES[rowVal][colVal]
     
     def exit(self):
-        # Reinitialize all rows and columns as input at exit
+        # to re-initialize all rows and columns as input at exit
         for i in range(len(self.ROW)):
-            GPIO.setup(self.ROW[i], GPIO.IN, pull_up_down=GPIO.PUD_UP) 
+            GPIO.setup(self.ROW[i], GPIO.IN, pull_up_down = GPIO.PUD_UP) 
         for j in range(len(self.COLUMN)):
-            GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+            GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down = GPIO.PUD_UP)
     
 
 def testKeypad():
     myKeypad = Keypad()
-    
-    digit = None
-    while (digit == None):
-        digit = myKeypad.getKey()
-    print(digit)
+    keyPressed = None
+    while True:
+        keyPressed = myKeypad.getKey()
+        if keyPressed != None:
+            print(keyPressed)
+        keyPressed = None
 
 if __name__ == '__main__':
-    pass
+    testKeypad()
