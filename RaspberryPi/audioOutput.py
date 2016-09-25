@@ -51,7 +51,7 @@ def playAudio(audioName):
 Defines 'playAudioQueueThread' which is started by 'initAudio()'.
 '''
 def playAudioQueue():
-    print('\'playAudioQueueThread\' is starting...')
+    print('Starting \'playAudioQueueThread\'...')
     
     global isAudioThreadActive, audioQueue
     isAudioThreadActive = True
@@ -62,15 +62,14 @@ def playAudioQueue():
             audioQueue.pop(0)
             os.system('mpg123 -q ' + nextAudioFileInQueue)
     
-    print('\'playAudioQueueThread\' is closing...')
+    print('Closing \'playAudioQueueThread\'...')
 
 '''
 Initializes 'audioDict' and starts 'playAudioQueueThread'.
 '''
 def initAudio():
-#     global isAudioInitted
-    
-    audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
+    global isAudioInitted
+    isAudioInitted = True
     
     audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
     audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
@@ -118,9 +117,6 @@ def initAudio():
     audioQueue = []
     playAudioQueueThread = Thread(target = playAudioQueue)
     playAudioQueueThread.start()
-    playAudio(audioDict['null'])
-    
-    isAudioInitted = True
 
 '''
 Closes 'playAudioQueueThread'.
@@ -131,13 +127,15 @@ def closeAudioThread():
 
 def testAudio():
     print('Starting audio test...')
+    sleep(1)
     
     print('Initializing audio...')
     initAudio()
+    sleep(1)
     
     print('Playing welcome audio...')
     playAudioNow('welcomeToIris')
-    sleep(5)
+    sleep(3)
     
     print('Playing multiple audio files simultaneously...')
     playAudioNow('goStraight')
@@ -145,7 +143,7 @@ def testAudio():
     playAudioNow('turnRight')
     playAudioNow('adjustYourBearingSlightlyToTheLeft')
     playAudioNow('adjustYourBearingSlightlyToTheRight')
-    sleep(7)
+    sleep(4)
     
     print('Playing multiple audio files one after another...')
     playAudio('goStraight')
@@ -153,9 +151,10 @@ def testAudio():
     playAudio('turnRight')
     playAudio('adjustYourBearingSlightlyToTheLeft')
     playAudio('adjustYourBearingSlightlyToTheRight')
-    sleep(15)
+    sleep(9)
     
     print('Closing audio...')
+    sleep(1)
     closeAudioThread()
 
 if __name__ == '__main__':
