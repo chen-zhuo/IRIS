@@ -15,8 +15,8 @@ class Keypad():
     ROW = [7, 8, 25, 24] # raspberry pi pin numbers which are connected to the first 4 female connectors of the keypad
     COLUMN = [11, 9, 10] # raspberry pi pin numbers which are connected to the last 3 female connectors of the keypad
     
-    KEY_REPEAT = 0.15 # 0.15 second between successive key pressed events when a key is held
-    DELAY_UNTIL_REPEAT = 0.5 # 0.5 second delay before registering successive key pressed events when a key is held
+    KEY_REPEAT = 0 # time delay between successive key pressed events when a key is held
+    DELAY_UNTIL_REPEAT = 0 # time delay before registering successive key pressed events when a key is held
     
     prevKeyPressed = None
     isKeyBeingHeld = False
@@ -24,8 +24,11 @@ class Keypad():
                          # events
     prevTimestamp2 = None # updates when a successive same key pressed event is registered
     
-    def __init__(self):
+    def __init__(self, keyRepeat = 0.1, delayUntilRepeat = 1):
         GPIO.setmode(GPIO.BCM)
+        GPIO.setwarning(False)
+        self.KEY_REPEAT = keyRepeat
+        self.DELAY_UNTIL_REPEAT = delayUntilRepeat
     
     def getKey(self):
         # to set all column GPIO pins as output low
@@ -49,7 +52,7 @@ class Keypad():
             self.exit()
             self.prevKeyPressed = None
             self.isKeyBeingHeld = False
-            self.prevTimestamp = datetime.datetime.now().time()
+            self.prevTimestamp = datetime.datetime.now()
             self.prevTimestamp2 = None
             return
         
@@ -73,19 +76,19 @@ class Keypad():
             self.exit()
             self.prevKeyPressed = None
             self.isKeyBeingHeld = False
-            self.prevTimestamp = datetime.datetime.now().time()
+            self.prevTimestamp = datetime.datetime.now()
             self.prevTimestamp2 = None
             return
         
         # return the value of the key pressed
         keyPressed = self.KEY_VALUES[rowVal][colVal]
         self.exit()
-        timestamp = datetime.datetime.now().time()
+        timestamp = datetime.datetime.now()
         
-        if self.prevTimestamp == None or keyPressed != self.prevKeypressed: # if a different key pressed event happens
+        if self.prevTimestamp == None or keyPressed != self.prevKeyPressed: # if a different key pressed event happens
             self.prevKeyPressed = keyPressed
             self.isKeyBeingHeld = False
-            self.prevTimestamp = datetime.datetime.now().time()
+            self.prevTimestamp = datetime.datetime.now()
             self.prevTimestamp2 = None
             return keyPressed
         elif keyPressed == self.prevKeyPressed and self.isKeyBeingHeld == False: # if the same key pressed event happens
@@ -94,15 +97,15 @@ class Keypad():
             return None
         elif keyPressed == self.prevKeyPressed and self.isKeyBeingHeld == True: # if the same key pressed event happens
                                                                                 # for the third or subsequent time
-            if timestamp - self.prevTimestamp < self.DELAY_UNTIL_REPEAT:
+            if timestamp - self.prevTimestamp < datetime.timedelta(seconds = self.DELAY_UNTIL_REPEAT):
                 return None
             elif self.prevTimestamp2 == None:
-                self.prevTimestamp2 = datetime.datetime.now().time()
+                self.prevTimestamp2 = datetime.datetime.now()
                 return keyPressed
-            elif timestamp - self.prevTimestamp2 < self.KEY_REPEAT:
+            elif timestamp - self.prevTimestamp2 < datetime.timedelta(seconds = self.KEY_REPEAT):
                 return None
             else:
-                self.prevTimestamp2 = datetime.datetime.now().time()
+                self.prevTimestamp2 = datetime.datetime.now()
                 return keyPressed
     
     def exit(self):
@@ -120,8 +123,6 @@ def testKeypad():
         keyPressed = myKeypad.getKey()
         if keyPressed != None:
             print(keyPressed)
-        keyPressed = None
-        sleep(myKeypad.DELAY_UNTIL_REPEAT)
 
 if __name__ == '__main__':
     testKeypad()
