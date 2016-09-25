@@ -11,7 +11,7 @@ from time import sleep
 import os
 
 audioDict = {} # to map 'audioName' (key) to the corresponding file name with path (value)
-audioQueue = [] # a queue of 'audioName' to be played one after another
+audioQueue = [] # a queue of audio file names (with paths) to be played one after another
 isAudioInitted = False
 isAudioThreadActive = False
 
@@ -58,9 +58,9 @@ def playAudioQueue():
     
     while isAudioThreadActive:
         if len(audioQueue) > 0:
-            nextAudioNameInQueue = audioQueue[0]
+            nextAudioFileInQueue = audioQueue[0]
             audioQueue.pop(0)
-            os.system('mpg123 -q ' + audioDict[nextAudioNameInQueue])
+            os.system('mpg123 -q ' + nextAudioFileInQueue)
     
     print('\'playAudioQueueThread\' is closing...')
 
@@ -68,7 +68,7 @@ def playAudioQueue():
 Initializes 'audioDict' and starts 'playAudioQueueThread'.
 '''
 def initAudio():
-    global isAudioInitted
+#     global isAudioInitted
     
     audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
     
@@ -136,23 +136,23 @@ def testAudio():
     initAudio()
     
     print('Playing welcome audio...')
-    playAudioNow(audioDict['welcomeToIris'])
+    playAudioNow('welcomeToIris')
     sleep(5)
     
     print('Playing multiple audio files simultaneously...')
-    playAudioNow(audioDict['goStraight'])
-    playAudioNow(audioDict['turnLeft'])
-    playAudioNow(audioDict['turnRight'])
-    playAudioNow(audioDict['adjustYourBearingSlightlyToTheLeft'])
-    playAudioNow(audioDict['adjustYourBearingSlightlyToTheRight'])
+    playAudioNow('goStraight')
+    playAudioNow('turnLeft')
+    playAudioNow('turnRight')
+    playAudioNow('adjustYourBearingSlightlyToTheLeft')
+    playAudioNow('adjustYourBearingSlightlyToTheRight')
     sleep(7)
     
     print('Playing multiple audio files one after another...')
-    playAudio(audioDict['goStraight'])
-    playAudio(audioDict['turnLeft'])
-    playAudio(audioDict['turnRight'])
-    playAudio(audioDict['adjustYourBearingSlightlyToTheLeft'])
-    playAudio(audioDict['adjustYourBearingSlightlyToTheRight'])
+    playAudio('goStraight')
+    playAudio('turnLeft')
+    playAudio('turnRight')
+    playAudio('adjustYourBearingSlightlyToTheLeft')
+    playAudio('adjustYourBearingSlightlyToTheRight')
     sleep(15)
     
     print('Closing audio...')
