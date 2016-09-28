@@ -5,17 +5,10 @@ This file contains the definition of 'DataPacket' object class. 'DataPacket' obj
 @author: chen-zhuo
 '''
 
+'''
+@todo
+'''
 class DataPacket:
-    
-    packetId = -1
-    frontProximity = -1
-    leftProximity = -1
-    rightProximity = -1
-    handProximity = -1
-    numStairsClimbed = -1
-    numHorizontalStepsWalked = -1
-    bearingsOfEachHorizontalStep = -1
-    
     def __init__(self, packetId, frontProximity, leftProximity, rightProximity, handProximity, numStairsClimbed,
                  numHorizontalStepsWalked, bearingsOfEachHorizontalStep):
         self.packetId = packetId
