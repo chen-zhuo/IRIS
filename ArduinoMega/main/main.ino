@@ -441,3 +441,4 @@ void startAtomic() {
 void endAtomic() {
   sei();
 }
+
