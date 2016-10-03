@@ -98,10 +98,13 @@ function blocks the function that calls this function.
 '''
 def waitForKeypadInput():
     keypadInput = ''
-#     while (not keypadInput.endswith('#')):
-#         keypadInput += readKeypadInput()
+    while (not keypadInput.endswith('#')):
+        keypadInput += readKeypadInput()
     
     return keypadInput
+
+def readKeypadInput():
+    return
 
 def computeRoute(myMap, srcNodeId, destNodeId):
     global route

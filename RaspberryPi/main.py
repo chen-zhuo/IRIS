@@ -7,13 +7,10 @@ scheduling, thread instantiations, are defined here.
 
 import json
 from pprint import pprint
-import threading
+from threading import Thread
 
 from algorithms import downloadAndParseMap, printWelcomeMsg
 
-'''
-@todo
-'''
 def main():
     printWelcomeMsg()
     

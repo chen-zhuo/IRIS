@@ -6,6 +6,7 @@ This file contains the definition of a 4 by 3 'Keypad' object class.
 
 import datetime
 import RPi.GPIO as GPIO # @UnresolvedImport
+import sys
 
 class Keypad():
     def __init__(self, keyRepeat = 0.1, delayUntilRepeat = 1):
@@ -24,7 +25,7 @@ class Keypad():
         self.prevTimestamp2 = None # updates when a successive same key pressed event is registered
         
         GPIO.setmode(GPIO.BCM)
-        GPIO.setwarning(False)
+        GPIO.setwarnings(False)
     
     def getKey(self):
         # to set all column GPIO pins as output low
@@ -88,7 +89,7 @@ class Keypad():
             self.prevTimestamp2 = None
             return keyPressed
         elif keyPressed == self.prevKeyPressed and self.isKeyBeingHeld == False: # if the same key pressed event happens
-                                                                               # for the second time
+                                                                                 # for the second time
             self.isKeyBeingHeld = True
             return None
         elif keyPressed == self.prevKeyPressed and self.isKeyBeingHeld == True: # if the same key pressed event happens
@@ -123,6 +124,7 @@ def testKeypad():
             print('#')
         elif keyPressed != None:
             print(keyPressed, end = "")
+            sys.stdout.flush()
 
 if __name__ == '__main__':
     testKeypad()

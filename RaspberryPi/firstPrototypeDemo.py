@@ -7,9 +7,6 @@ This file is for use in Week 7 for the first prototype demo (software subsystem)
 import algorithms
 from Navigator import Navigator
 
-'''
-@todo
-'''
 def demo():
     printWelcomeMsg()
     
