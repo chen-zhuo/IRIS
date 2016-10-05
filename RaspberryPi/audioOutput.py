@@ -5,10 +5,9 @@ navigation information) over the earphone.
 @author: chen-zhuo
 '''
 
+import os
 from threading import Thread
 from time import sleep
-
-import os
 
 audioDict = {} # to map 'audioName' (key) to the corresponding file name with path (value)
 audioQueue = [] # a queue of audio file names (with paths) to be played one after another

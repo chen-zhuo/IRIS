@@ -11,6 +11,7 @@ class Map:
         self.buildingName = buildingName # e.g. 'COM1'
         self.buildingStorey = buildingStorey # e.g. 2
         self.northAt = northAt # e.g. 315; the bearing of geographical north to 0 degree of this map
+        
         self.nodesDict = {} # to map 'nodeId' (key) to its corresponding 'node' object (value)
     
     def __iter__(self):
