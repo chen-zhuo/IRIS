@@ -1,4 +1,4 @@
 .DS_Store
 .settings
 
-/__pycache__/
+RaspberryPi/Downloads/*.json

@@ -7,7 +7,6 @@ Raspberry Pi and Arduino Mega.
 
 from DataPacket import DataPacket
 import serial # @UnresolvedImport
-from time import sleep
 
 MSG_ACK = bytes([0b00000000])
 MSG_NAK = bytes([0b00000001])
@@ -191,31 +190,20 @@ class PiMegaCommunicator():
         
         return dataPacket
 
-def test():
-    test = PiMegaCommunicator()
-    test.startup()
+def testPollData():
+    communicator = PiMegaCommunicator()
+    communicator.startup()
     
-    test.pollData()
-    print(test.gloveProximity)
-    print(test.frontProximity)
-    print(test.leftProximity)
-    print(test.rightProximity)
-    print(test.numSteps)
-    print(test.orientation_tag)
-    test.checkError()
-    
+    totalNumStepsWalked = 0
     while True:
-        test.pollData()
-        print(test.gloveProximity)
-        print(test.frontProximity)
-        print(test.leftProximity)
-        print(test.rightProximity)
-        print(test.numSteps)
-        print(test.orientation_tag)
-        test.checkError()
-        if test.check_flag == 0:
-            break
-        sleep(0.5)
+        dataPacket = communicator.pollData()
+        print(dataPacket.packetId)
+        print(dataPacket.gloveProximity)
+        print(dataPacket.frontProximity)
+        print(dataPacket.leftProximity)
+        print(dataPacket.rightProximity)
+        print(dataPacket.numSteps)
+        print(dataPacket.orientation_tag)
 
 if __name__ == '__main__':
-    test()
+    testPollData()
