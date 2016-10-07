@@ -1,6 +1,10 @@
 ## IRIS
-IRIS (<b><u>I</b></u>ndoor <b><u>R</b></u>oute <b><u>I</b></u>nstruction <b><u>S</b></u>ystem) is a wearable device to
-provide in-building navigation guidance for a visually-impaired person.
+IRIS (
+<span style="font-size: 1.25em;"><b><u>I</b></u></span>ndoor
+<span style="font-size: 1.25em;"><b><u>R</b></u></span>oute
+<span style="font-size: 1.25em;"><b><u>I</b></u></span>nstruction
+<span style="font-size: 1.25em;"><b><u>S</b></u></span>ystem
+) is a wearable device to provide in-building navigation guidance for a visually-impaired person.
 
 ## Setting Up the Raspberry Pi
 
