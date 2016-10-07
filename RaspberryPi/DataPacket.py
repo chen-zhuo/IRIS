@@ -106,17 +106,22 @@ class DataPacket:
             self.numStairsClimbed += chr(bytestream[i])
             i = i + 1
         self.numStairsClimbed = int(self.numStairsClimbed)
+    
+    def __str__(self):
+        result = ''
+        result += 'packetId = ' + str(self.packetId) + '\n'
+        result += 'handProximity = ' + str(self.handProximity) + '\n'
+        result += 'frontProximity = ' + str(self.frontProximity) + '\n'
+        result += 'leftProximity = ' + str(self.leftProximity) + '\n'
+        result += 'rightProximity = ' + str(self.rightProximity) + '\n'
+        result += 'displacement = ' + str(self.displacement) + '\n'
+        result += 'heading = ' + str(self.heading) + '\n'
+        result += 'numStairsClimbed = ' + str(self.numStairsClimbed)
+        return result
 
 def test():
     dataPacket = DataPacket('233,5,-1,100,100,[50,45],47,0;'.encode('utf_8'))
-    print(dataPacket.packetId)
-    print(dataPacket.handProximity)
-    print(dataPacket.frontProximity)
-    print(dataPacket.leftProximity)
-    print(dataPacket.rightProximity)
-    print(dataPacket.displacement)
-    print(dataPacket.heading)
-    print(dataPacket.numStairsClimbed)
+    print(str(dataPacket))
 
 if __name__ == '__main__':
     test()
