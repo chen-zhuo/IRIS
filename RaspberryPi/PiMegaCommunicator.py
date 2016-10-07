@@ -205,5 +205,18 @@ def testPollData():
         print(dataPacket.numSteps)
         print(dataPacket.orientation_tag)
 
+def testHammingCodes():
+    commumicator = PiMegaCommunicator()
+    dataByte = 0b11000011
+    encodedByte = commumicator.encode(bytes([dataByte]))
+    
+    print('Encoded byte:')
+    for i in range(0, len(encodedByte)):
+        print('    ' + bin(encodedByte[i]))
+    
+    decodedByte = commumicator.decode([0b11001001, 0b00110110])
+    for i in range(0, len(decodedByte)):
+        print('Decoded byte: ' + bin(decodedByte[i]))
+
 if __name__ == '__main__':
     testPollData()
