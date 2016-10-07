@@ -1,6 +1,6 @@
 ## IRIS
-IRIS (Indoor Route Instruction System) is a wearable device to provide in-building navigation guidance for a
-visually-impaired person.
+IRIS (<b><u>I</b></u>ndoor <b><u>R</b></u>oute <b><u>I</b></u>nstruction <b><u>S</b></u>ystem) is a wearable device to
+provide in-building navigation guidance for a visually-impaired person.
 
 ## Setting Up the Raspberry Pi
 
