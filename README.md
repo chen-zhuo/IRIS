@@ -21,7 +21,7 @@ navigation guidance for a visually-impaired person.
 - `sudo amixer cset numid=3 1`
 
 ### Clone This Repository
-- `cd Desktop`
+- `cd ~/Desktop`
 - `git clone https://github.com/chen-zhuo/IRIS.git`
 
 ### Configure the Raspberry Pi to Run a Python File Upon Boot
@@ -29,5 +29,5 @@ navigation guidance for a visually-impaired person.
     - In Terminal, enter `sudo raspi-config` to enter the configuration panel.
 - Add autorun script to the “profile” file
     - In Terminal, enter `sudo nano /etc/profile`, and then append your script, for example:
-        - `cd ~/Desktop/IRIS/RaspberryPi/`
+        - `cd ~/Desktop/IRIS/RaspberryPi`
         - `python3 ~/Desktop/IRIS/RaspberryPi/main.py`
