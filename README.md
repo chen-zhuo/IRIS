@@ -18,6 +18,7 @@ visually-impaired person.
     - In Terminal, enter `sudo raspi-config` to enter the configuration panel.
 - Add autorun script to the “profile” file
     - In Terminal, enter `sudo nano /etc/profile`, and then append your script, for example:
+
     cd ~/Desktop/IRIS/`
     `sudo python3 ~/Desktop/IRIS/RaspberryPi/main.py`
 
