@@ -1,0 +1,5 @@
+.DS_Store
+.settings
+
+RaspberryPi/__pycache__/
+RaspberryPi/Downloads/*.json
