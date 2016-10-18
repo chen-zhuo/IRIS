@@ -38,7 +38,7 @@ def playNum(num):
     num = int(num)
     while num > 0:
         digit = num % 10
-        num /= 10
+        num //= 10
         audioOutput.playAudio(str(digit))
 
 if __name__ == '__main__':
