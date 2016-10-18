@@ -35,7 +35,7 @@ def waitAndGetKeyPress():
 
 def waitAndGetKeyPressesUntilHashKey():
     userInput = None
-    while userInput == None or userInput == '':
+    while userInput == None:
         userInput = _getKeyPressesUntilHashKey()
     return userInput
 
@@ -46,7 +46,6 @@ def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
         
         userInput = waitAndGetKeyPressesUntilHashKey()
         print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
-        print('userInput = ' + str(userInput))
         audioOutput.playAudio('youHaveKeyedIn')
         audioOutput.playNum(userInput)
         
@@ -97,12 +96,18 @@ def _readKeypadInput():
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` closed.')
 
 def _getKeyPress():
-    global prevKeyPressed
+    global prevKeyPressed, tempUserInput, userInputs
     prevKeyPressed = None
     
     while True:
         if (prevKeyPressed != None):
             break;
+    
+    if prevKeyPressed == '#':
+        userInputs.pop(0)
+    else:
+        tempUserInput = ''
+    
     return prevKeyPressed
 
 def _getKeyPressesUntilHashKey():
