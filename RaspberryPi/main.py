@@ -55,7 +55,8 @@ def main():
         print(str(route[i]) + ' -> ', end = "")
     print(route[len(route) - 1])
     
-    
+    keypadInput.closeKeypadThread()
+    audioOutput.closeAudioThread()
 
 if __name__ == '__main__':
     main()
