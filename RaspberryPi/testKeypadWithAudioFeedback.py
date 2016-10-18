@@ -30,7 +30,7 @@ def _test():
         audioOutput.playAudio('youHaveKeyedIn')
         audioOutput.playNum(userInput)
         
-        print(stringHelper.AUDIO + ' Press the hash key to confirm, or the asterisk key to re-enter.')
+        print(stringHelper.AUDIO + ' Press the hash key to confirm, or asterisk key to re-enter.')
         audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')
         
         isUserInputConfirmed = None
