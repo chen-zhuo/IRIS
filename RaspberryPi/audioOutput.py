@@ -130,7 +130,7 @@ Closes `playAudioQueueThread`.
 def closeAudioThread():
     global isAudioThreadActive, audioQueue
     
-    while audioQueue != None:
+    while audioQueue != []:
         sleep(1)
     
     isAudioThreadActive = False

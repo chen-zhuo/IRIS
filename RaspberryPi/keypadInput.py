@@ -41,11 +41,8 @@ def _readKeypadInput():
                 audioOutput.playAudioNow(keyPressed)
                 tempUserInput += keyPressed
             elif keyPressed == '*':
-                audioOutput.playAudioNow(keyPressed)
                 tempUserInput = ''
             elif keyPressed == '#':
-                audioOutput.playAudioNow(keyPressed)
-                userInputs.append(tempUserInput)
                 tempUserInput = ''
             prevKeyPressed = keyPressed
     
