@@ -35,7 +35,7 @@ def waitAndGetKeyPress():
 
 def waitAndGetKeyPressesUntilHashKey():
     userInput = None
-    while userInput == None:
+    while userInput == None or userInput == '':
         userInput = _getKeyPressesUntilHashKey()
     return userInput
 
@@ -46,7 +46,7 @@ def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
         
         userInput = waitAndGetKeyPressesUntilHashKey()
         print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
-        print('userInput = ' + userInput)
+        print('userInput = ' + str(userInput))
         audioOutput.playAudio('youHaveKeyedIn')
         audioOutput.playNum(userInput)
         
