@@ -61,8 +61,9 @@ def getKeyPress():
     global prevKeyPressed
     prevKeyPressed = None
     
-    while prevKeyPressed == None:
-        continue
+    while True:
+        if (prevKeyPressed != None):
+            break;
     return prevKeyPressed
 
 def getKeyPressesUntilHashKey():
