@@ -19,12 +19,12 @@ isKeypadThreadActive = False
 '''
 Starts `readKeypadInputThread`.
 '''
-def initKeypadThread():
+def initKeypad():
     readKeypadInputThread = Thread(target = _readKeypadInput)
     readKeypadInputThread.start()
 
 '''
-Defines `readKeypadInputThread` which is started by `initKeypadThread()`.
+Defines `readKeypadInputThread` which is started by `initKeypad()`.
 '''
 def _readKeypadInput():
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` started.')
@@ -45,7 +45,7 @@ def _readKeypadInput():
                 tempUserInput = ''
             prevKeyPressed = keyPressed
     
-    print(stringHelper.MESSAGE + ' `readKeypadInputThread` is closed.')
+    print(stringHelper.MESSAGE + ' `readKeypadInputThread` closed.')
 
 '''
 Closes `readKeypadInputThread`.
@@ -79,7 +79,7 @@ def getKeyPressesUntilHashKey():
 def _test():
     global userInputs
     
-    initKeypadThread()
+    initKeypad()
     while True:
         print('Waiting for user input...')
         userInput = None

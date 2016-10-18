@@ -62,7 +62,7 @@ def _playAudioQueue():
             audioQueue.pop(0)
             os.system('mpg123 -q ' + nextAudioFileInQueue)
     
-    print(stringHelper.MESSAGE + ' `playAudioQueueThread` is closed.')
+    print(stringHelper.MESSAGE + ' `playAudioQueueThread` closed.')
 
 '''
 Initializes `audioDict` and starts `playAudioQueueThread`.
