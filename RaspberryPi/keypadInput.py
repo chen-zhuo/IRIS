@@ -9,6 +9,7 @@ import Keypad
 import stringHelper
 from threading import Thread
 
+myKeypad = Keypad()
 tempUserInput = [] # stores key presses before the user confirms with a '#' key
 userInputs = [] # stores a list of confirmed user inputs with the ending '#' keys
 isKeypadThreadActive = False
@@ -29,7 +30,6 @@ def _readKeypadInput():
     
     global isKeypadThreadActive, tempUserInput
     
-    myKeypad = Keypad()
     while isKeypadThreadActive:
         keyPressed = myKeypad.getKey()
         if keyPressed != '*' and keyPressed != '#':
@@ -39,6 +39,8 @@ def _readKeypadInput():
         else:
             userInputs.append(tempUserInput)
             tempUserInput = []
+    
+    print(stringHelper.MESSAGE + ' `readKeypadInputThread` is closed.')
 
 '''
 Closes `readKeypadInputThread`.
@@ -46,13 +48,16 @@ Closes `readKeypadInputThread`.
 def closeKeypadThread():
     global isKeypadThreadActive
     isKeypadThreadActive = False
-    print(stringHelper.MESSAGE + ' `readKeypadInputThread` is closed.')
 
 def getUserInput():
+    global userInputs
+    
     if len(userInputs) > 0:
         nextUserInput = userInputs[0]
         userInputs.pop(0)
         return nextUserInput
+    else:
+        return None
 
 def _test():
     initKeypadThread()
