@@ -5,7 +5,7 @@ with a '#' key. A keypad command is cleared with a '*' key.
 @author: chen-zhuo
 '''
 
-import Keypad
+from Keypad import Keypad
 import stringHelper
 from threading import Thread
 
