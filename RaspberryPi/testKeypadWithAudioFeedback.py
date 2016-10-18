@@ -23,7 +23,7 @@ def _test():
             userInput = keypadInput.getKeyPressesUntilHashKey()
         
         audioOutput.playAudio('youHaveKeyedIn')
-        audioOutput.playAudio(userInput)
+        playNum(userInput)
         audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')
         isUserInputConfirmed = None
         while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
