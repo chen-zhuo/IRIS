@@ -35,11 +35,11 @@ def _readKeypadInput():
     
     while isKeypadThreadActive:
         keyPressed = myKeypad.getKey()
-        if keyPressed != '*' and keyPressed != '#':
+        if keyPressed != None and keyPressed != '*' and keyPressed != '#':
             tempUserInput += keyPressed
         elif keyPressed == '*':
             tempUserInput = []
-        else:
+        elif keyPressed == '#':
             userInputs.append(tempUserInput)
             tempUserInput = []
     
