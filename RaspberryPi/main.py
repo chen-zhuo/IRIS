@@ -23,9 +23,8 @@ def main():
     audioOutput.playAudio('welcomeToIris')
     sleep(3)
     
-    print(stringHelper.AUDIO + ' Please key in origin building ID, followed by the hash key.')
-    audioOutput.playAudio('plsKeyInOriginBuildingIdFollowedByTheHashKey')
-    srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKey()
+    srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+            'plsKeyInOriginBuildingIdFollowedByTheHashKey')
     
     print(stringHelper.AUDIO + ' Please key in origin building storey, followed by the hash key.')
     audioOutput.playAudio('plsKeyInOriginBuildingStoreyFollowedByTheHashKey')

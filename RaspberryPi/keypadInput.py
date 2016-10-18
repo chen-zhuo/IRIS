@@ -39,6 +39,30 @@ def waitAndGetKeyPressesUntilHashKey():
         userInput = _getKeyPressesUntilHashKey()
     return userInput
 
+def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
+    while True:
+        print(stringHelper.AUDIO + ' ' + audioOutput.audioTextDict[promptAudioName])
+        audioOutput.playAudio(promptAudioName)
+        
+        userInput = waitAndGetKeyPressesUntilHashKey()
+        print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
+        audioOutput.playAudio('youHaveKeyedIn')
+        audioOutput.playNum(userInput)
+        
+        print(stringHelper.AUDIO + ' Press the hash key to confirm, or asterisk key to re-enter.')
+        audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')
+        
+        isUserInputConfirmed = None
+        while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
+            isUserInputConfirmed = _getKeyPress()
+        if isUserInputConfirmed == '#':
+            print(stringHelper.AUDIO + ' Comfirmed.')
+            audioOutput.playAudio('confirmed')
+            break
+        else: # if isUserInputConfirmed == '*'
+            continue
+    return userInput
+
 '''
 Closes `readKeypadInputThread`.
 '''
