@@ -128,7 +128,11 @@ def initAudio():
 Closes `playAudioQueueThread`.
 '''
 def closeAudioThread():
-    global isAudioThreadActive
+    global isAudioThreadActive, audioQueue
+    
+    while audioQueue != None:
+        sleep(1)
+    
     isAudioThreadActive = False
 
 def _test():

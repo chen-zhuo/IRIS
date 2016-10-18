@@ -17,6 +17,7 @@ def _test():
     sleep(1)
     
     while True:
+        print('Please key in destination node ID, followed by the hash key.')
         audioOutput.playAudio('plsKeyInDestinationNodeIdFollowedByTheHashKey')
         
         userInput = None
