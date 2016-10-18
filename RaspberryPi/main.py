@@ -40,8 +40,8 @@ def main():
 #     destNodeId += destBuildingId*1000 + destBuildingStorey*100
     srcNodeId = 1211
     destNodeId = 1216
-    print('srcNodeId = ' + srcNodeId)
-    print('destNodeId = ' + destNodeId)
+    print('srcNodeId = ' + str(srcNodeId))
+    print('destNodeId = ' + str(destNodeId))
     
     mapOfCom1Level1 = downloadAndParseMap('COM1', 1)
     mapOfCom1Level2 = downloadAndParseMap('COM1', 2)
