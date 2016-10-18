@@ -43,6 +43,7 @@ def _readKeypadInput():
             elif keyPressed == '*':
                 tempUserInput = ''
             elif keyPressed == '#':
+                userInputs.append(tempUserInput)
                 tempUserInput = ''
             prevKeyPressed = keyPressed
     
