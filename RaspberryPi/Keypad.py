@@ -1,5 +1,5 @@
 '''
-This file contains the definition of a 4 by 3 'Keypad' object class.
+This file contains the definition of a 4 by 3 `Keypad` object class.
 
 @author: chen-zhuo
 '''
@@ -20,7 +20,7 @@ class Keypad():
         self.delayUntilRepeat = delayUntilRepeat # time delay before registering successive key pressed events when a key is held
         self.prevKeyPressed = None
         self.isKeyBeingHeld = False
-        self.prevTimestamp = None # updates when a key pressed event happens (incl. 'None' key pressed event); does not
+        self.prevTimestamp = None # updates when a key pressed event happens (incl. `None` key pressed event); does not
                                   # update for subsequent same key pressed events
         self.prevTimestamp2 = None # updates when a successive same key pressed event is registered
         
@@ -37,14 +37,14 @@ class Keypad():
         for i in range(len(self.ROW)):
             GPIO.setup(self.ROW[i], GPIO.IN, pull_up_down = GPIO.PUD_UP)
         
-        # to scan rows for pressed key; a valid key press should set "rowVal"  between 0 and 3
+        # to scan rows for pressed key; a valid key press should set `rowVal` between 0 and 3
         rowVal = -1
         for i in range(len(self.ROW)):
             tmpRead = GPIO.input(self.ROW[i])
             if tmpRead == 0:
                 rowVal = i
         
-        # if 'rowVal' is not 0 thru 3 then no button was pressed and we can exit
+        # if `rowVal` is not 0 thru 3 then no button was pressed and we can exit
         if rowVal < 0 or rowVal > 3:
             self.exit()
             self.prevKeyPressed = None
@@ -57,18 +57,18 @@ class Keypad():
         for j in range(len(self.COLUMN)):
             GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
         
-        # to switch the 'i'-th row found from scan to output high
+        # to switch the `i`-th row found from scan to output high
         GPIO.setup(self.ROW[rowVal], GPIO.OUT)
         GPIO.output(self.ROW[rowVal], GPIO.HIGH)
         
-        # to scan columns for the pressed key; a valid key press should set 'colVal' between 0 and 2
+        # to scan columns for the pressed key; a valid key press should set `colVal` between 0 and 2
         colVal = -1
         for j in range(len(self.COLUMN)):
             tmpRead = GPIO.input(self.COLUMN[j])
             if tmpRead == 1:
                 colVal = j
         
-        # if 'colVal' is not 0 thru 2 then no button was pressed and we can exit
+        # if `colVal` is not 0 thru 2 then no button was pressed and we can exit
         if colVal < 0 or colVal > 2:
             self.exit()
             self.prevKeyPressed = None
@@ -123,7 +123,7 @@ def testKeypad():
         if keyPressed == '#':
             print('#')
         elif keyPressed != None:
-            print(keyPressed, end = "")
+            print(keyPressed, end='')
             sys.stdout.flush()
 
 if __name__ == '__main__':
