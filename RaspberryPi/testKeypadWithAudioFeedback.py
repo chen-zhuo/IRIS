@@ -7,35 +7,37 @@ This is a unit-test file for keypad with audio feedback.
 import algorithms
 import audioOutput
 import keypadInput
+import stringHelper
 from time import sleep
 
 def _test():
     keypadInput.initKeypad()
     audioOutput.initAudio()
     
+    print('Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
     sleep(1)
     
     while True:
-        print('Please key in destination node ID, followed by the hash key.')
-        audioOutput.playAudio('plsKeyInDestinationNodeIdFollowedByTheHashKey')
+        print(stringHelper.AUDIO + ' Please key in destination node ID, followed by the hash key.')
+        audioOutput.playAudio(stringHelper.AUDIO + ' plsKeyInDestinationNodeIdFollowedByTheHashKey')
         
         userInput = None
         while userInput == None:
             userInput = keypadInput.getKeyPressesUntilHashKey()
         
-        print('You have keyed in: ' + userInput)
+        print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
         audioOutput.playAudio('youHaveKeyedIn')
         audioOutput.playNum(userInput)
         
-        print('Press the hash key to confirm, or the asterisk key to re-enter.')
+        print(stringHelper.AUDIO + ' Press the hash key to confirm, or the asterisk key to re-enter.')
         audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')
         
         isUserInputConfirmed = None
         while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
             isUserInputConfirmed = keypadInput.getKeyPress()
         if isUserInputConfirmed == '#':
-            print('Comfirmed.')
+            print(stringHelper.AUDIO + ' Comfirmed.')
             audioOutput.playAudio('confirmed')
             break
         else: # if isUserInputConfirmed == '*'

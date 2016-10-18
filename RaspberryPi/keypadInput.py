@@ -9,6 +9,7 @@ from Keypad import Keypad
 import stringHelper
 from threading import Thread
 from time import sleep
+import audioOutput
 
 myKeypad = Keypad()
 prevKeyPressed = ''
@@ -38,6 +39,7 @@ def _readKeypadInput():
         if keyPressed != None:
             if keyPressed != None and keyPressed != '*' and keyPressed != '#':
                 tempUserInput += keyPressed
+                audioOutput.playAudioNow(audioName)
             elif keyPressed == '*':
                 tempUserInput = ''
             elif keyPressed == '#':
