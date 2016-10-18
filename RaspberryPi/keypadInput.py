@@ -80,6 +80,7 @@ def _test():
     
     initKeypadThread()
     while True:
+        print('Waiting for user input...')
         userInput = None
         while userInput == None:
             userInput = getKeyPressesUntilHashKey()
@@ -89,6 +90,7 @@ def _test():
         isUserInputConfirmed = getKeyPress()
         if isUserInputConfirmed == '#':
             print('Comfirmed user input: ' + userInput)
+            break
         else:
             continue
     closeKeypadThread()
