@@ -17,21 +17,22 @@ def _test():
     sleep(1)
     audioOutput.playAudio('plsKeyInDestinationNodeIdFollowedByTheHashKey')
     
-    userInput = None
-    while userInput == None:
-        userInput = keypadInput.getKeyPressesUntilHashKey()
-    
-    audioOutput.playAudio('youHaveKeyedIn')
-    audioOutput.playAudio(userInput)
-    audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')
-    isUserInputConfirmed = None
-    while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
-        isUserInputConfirmed = keypadInput.getKeyPress()
-    if isUserInputConfirmed == '#':
-        print('Comfirmed user input: ' + userInput)
-        break
-    else:
-        continue
+    while True:
+        userInput = None
+        while userInput == None:
+            userInput = keypadInput.getKeyPressesUntilHashKey()
+        
+        audioOutput.playAudio('youHaveKeyedIn')
+        audioOutput.playAudio(userInput)
+        audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')
+        isUserInputConfirmed = None
+        while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
+            isUserInputConfirmed = keypadInput.getKeyPress()
+        if isUserInputConfirmed == '#':
+            print('Comfirmed user input: ' + userInput)
+            break
+        else:
+            continue
 
 def playNum(num):
     while num > 0:
