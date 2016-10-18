@@ -25,6 +25,28 @@ def initKeypad():
     readKeypadInputThread.start()
 
 '''
+Wait for the next key press, and then return it.
+'''
+def waitAndGetKeyPress():
+    userInput = None
+    while userInput == None:
+        userInput = _getKeyPress()
+    return userInput
+
+def waitAndGetKeyPressesUntilHashKey():
+    userInput = None
+    while userInput == None:
+        userInput = _getKeyPressesUntilHashKey()
+    return userInput
+
+'''
+Closes `readKeypadInputThread`.
+'''
+def closeKeypadThread():
+    global isKeypadThreadActive
+    isKeypadThreadActive = False
+
+'''
 Defines `readKeypadInputThread` which is started by `initKeypad()`.
 '''
 def _readKeypadInput():
@@ -49,17 +71,7 @@ def _readKeypadInput():
     
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` closed.')
 
-'''
-Closes `readKeypadInputThread`.
-'''
-def closeKeypadThread():
-    global isKeypadThreadActive
-    isKeypadThreadActive = False
-
-'''
-Wait for the next key press, and then return it.
-'''
-def getKeyPress():
+def _getKeyPress():
     global prevKeyPressed
     prevKeyPressed = None
     
@@ -68,7 +80,7 @@ def getKeyPress():
             break;
     return prevKeyPressed
 
-def getKeyPressesUntilHashKey():
+def _getKeyPressesUntilHashKey():
     global userInputs
     
     if len(userInputs) > 0:
@@ -86,13 +98,13 @@ def _test():
         print('Waiting for user input...')
         userInput = None
         while userInput == None:
-            userInput = getKeyPressesUntilHashKey()
+            userInput = _getKeyPressesUntilHashKey()
         
         print('You have keyed in: ' + userInput)
         print('Press the hash key to confirm, or asterisk key to re-enter.')
         isUserInputConfirmed = None
         while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
-            isUserInputConfirmed = getKeyPress()
+            isUserInputConfirmed = _getKeyPress()
         if isUserInputConfirmed == '#':
             print('Comfirmed user input: ' + userInput)
             break

@@ -24,7 +24,7 @@ def _test():
         
         userInput = None
         while userInput == None:
-            userInput = keypadInput.getKeyPressesUntilHashKey()
+            userInput = keypadInput._getKeyPressesUntilHashKey()
         
         print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
         audioOutput.playAudio('youHaveKeyedIn')
@@ -35,7 +35,7 @@ def _test():
         
         isUserInputConfirmed = None
         while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
-            isUserInputConfirmed = keypadInput.getKeyPress()
+            isUserInputConfirmed = keypadInput._getKeyPress()
         if isUserInputConfirmed == '#':
             print(stringHelper.AUDIO + ' Comfirmed.')
             audioOutput.playAudio('confirmed')

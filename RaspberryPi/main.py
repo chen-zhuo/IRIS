@@ -25,27 +25,27 @@ def main():
     
     print(stringHelper.AUDIO + ' Please key in origin building ID, followed by the hash key.')
     audioOutput.playAudio('plsKeyInOriginBuildingIdFollowedByTheHashKey')
-    srcBuildingId = keypadInput.getKeyPressesUntilHashKey()
+    srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKey()
     
     print(stringHelper.AUDIO + ' Please key in origin building storey, followed by the hash key.')
     audioOutput.playAudio('plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
-    srcBuildingStorey = keypadInput.getKeyPressesUntilHashKey()
+    srcBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKey()
     
     print(stringHelper.AUDIO + ' Please key in origin node ID, followed by the hash key.')
     audioOutput.playAudio('plsKeyInOriginNodeIdFollowedByTheHashKey')
-    srcNodeId = keypadInput.getKeyPressesUntilHashKey()
+    srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKey()
     
     print(stringHelper.AUDIO + ' Please key in destination building ID, followed by the hash key.')
     audioOutput.playAudio('plsKeyInDestinationBuildingIdFollowedByTheHashKey')
-    destBuildingId = keypadInput.getKeyPressesUntilHashKey()
+    destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKey()
     
     print(stringHelper.AUDIO + ' Please key in destination building storey, followed by the hash key.')
     audioOutput.playAudio('plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
-    destBuildingStorey = keypadInput.getKeyPressesUntilHashKey()
+    destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKey()
     
     print(stringHelper.AUDIO + ' Please key in destination node ID, followed by the hash key.')
     audioOutput.playAudio('plsKeyInDestinationNodeIdFollowedByTheHashKey')
-    destNodeId = keypadInput.getKeyPressesUntilHashKey()
+    destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKey()
     
     srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
     destNodeId += destBuildingId*1000 + destBuildingStorey*100
