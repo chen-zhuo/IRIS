@@ -40,6 +40,7 @@ def waitAndGetKeyPressesUntilHashKey():
     return userInput
 
 def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
+    userInput = ''
     while True:
         print(stringHelper.AUDIO + ' ' + audioOutput.audioTextDict[promptAudioName])
         audioOutput.playAudio(promptAudioName)
