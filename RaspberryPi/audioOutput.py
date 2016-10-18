@@ -51,7 +51,7 @@ def playAudio(audioName):
 Defines `playAudioQueueThread` which is started by `initAudio()`.
 '''
 def _playAudioQueue():
-    print('Starting \'playAudioQueueThread\'...')
+    print(stringHelper.MESSAGE + ' `playAudioQueueThread` started.')
     
     global isAudioThreadActive, audioQueue
     isAudioThreadActive = True
@@ -62,7 +62,7 @@ def _playAudioQueue():
             audioQueue.pop(0)
             os.system('mpg123 -q ' + nextAudioFileInQueue)
     
-    print(stringHelper.MESSAGE + ' Closing `playAudioQueueThread`...')
+    print(stringHelper.MESSAGE + ' `playAudioQueueThread` is closed.')
 
 '''
 Initializes `audioDict` and starts `playAudioQueueThread`.
@@ -128,9 +128,7 @@ def closeAudioThread():
     isAudioThreadActive = False
 
 def _test():
-    print(stringHelper.MESSAGE + ' Initializing audio...')
     initAudio()
-    sleep(1)
     
     print(stringHelper.MESSAGE + ' Playing welcome audio...')
     playAudioNow('welcomeToIris')
