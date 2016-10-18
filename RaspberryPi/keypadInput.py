@@ -18,6 +18,9 @@ isKeypadThreadActive = False
 Starts `readKeypadInputThread`.
 '''
 def initKeypadThread():
+    global isKeypadThreadActive, tempUserInput
+    
+    isKeypadThreadActive = True
     tempUserInput = []
     readKeypadInputThread = Thread(target = _readKeypadInput)
     readKeypadInputThread.start()
