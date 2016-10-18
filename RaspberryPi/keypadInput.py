@@ -71,8 +71,8 @@ def _test():
         userInput = None
         while userInput == None:
             userInput = getUserInput()
-            print('tempUserInput = ' + tempUserInput)
-            print('userInputs = ' + userInputs)
+            print('tempUserInput = ' + str(tempUserInput))
+            print('userInputs = ' + str(userInputs))
             sleep(3)
         
         print('You have keyed in: ' + userInput)
