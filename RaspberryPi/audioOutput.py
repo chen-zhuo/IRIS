@@ -23,6 +23,8 @@ played simultaneously.
            the description of the audio; e.g. 'turnLeft', 'plsKeyInDestinationNodeIdFollowedByTheHashKey'
 '''
 def playAudioNow(audioName):
+    global isAudioInitted, audioDict
+    
     if isAudioInitted == False:
         initAudio()
     
@@ -39,6 +41,8 @@ before playing this audio file.
            the description of the audio; e.g. 'turnLeft', 'plsKeyInDestinationNodeIdFollowedByTheHashKey'
 '''
 def playAudio(audioName):
+    global isAudioInitted, audioQueue, audioDict
+    
     if isAudioInitted == False:
         initAudio()
     
@@ -55,6 +59,8 @@ def playNum(num):
 Defines `playAudioQueueThread` which is started by `initAudio()`.
 '''
 def _playAudioQueue():
+    global audioQueue, isAudioThreadActive
+    
     print(stringHelper.MESSAGE + ' `playAudioQueueThread` started.')
     
     isAudioThreadActive = True
@@ -71,6 +77,8 @@ def _playAudioQueue():
 Initializes `audioDict` and starts `playAudioQueueThread`.
 '''
 def initAudio():
+    global isAudioInitted, audioQueue, audioDict
+    
     isAudioInitted = True
     
     audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
@@ -126,6 +134,8 @@ def initAudio():
 Closes `playAudioQueueThread`.
 '''
 def closeAudioThread():
+    global isAudioThreadActive, audioQueue
+    
     while audioQueue != []:
         sleep(1)
     isAudioThreadActive = False
