@@ -80,6 +80,10 @@ def _test():
         isUserInputConfirmed = None
         while isUserInputConfirmed == None:
             isUserInputConfirmed = getUserInput()
+            print('tempUserInput = ' + str(tempUserInput))
+            print('isUserInputConfirmed = ' + str(isUserInputConfirmed))
+            print('userInputs = ' + str(userInputs))
+            sleep(3)
         
         if isUserInputConfirmed == '#':
             print('Comfirmed user input: ' + userInput)
