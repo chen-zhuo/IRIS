@@ -25,26 +25,16 @@ def main():
     
     srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
             'plsKeyInOriginBuildingIdFollowedByTheHashKey')
-    
-    print(stringHelper.AUDIO + ' Please key in origin building storey, followed by the hash key.')
-    audioOutput.playAudio('plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
-    srcBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKey()
-    
-    print(stringHelper.AUDIO + ' Please key in origin node ID, followed by the hash key.')
-    audioOutput.playAudio('plsKeyInOriginNodeIdFollowedByTheHashKey')
-    srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKey()
-    
-    print(stringHelper.AUDIO + ' Please key in destination building ID, followed by the hash key.')
-    audioOutput.playAudio('plsKeyInDestinationBuildingIdFollowedByTheHashKey')
-    destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKey()
-    
-    print(stringHelper.AUDIO + ' Please key in destination building storey, followed by the hash key.')
-    audioOutput.playAudio('plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
-    destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKey()
-    
-    print(stringHelper.AUDIO + ' Please key in destination node ID, followed by the hash key.')
-    audioOutput.playAudio('plsKeyInDestinationNodeIdFollowedByTheHashKey')
-    destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKey()
+    srcBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+            'plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
+    srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+            'plsKeyInOriginNodeIdFollowedByTheHashKey')
+    destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+            'plsKeyInDestinationBuildingIdFollowedByTheHashKey')
+    destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+        'plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
+    destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+        'plsKeyInDestinationNodeIdFollowedByTheHashKey')
     
     srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
     destNodeId += destBuildingId*1000 + destBuildingStorey*100
