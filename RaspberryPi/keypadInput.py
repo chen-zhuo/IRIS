@@ -59,9 +59,9 @@ Wait for the next key press, and then return it.
 '''
 def getKeyPress():
     global prevKeyPressed
-    prevKeyPressed = ''
+    prevKeyPressed = None
     
-    while prevKeyPressed == '':
+    while prevKeyPressed == None:
         continue
     return prevKeyPressed
 
