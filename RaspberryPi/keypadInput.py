@@ -8,6 +8,7 @@ with a '#' key. A keypad command is cleared with a '*' key.
 from Keypad import Keypad
 import stringHelper
 from threading import Thread
+from time import sleep
 
 myKeypad = Keypad()
 tempUserInput = '' # stores key presses before the user confirms with a '#' key
@@ -63,11 +64,16 @@ def getUserInput():
         return None
 
 def _test():
+    global tempUserInput, userInputs
+    
     initKeypadThread()
     while True:
         userInput = None
         while userInput == None:
             userInput = getUserInput()
+            print('tempUserInput = ' + tempUserInput)
+            print('userInputs = ' + userInputs)
+            sleep(3)
         
         print('You have keyed in: ' + userInput)
         print('Press the hash key to confirm, or asterisk key to re-enter.')
