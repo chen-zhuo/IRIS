@@ -23,21 +23,25 @@ def main():
     audioOutput.playAudio('welcomeToIris')
     sleep(3)
     
-    srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInOriginBuildingIdFollowedByTheHashKey')
-    srcBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
-    srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInOriginNodeIdFollowedByTheHashKey')
-    destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInDestinationBuildingIdFollowedByTheHashKey')
-    destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-        'plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
-    destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-        'plsKeyInDestinationNodeIdFollowedByTheHashKey')
-    
-    srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
-    destNodeId += destBuildingId*1000 + destBuildingStorey*100
+#     srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+#             'plsKeyInOriginBuildingIdFollowedByTheHashKey')
+#     srcBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+#             'plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
+#     srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+#             'plsKeyInOriginNodeIdFollowedByTheHashKey')
+#     destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+#             'plsKeyInDestinationBuildingIdFollowedByTheHashKey')
+#     destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+#         'plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
+#     destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+#         'plsKeyInDestinationNodeIdFollowedByTheHashKey')
+#     
+#     srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
+#     destNodeId += destBuildingId*1000 + destBuildingStorey*100
+    srcNodeId = 1211
+    destNodeId = 1216
+    print('srcNodeId = ' + srcNodeId)
+    print('destNodeId = ' + destNodeId)
     
     mapOfCom1Level1 = downloadAndParseMap('COM1', 1)
     mapOfCom1Level2 = downloadAndParseMap('COM1', 2)
