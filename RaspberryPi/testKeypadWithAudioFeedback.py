@@ -35,6 +35,7 @@ def _test():
             continue
 
 def playNum(num):
+    num = int(num)
     while num > 0:
         digit = num % 10
         num /= 10
