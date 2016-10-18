@@ -10,8 +10,9 @@ import stringHelper
 from threading import Thread
 from time import sleep
 
-audioDict = {} # to map `audioName` (key) to the corresponding file name with path (value)
 audioQueue = [] # a queue of audio file names (with paths) to be played one after another
+audioDict = {} # to map `audioName` (key) to the corresponding file name with path (value)
+audioTextDict = {} # to map `audioName` (key) to the corresponding text (value)
 isAudioInitted = False
 isAudioThreadActive = False
 
@@ -44,6 +45,7 @@ def playAudio(audioName):
     
     if audioDict[audioName] != None:
         audioQueue.append(audioDict[audioName])
+        print(stringHelper.AUDIO + '')
     else:
         print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
@@ -57,7 +59,7 @@ Defines `playAudioQueueThread` which is started by `initAudio()`.
 def _playAudioQueue():
     print(stringHelper.MESSAGE + ' `playAudioQueueThread` started.')
     
-    global isAudioThreadActive, audioQueue
+#     global isAudioThreadActive, audioQueue
     isAudioThreadActive = True
     
     while isAudioThreadActive:
@@ -72,7 +74,7 @@ def _playAudioQueue():
 Initializes `audioDict` and starts `playAudioQueueThread`.
 '''
 def initAudio():
-    global isAudioInitted
+#     global isAudioInitted
     isAudioInitted = True
     
     audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
@@ -116,8 +118,50 @@ def initAudio():
     audioDict['7'] = './AudioFiles/7.mp3'
     audioDict['8'] = './AudioFiles/8.mp3'
     audioDict['9'] = './AudioFiles/9.mp3'
-    audioDict['*'] = './AudioFiles/*.mp3'
-    audioDict['#'] = './AudioFiles/#.mp3'
+    audioDict['asterisk'] = './AudioFiles/asterisk.mp3'
+    audioDict['hash'] = './AudioFiles/hash.mp3'
+    
+    audioTextDict['welcomeToIris'] = 'Welcome to IRIS.'
+    audioTextDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = 'Please key in origin building ID, followed by the hash key.'
+    audioTextDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = 'Please key in origin building storey, followed by the hash key.'
+    audioTextDict['plsKeyInOriginNodeIdFollowedByTheHashKey'] = 'Please key in origin building storey, followed by the hash key.'
+    audioTextDict['plsKeyInDestinationBuildingIdFollowedByTheHashKey'] = 'Please key in destination building ID, followed by the hash key.'
+    audioTextDict['plsKeyInDestinationBuildingStoreyFollowedByTheHashKey'] = 'Please key in destination building storey, followed by the hash key.'
+    audioTextDict['plsKeyInDestinationNodeIdFollowedByTheHashKey'] = 'Please key in destination node ID, followed by the hash key.'
+    audioTextDict['youHaveKeyedIn'] = 'You have keyed in'
+    audioTextDict['pressTheHashKeyToConfirmOrAsteriskKeyToReenter'] = 'Press the hash key to confirm, or asterisk key to re-enter.'
+    audioTextDict['confirmed'] = 'Comfirmed.'
+    
+    audioTextDict['navigationStarted'] = 'Navigation started.'
+    audioTextDict['navigationCompleted'] = 'Navigation completed.'
+    audioTextDict['nextNodeIdIs'] = 'Next node ID is'
+    audioTextDict['reached'] = 'Reached'
+    audioTextDict['building'] = 'building'
+    audioTextDict['storey'] = 'storey'
+    audioTextDict['nodeId'] = 'node ID'
+    audioTextDict['com1'] = 'COM1'
+    audioTextDict['com2'] = 'COM2'
+    audioTextDict['upwardStaircaseAhead'] = 'Upward staircase ahead.'
+    audioTextDict['numberOfStairsExpected'] = 'Number of Stairs expected'
+    
+    audioTextDict['goStraight'] = 'Go straight.'
+    audioTextDict['turnLeft'] = 'Turn left.'
+    audioTextDict['turnRight'] = 'Turn right.'
+    audioTextDict['adjustYourBearingSlightlyToTheLeft'] = 'Adjust your bearing slightly to the left.'
+    audioTextDict['adjustYourBearingSlightlyToTheRight'] = 'Adjust your bearing slightly to the right.'
+    
+    audioTextDict['0'] = 'zero'
+    audioTextDict['1'] = 'one'
+    audioTextDict['2'] = 'two'
+    audioTextDict['3'] = 'three'
+    audioTextDict['4'] = 'four'
+    audioTextDict['5'] = 'five'
+    audioTextDict['6'] = 'six'
+    audioTextDict['7'] = 'seven'
+    audioTextDict['8'] = 'eight'
+    audioTextDict['9'] = 'nine'
+    audioTextDict['asterisk'] = 'asterisk'
+    audioTextDict['hash'] = 'hash'
     
     # to start `playAudioQueueThread`
     audioQueue = []
@@ -128,7 +172,7 @@ def initAudio():
 Closes `playAudioQueueThread`.
 '''
 def closeAudioThread():
-    global isAudioThreadActive, audioQueue
+#     global isAudioThreadActive, audioQueue
     
     while audioQueue != []:
         sleep(1)
