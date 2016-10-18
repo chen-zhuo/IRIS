@@ -132,7 +132,7 @@ def dijkstra(myMap, srcNodeId):
     parentOf = {}
     
     for node in myMap:
-        displacement[node.nodeId] = int('inf')
+        displacement[node.nodeId] = float('inf')
         hasVisited[node.nodeId] = False
         parentOf[node.nodeId] = None
     
