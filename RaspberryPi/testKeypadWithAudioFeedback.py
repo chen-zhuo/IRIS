@@ -39,7 +39,7 @@ def playNum(num):
     while num > 0:
         digit = num % 10
         num /= 10
-        audioOutput.playAudio(digit)
+        audioOutput.playAudio(str(digit))
 
 if __name__ == '__main__':
     _test()
