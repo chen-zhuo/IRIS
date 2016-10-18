@@ -40,8 +40,7 @@ def _readKeypadInput():
                 tempUserInput += keyPressed
             elif keyPressed == '*':
                 tempUserInput = ''
-            else:
-                tempUserInput += keyPressed
+            elif keyPressed == '#':
                 userInputs.append(tempUserInput)
                 tempUserInput = ''
             prevKeyPressed = keyPressed
@@ -90,7 +89,7 @@ def _test():
         print('You have keyed in: ' + userInput)
         print('Press the hash key to confirm, or asterisk key to re-enter.')
         isUserInputConfirmed = None
-        while isUserInputConfirmed == None:
+        while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
             isUserInputConfirmed = getKeyPress()
         if isUserInputConfirmed == '#':
             print('Comfirmed user input: ' + userInput)
