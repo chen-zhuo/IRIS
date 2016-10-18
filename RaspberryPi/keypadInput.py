@@ -20,7 +20,6 @@ Starts `readKeypadInputThread`.
 def initKeypadThread():
     global isKeypadThreadActive, tempUserInput
     
-    isKeypadThreadActive = True
     tempUserInput = ''
     readKeypadInputThread = Thread(target = _readKeypadInput)
     readKeypadInputThread.start()
@@ -31,7 +30,8 @@ Defines `readKeypadInputThread` which is started by `initKeypadThread()`.
 def _readKeypadInput():
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` started.')
     
-    global isKeypadThreadActive, tempUserInput
+    global isKeypadThreadActive, tempUserInput, userInputs
+    isKeypadThreadActive = True
     
     while isKeypadThreadActive:
         keyPressed = myKeypad.getKey()
