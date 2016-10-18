@@ -11,7 +11,8 @@ from threading import Thread
 from time import sleep
 
 myKeypad = Keypad()
-tempUserInput = '' # stores key presses before the user confirms with a '#' key
+prevKeyPressed = ''
+# tempUserInput = '' # stores key presses before the user confirms with a '#' key
 userInputs = [] # stores a list of confirmed user inputs with the ending '#' keys
 isKeypadThreadActive = False
 
@@ -19,9 +20,6 @@ isKeypadThreadActive = False
 Starts `readKeypadInputThread`.
 '''
 def initKeypadThread():
-    global isKeypadThreadActive, tempUserInput
-    
-    tempUserInput = ''
     readKeypadInputThread = Thread(target = _readKeypadInput)
     readKeypadInputThread.start()
 
@@ -31,7 +29,7 @@ Defines `readKeypadInputThread` which is started by `initKeypadThread()`.
 def _readKeypadInput():
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` started.')
     
-    global isKeypadThreadActive, tempUserInput, userInputs
+    global isKeypadThreadActive, prevKeyPressed, userInputs
     isKeypadThreadActive = True
     
     while isKeypadThreadActive:
@@ -41,8 +39,10 @@ def _readKeypadInput():
         elif keyPressed == '*':
             tempUserInput = []
         elif keyPressed == '#':
+            tempUserInput += keyPressed
             userInputs.append(tempUserInput)
             tempUserInput = []
+        prevKeyPressed = keyPressed
     
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` is closed.')
 
@@ -53,7 +53,18 @@ def closeKeypadThread():
     global isKeypadThreadActive
     isKeypadThreadActive = False
 
-def getUserInput():
+'''
+Wait for the next key press, and then return it.
+'''
+def getKeyPress():
+    global prevKeyPressed
+    prevKeyPressed = ''
+    
+    while prevKeyPressed == '':
+        continue
+    return prevKeyPressed
+
+def getKeyPressesUntilHashKey():
     global userInputs
     
     if len(userInputs) > 0:
@@ -64,27 +75,17 @@ def getUserInput():
         return None
 
 def _test():
-    global tempUserInput, userInputs
+    global userInputs
     
     initKeypadThread()
     while True:
         userInput = None
         while userInput == None:
-            userInput = getUserInput()
-            print('tempUserInput = ' + str(tempUserInput))
-            print('userInputs = ' + str(userInputs))
-            sleep(3)
+            userInput = getKeyPressesUntilHashKey()
         
         print('You have keyed in: ' + userInput)
         print('Press the hash key to confirm, or asterisk key to re-enter.')
-        isUserInputConfirmed = None
-        while isUserInputConfirmed == None:
-            isUserInputConfirmed = getUserInput()
-            print('tempUserInput = ' + str(tempUserInput))
-            print('isUserInputConfirmed = ' + str(isUserInputConfirmed))
-            print('userInputs = ' + str(userInputs))
-            sleep(3)
-        
+        isUserInputConfirmed = getKeyPress()
         if isUserInputConfirmed == '#':
             print('Comfirmed user input: ' + userInput)
         else:
