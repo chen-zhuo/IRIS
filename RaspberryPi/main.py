@@ -1,38 +1,27 @@
 '''
-This file contains the 'main()' function, which is the starting point of the program. High-level algorithms such as task
+This file contains the `main()` function, which is the starting point of the program. High-level algorithms such as task
 scheduling, thread instantiations, are defined here.
 
 @author: chen-zhuo
 '''
 
+from algorithms import computeRoute, downloadAndParseMap, linkMaps, printWelcomeMsg
+from audio import initAudio, playAudio, playAudioNow
 import json
 from pprint import pprint
 from threading import Thread
-
-from algorithms import downloadAndParseMap, printWelcomeMsg
+from time import sleep
 
 def main():
+    initAudio()
+    
     printWelcomeMsg()
+    playAudio('welcomeToIris')
+    sleep(3)
     
-    url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=COM1&Level=2'
-    fileName = './Downloads/mapOfCom1Storey2.json'
+    playAudio('plsKeyInOriginBuildingIdFollowedByTheHashKey')
+#     srcBuildingId = 
     
-    downloadAndParseMap(url, fileName)
     
-    # to open a file named 'fileName' as json file
-    with open(fileName) as jsonFile:
-        mapInfoRaw = json.load(jsonFile)
-    
-    northAt = mapInfoRaw['info']['northAt']
-    nodesList = mapInfoRaw['map']
-    
-    node1X = mapInfoRaw['map'][0]['nodeId']
-    
-    pprint(mapInfoRaw)
-    print('northAt: ' + northAt)
-#     print('Map: ' + nodesList[0])
-    
-    print(node1X)
-
 if __name__ == '__main__':
     main()

@@ -6,7 +6,7 @@ file so that we can resume navigation.
 @author: chen-zhuo
 '''
 
-class LocationCalibrator:
+class Logger:
     
     def __init__(self):
         return

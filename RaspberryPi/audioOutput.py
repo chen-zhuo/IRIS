@@ -6,10 +6,11 @@ navigation information) over the earphone.
 '''
 
 import os
+import stringHelper
 from threading import Thread
 from time import sleep
 
-audioDict = {} # to map 'audioName' (key) to the corresponding file name with path (value)
+audioDict = {} # to map `audioName` (key) to the corresponding file name with path (value)
 audioQueue = [] # a queue of audio file names (with paths) to be played one after another
 isAudioInitted = False
 isAudioThreadActive = False
@@ -44,12 +45,12 @@ def playAudio(audioName):
     if audioDict[audioName] != None:
         audioQueue.append(audioDict[audioName])
     else:
-        print('Error when calling audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
+        print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
 '''
-Defines 'playAudioQueueThread' which is started by 'initAudio()'.
+Defines `playAudioQueueThread` which is started by `initAudio()`.
 '''
-def playAudioQueue():
+def _playAudioQueue():
     print('Starting \'playAudioQueueThread\'...')
     
     global isAudioThreadActive, audioQueue
@@ -61,14 +62,16 @@ def playAudioQueue():
             audioQueue.pop(0)
             os.system('mpg123 -q ' + nextAudioFileInQueue)
     
-    print('Closing \'playAudioQueueThread\'...')
+    print(stringHelper.MESSAGE + ' Closing `playAudioQueueThread`...')
 
 '''
-Initializes 'audioDict' and starts 'playAudioQueueThread'.
+Initializes `audioDict` and starts `playAudioQueueThread`.
 '''
 def initAudio():
     global isAudioInitted
     isAudioInitted = True
+    
+    audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
     
     audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
     audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
@@ -81,17 +84,17 @@ def initAudio():
     audioDict['pressTheHashKeyToConfirmOrAsteriskKeyToReenter'] = './AudioFiles/pressTheHashKeyToConfirmOrAsteriskKeyToReenter.mp3'
     audioDict['confirmed'] = './AudioFiles/confirmed.mp3'
     
-#     audioDict['navigationStarted'] = './AudioFiles/navigationStarted.mp3'
-#     audioDict['navigationCompleted'] = './AudioFiles/navigationCompleted.mp3'
-#     audioDict['nextNodeId'] = './AudioFiles/nextNodeId.mp3'
-#     audioDict['reachedNodeId'] = './AudioFiles/reachedNodeId.mp3'
-#     audioDict['reachedDestinationNodeId'] = './AudioFiles/reachedDestinationNodeId.mp3'
-#     audioDict['enteredBuilding'] = './AudioFiles/enteredBuilding.mp3'
-#     audioDict['com1'] = './AudioFiles/com1.mp3'
-#     audioDict['com2'] = './AudioFiles/com2.mp3'
-#     audioDict['upwardStaircaseAhead'] = './AudioFiles/upwardStaircaseAhead.mp3' # downward staircase is not examinable
-#     audioDict['numberOfStairsExpected'] = './AudioFiles/numberOfStairsExpected.mp3'
-#     audioDict['reachedStorey'] = './AudioFiles/reachedStorey.mp3'
+    audioDict['navigationStarted'] = './AudioFiles/navigationStarted.mp3'
+    audioDict['navigationCompleted'] = './AudioFiles/navigationCompleted.mp3'
+    audioDict['nextNodeIdIs'] = './AudioFiles/nextNodeIdIs.mp3'
+    audioDict['reached'] = './AudioFiles/reached.mp3'
+    audioDict['building'] = './AudioFiles/buildling.mp3'
+    audioDict['storey'] = './AudioFiles/storey.mp3'
+    audioDict['nodeId'] = './AudioFiles/nodeId.mp3'
+    audioDict['com1'] = './AudioFiles/com1.mp3'
+    audioDict['com2'] = './AudioFiles/com2.mp3'
+    audioDict['upwardStaircaseAhead'] = './AudioFiles/upwardStaircaseAhead.mp3' # downward staircase is not examinable
+    audioDict['numberOfStairsExpected'] = './AudioFiles/numberOfStairsExpected.mp3'
     
     audioDict['goStraight'] = './AudioFiles/goStraight.mp3'
     audioDict['turnLeft'] = './AudioFiles/turnLeft.mp3'
@@ -112,31 +115,28 @@ def initAudio():
     audioDict['asterisk'] = './AudioFiles/asterisk.mp3'
     audioDict['hash'] = './AudioFiles/hash.mp3'
     
-    # to start 'playAudioQueueThread'
+    # to start `playAudioQueueThread`
     audioQueue = []
-    playAudioQueueThread = Thread(target = playAudioQueue)
+    playAudioQueueThread = Thread(target = _playAudioQueue)
     playAudioQueueThread.start()
 
 '''
-Closes 'playAudioQueueThread'.
+Closes `playAudioQueueThread`.
 '''
 def closeAudioThread():
     global isAudioThreadActive
     isAudioThreadActive = False
 
-def testAudio():
-    print('Starting audio test...')
-    sleep(1)
-    
-    print('Initializing audio...')
+def _test():
+    print(stringHelper.MESSAGE + ' Initializing audio...')
     initAudio()
     sleep(1)
     
-    print('Playing welcome audio...')
+    print(stringHelper.MESSAGE + ' Playing welcome audio...')
     playAudioNow('welcomeToIris')
     sleep(3)
     
-    print('Playing multiple audio files simultaneously...')
+    print(stringHelper.MESSAGE + ' Playing multiple audio files simultaneously...')
     playAudioNow('goStraight')
     playAudioNow('turnLeft')
     playAudioNow('turnRight')
@@ -144,7 +144,7 @@ def testAudio():
     playAudioNow('adjustYourBearingSlightlyToTheRight')
     sleep(4)
     
-    print('Playing multiple audio files one after another...')
+    print(stringHelper.MESSAGE + ' Playing multiple audio files one after another...')
     playAudio('goStraight')
     playAudio('turnLeft')
     playAudio('turnRight')
@@ -152,9 +152,9 @@ def testAudio():
     playAudio('adjustYourBearingSlightlyToTheRight')
     sleep(9)
     
-    print('Closing audio...')
+    print(stringHelper.MESSAGE + ' Closing audio...')
     sleep(1)
     closeAudioThread()
 
 if __name__ == '__main__':
-    testAudio()
+    _test()
