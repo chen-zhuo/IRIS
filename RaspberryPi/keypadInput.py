@@ -12,7 +12,7 @@ from time import sleep
 
 myKeypad = Keypad()
 prevKeyPressed = ''
-# tempUserInput = '' # stores key presses before the user confirms with a '#' key
+tempUserInput = '' # stores key presses before the user confirms with a '#' key
 userInputs = [] # stores a list of confirmed user inputs with the ending '#' keys
 isKeypadThreadActive = False
 
@@ -29,19 +29,20 @@ Defines `readKeypadInputThread` which is started by `initKeypadThread()`.
 def _readKeypadInput():
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` started.')
     
-    global isKeypadThreadActive, prevKeyPressed, userInputs
+    global isKeypadThreadActive, prevKeyPressed, tempUserInput, userInputs
     isKeypadThreadActive = True
     
+    tempUserInput = ''
     while isKeypadThreadActive:
         keyPressed = myKeypad.getKey()
         if keyPressed != None and keyPressed != '*' and keyPressed != '#':
             tempUserInput += keyPressed
         elif keyPressed == '*':
-            tempUserInput = []
+            tempUserInput = ''
         elif keyPressed == '#':
             tempUserInput += keyPressed
             userInputs.append(tempUserInput)
-            tempUserInput = []
+            tempUserInput = ''
         prevKeyPressed = keyPressed
     
     print(stringHelper.MESSAGE + ' `readKeypadInputThread` is closed.')
