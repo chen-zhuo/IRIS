@@ -14,13 +14,13 @@ def _test():
     keypadInput.initKeypad()
     audioOutput.initAudio()
     
-    print('Welcome to IRIS.')
+    print(stringHelper.AUDIO + ' Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
     sleep(1)
     
     while True:
         print(stringHelper.AUDIO + ' Please key in destination node ID, followed by the hash key.')
-        audioOutput.playAudio(stringHelper.AUDIO + ' plsKeyInDestinationNodeIdFollowedByTheHashKey')
+        audioOutput.playAudio('plsKeyInDestinationNodeIdFollowedByTheHashKey')
         
         userInput = None
         while userInput == None:
