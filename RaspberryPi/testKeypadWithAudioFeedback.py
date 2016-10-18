@@ -33,6 +33,9 @@ def _test():
             break
         else:
             continue
+    
+    keypadInput.closeKeypadThread()
+    audioOutput.closeAudioThread()
 
 def playNum(num):
     for i in range(len(num)):
