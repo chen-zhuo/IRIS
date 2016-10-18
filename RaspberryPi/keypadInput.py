@@ -88,7 +88,9 @@ def _test():
         
         print('You have keyed in: ' + userInput)
         print('Press the hash key to confirm, or asterisk key to re-enter.')
-        isUserInputConfirmed = getKeyPressesUntilHashKey()
+        isUserInputConfirmed = None
+        while isUserInputConfirmed == None:
+            isUserInputConfirmed = getKeyPressesUntilHashKey()
         if isUserInputConfirmed == '#':
             print('Comfirmed user input: ' + userInput)
             break
