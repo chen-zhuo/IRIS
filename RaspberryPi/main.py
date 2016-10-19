@@ -28,33 +28,35 @@ def main():
             'plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
     srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
             'plsKeyInOriginNodeIdFollowedByTheHashKey')
-#     destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-#             'plsKeyInDestinationBuildingIdFollowedByTheHashKey')
-#     destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-#         'plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
-#     destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-#         'plsKeyInDestinationNodeIdFollowedByTheHashKey')
+    destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+            'plsKeyInDestinationBuildingIdFollowedByTheHashKey')
+    destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+        'plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
+    destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+        'plsKeyInDestinationNodeIdFollowedByTheHashKey')
     
     print('srcBuildingId = ' + srcBuildingId)
     print('srcBuildingStorey = ' + srcBuildingStorey)
     print('srcNodeId = ' + srcNodeId)
     
-#     srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
-#     destNodeId += destBuildingId*1000 + destBuildingStorey*100
-#     print('srcNodeId = ' + str(srcNodeId))
-#     print('destNodeId = ' + str(destNodeId))
-#     
-#     mapOfCom1Level1 = downloadAndParseMap('COM1', 1)
-#     mapOfCom1Level2 = downloadAndParseMap('COM1', 2)
-#     mapOfCom2Level2 = downloadAndParseMap('COM2', 2)
-#     mapOfCom2Level3 = downloadAndParseMap('COM2', 3)
-#     linkedMap = linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
-#     
-#     route = computeRoute(linkedMap, srcNodeId, destNodeId)
-#     print('Route: ', end='')
-#     for i in range(len(route) - 1):
-#         print(str(route[i]) + ' -> ', end = "")
-#     print(route[len(route) - 1])
+    srcNodeId = int(srcNodeId)
+    destNodeId = int(destNodeId)
+    srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
+    destNodeId += destBuildingId*1000 + destBuildingStorey*100
+    print('srcNodeId = ' + str(srcNodeId))
+    print('destNodeId = ' + str(destNodeId))
+    
+    mapOfCom1Level1 = downloadAndParseMap('COM1', 1)
+    mapOfCom1Level2 = downloadAndParseMap('COM1', 2)
+    mapOfCom2Level2 = downloadAndParseMap('COM2', 2)
+    mapOfCom2Level3 = downloadAndParseMap('COM2', 3)
+    linkedMap = linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
+    
+    route = computeRoute(linkedMap, srcNodeId, destNodeId)
+    print('Route: ', end='')
+    for i in range(len(route) - 1):
+        print(str(route[i]) + ' -> ', end = "")
+    print(route[len(route) - 1])
     
     keypadInput.closeKeypadThread()
     audioOutput.closeAudioThread()
