@@ -131,6 +131,7 @@ def _test():
     
     destNodeId = waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
         'plsKeyInDestinationNodeIdFollowedByTheHashKey')
+    print(stringHelper.INFO + ' destNodeId = ' + destNodeId)
     
     closeKeypadThread()
     audioOutput.closeAudioThread()
