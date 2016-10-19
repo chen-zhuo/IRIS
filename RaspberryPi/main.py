@@ -5,19 +5,22 @@ scheduling, thread instantiations, are defined here.
 @author: chen-zhuo
 '''
 
-from algorithms import computeRoute, downloadAndParseMap, linkMaps, printWelcomeMsg
+import algorithms
 import audioOutput
-import json
+# import json
 import keypadInput
-from threading import Thread
-from time import sleep
+from DummyPiMegaCommunicator import PiMegaCommunicator
 import stringHelper
+# from threading import Thread
+# from time import sleep
 
 def main():
+    algorithms.printWelcomeMsg()
+    
     keypadInput.initKeypad()
     audioOutput.initAudio()
-    
-    printWelcomeMsg()
+    piMegaCommunicator = PiMegaCommunicator()
+    piMegaCommunicator.startUp()
     
     print(stringHelper.AUDIO + ' Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
@@ -51,13 +54,13 @@ def main():
     print('srcNodeId = ' + str(srcNodeId))
     print('destNodeId = ' + str(destNodeId))
     
-    mapOfCom1Level1 = downloadAndParseMap('COM1', 1)
-    mapOfCom1Level2 = downloadAndParseMap('COM1', 2)
-    mapOfCom2Level2 = downloadAndParseMap('COM2', 2)
-    mapOfCom2Level3 = downloadAndParseMap('COM2', 3)
-    linkedMap = linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
+    mapOfCom1Level1 = algorithms.downloadAndParseMap('COM1', 1)
+    mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', 2)
+    mapOfCom2Level2 = algorithms.downloadAndParseMap('COM2', 2)
+    mapOfCom2Level3 = algorithms.downloadAndParseMap('COM2', 3)
+    linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
     
-    route = computeRoute(linkedMap, srcNodeId, destNodeId)
+    route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
     print('Route: ', end='')
     for i in range(len(route) - 1):
         print(str(route[i]) + ' -> ', end = "")

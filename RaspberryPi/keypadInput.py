@@ -48,7 +48,7 @@ def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
         userInput = waitAndGetKeyPressesUntilHashKey()
         print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
         audioOutput.playAudio('youHaveKeyedIn')
-        audioOutput.playNum(userInput)
+        audioOutput.playInt(userInput)
         
         print(stringHelper.AUDIO + ' Press the hash key to confirm, or asterisk key to re-enter.')
         audioOutput.playAudio('pressTheHashKeyToConfirmOrAsteriskKeyToReenter')

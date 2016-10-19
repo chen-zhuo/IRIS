@@ -24,16 +24,16 @@ class PiMegaCommunicator():
     '''
     Performs initial three-way handshake between Pi and Mega.
     '''
-    def startup(self):
+    def startUp(self):
         self.port.write(MSG_HELLO)
-        print(stringHelper.MESSAGE + 'at PiMegaCommunicator.startup(): Pi sent HELLO to Mega.')
+        print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
         
         while True:
             msgReceived = self.port.read()
             if msgReceived == MSG_ACK:
-                print('MESSAGE: Pi received ACK from Mega!')
+                print(stringHelper.MESSAGE + ' Pi received ACK from Mega!')
                 self.port.write(MSG_ACK)
-                print('MESSAGE: Pi sent ACK to Mega. Three-way handshake is done.')
+                print(stringHelper.MESSAGE + ' Pi sent ACK to Mega. Three-way handshake is done.')
                 break
     
     def pollData(self):
@@ -55,7 +55,7 @@ class PiMegaCommunicator():
 
 def testPollData():
     communicator = PiMegaCommunicator()
-    communicator.startup()
+    communicator.startUp()
     
     totalNumStepsWalked = 0
     while True:

@@ -52,7 +52,7 @@ def playAudio(audioName):
     else:
         print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
-def playNum(num):
+def playInt(num):
     for i in range(len(num)):
         playAudio(num[i])
 
