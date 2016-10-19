@@ -5,11 +5,11 @@ with a '#' key. A keypad command is cleared with a '*' key.
 @author: chen-zhuo
 '''
 
+import audioOutput
 from Keypad import Keypad
 import stringHelper
 from threading import Thread
 from time import sleep
-import audioOutput
 
 myKeypad = Keypad()
 prevKeyPressed = ''
@@ -122,26 +122,18 @@ def _getKeyPressesUntilHashKey():
         return None
 
 def _test():
-    global userInputs
-    
     initKeypad()
-    while True:
-        print('Waiting for user input...')
-        userInput = None
-        while userInput == None:
-            userInput = _getKeyPressesUntilHashKey()
-        
-        print('You have keyed in: ' + userInput)
-        print('Press the hash key to confirm, or asterisk key to re-enter.')
-        isUserInputConfirmed = None
-        while isUserInputConfirmed != '*' and isUserInputConfirmed != '#':
-            isUserInputConfirmed = _getKeyPress()
-        if isUserInputConfirmed == '#':
-            print('Comfirmed user input: ' + userInput)
-            break
-        else:
-            continue
+    audioOutput.initAudio()
+    
+    print(stringHelper.AUDIO + ' Welcome to IRIS.')
+    audioOutput.playAudio('welcomeToIris')
+    sleep(1)
+    
+    destNodeId = waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+        'plsKeyInDestinationNodeIdFollowedByTheHashKey')
+    
     closeKeypadThread()
+    audioOutput.closeAudioThread()
 
 if __name__ == '__main__':
     _test()
