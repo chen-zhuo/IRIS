@@ -11,6 +11,11 @@ visually-impaired person.
 - `sudo modprobe snd_bcm2835`
 - `sudo amixer cset numid=3 1`
 
+Here the output is being set to 1, which is analog (headphone jack). Setting the output to 2 switches to HDMI. The
+default setting is 0 which is automatic. To change the volume, enter
+
+    amixer set PCM -- 85%
+
 ### Clone This Repository
 - `cd ~/Desktop`
 - `git clone https://github.com/chen-zhuo/IRIS.git`
