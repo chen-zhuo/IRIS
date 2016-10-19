@@ -39,8 +39,13 @@ def main():
     print('srcBuildingStorey = ' + srcBuildingStorey)
     print('srcNodeId = ' + srcNodeId)
     
+    srcBuildingId = int(srcBuildingId)
+    srcBuildingStorey = int(srcBuildingStorey)
     srcNodeId = int(srcNodeId)
+    destBuildingId = int(destBuildingId)
+    destBuildingStorey = int(destBuildingStorey)
     destNodeId = int(destNodeId)
+    
     srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
     destNodeId += destBuildingId*1000 + destBuildingStorey*100
     print('srcNodeId = ' + str(srcNodeId))

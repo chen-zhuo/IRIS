@@ -62,7 +62,6 @@ def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
             break
         else: # if isUserInputConfirmed == '*'
             continue
-    print('returning ' + userInput)
     return userInput
 
 '''
