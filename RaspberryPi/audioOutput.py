@@ -193,7 +193,7 @@ def _test():
     sleep(3)
     
     print(stringHelper.MESSAGE + ' Playing multiple audio files simultaneously...')
-    sleep(0.5)
+    sleep(1)
     
     print(stringHelper.AUDIO + ' ' + audioTextDict['goStraight'])
     playAudioNow('goStraight')
@@ -213,7 +213,7 @@ def _test():
     sleep(4)
     
     print(stringHelper.MESSAGE + ' Playing multiple audio files one after another...')
-    sleep(0.5)
+    sleep(1)
     
     print(stringHelper.AUDIO + ' ' + audioTextDict['goStraight'])
     playAudio('goStraight')
