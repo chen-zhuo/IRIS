@@ -49,7 +49,7 @@ def main():
         print(str(node.nodeId) + ': ' + str(sorted(list(node.adjacentNodes.keys()))))
     print('\n==================================================\n')
     
-    route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
+    route = algorithms.computeRoute(linkedMap, 1211, 1216)
     print('Route: ', end='')
     for i in range(len(route) - 1):
         print(str(route[i]) + ' -> ', end = "")
