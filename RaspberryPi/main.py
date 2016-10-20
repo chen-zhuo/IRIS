@@ -79,7 +79,7 @@ def main():
         print('distanceWalked_northwest = ' + str(distanceWalked_northwest))
         print('heading = ' + str(heading))
         
-        currLocation = [0, 0]
+        currLocation = [linkedMap.nodesDict[srcNodeId].x, linkedMap.nodesDict[srcNodeId].y]
         currLocation[0] -= distanceWalked_north/math.sqrt(2)
         currLocation[1] += distanceWalked_north/math.sqrt(2)
         currLocation[1] += distanceWalked_northeast
