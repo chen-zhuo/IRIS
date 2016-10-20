@@ -97,6 +97,10 @@ def main():
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
         naviInfo = navigator.getNaviInfo()
         
+        if navigator.clearedRouteIdx + 1 == len(navigator.route):
+            print(stringHelper.AUDIO + ' Navigation completed.')
+            audioOutput.playAudio('navigationCompleted')
+        
         print('nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
         
         if naviInfo[1] > 67.5 and naviInfo[1] < 180:
