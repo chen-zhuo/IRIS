@@ -118,21 +118,18 @@ def main():
         print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x)
         print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
         
-        if heading - expectedHeading > 25 and heading - expectedHeading < 180:
+        if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
             audioOutput.playAudio('adjustYourBearingSlightlyToTheLeft')
-        elif heading - expectedHeading > 180 and heading - expectedHeading < 335:
-            print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
-            audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
-        
-        print('naviInfo[1] = ' + str(naviInfo[1]))
-        if naviInfo[1] > 67.5 and naviInfo[1] < 180:
-            print(stringHelper.AUDIO + ' Turn right.')
-            audioOutput.playAudio('turnRight')
-        elif naviInfo[1] > 180 and naviInfo[1] < 292.5:
+        elif heading - expectedHeading > 67.5 and heading - expectedHeading < 180:
             print(stringHelper.AUDIO + ' Turn left.')
             audioOutput.playAudio('turnLeft')
-        
+        elif heading - expectedHeading > 180 and heading - expectedHeading < 292.5:
+            print(stringHelper.AUDIO + ' Turn right.')
+            audioOutput.playAudio('turnRight')
+        elif heading - expectedHeading > 292.5 and heading - expectedHeading < 337.5:
+            print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
+            audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
         
         sleep(10)
     
