@@ -112,10 +112,11 @@ def main():
             audioOutput.playAudio('turnLeft')
         
         print(stringHelper.INFO + ' heading = ' + str(heading))
-        expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
+        expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
+                                                    linkedMap.nodesDict[route[routeIdxOfPrevNode]].y,
+                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
-                                                    linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
-                                                    linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
+                                                    )
         print(stringHelper.INFO + ' expectedHeading = ' + str(expectedHeading))
         print(linkedMap.nodesDict[route[routeIdxOfNextNode]].x)
         print(linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
