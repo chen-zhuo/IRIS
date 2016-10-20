@@ -86,7 +86,7 @@ def main():
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
-        print(stringHelper.INFO + ' currLocation = ' + currLocation)
+        print(stringHelper.INFO + ' currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
         naviInfo = navigator.getNaviInfo()
