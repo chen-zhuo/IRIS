@@ -19,11 +19,11 @@ dataPackets = [# at #1211, facing "right"
                # at #1214, facing "down"
                DataPacket('4,0,0,0,0,[0,0,0,1462,0,0,0,0],225,0;'.encode('utf-8')),
                # at #1237, facing "down"
-               DataPacket('5,0,0,0,0,[0,0,0,1462,0,244,0,0],135,0;'.encode('utf-8')),
+               DataPacket('5,0,0,0,0,[0,0,0,1462,0,244,0,0],225,0;'.encode('utf-8')),
                # between #1237 and #1216, facing "down", slightly deviated from graph edge
-               DataPacket('6,0,0,0,0,[0,0,0,1662,0,644,0,0],135,0;'.encode('utf-8')),
+               DataPacket('6,0,0,0,0,[0,0,0,1662,0,644,0,0],225,0;'.encode('utf-8')),
                # at #1216; destination reached
-               DataPacket('7,0,0,0,0,[0,0,0,1462,0,1056,0,0],135,0;'.encode('utf-8'))
+               DataPacket('7,0,0,0,0,[0,0,0,1462,0,1056,0,0],225,0;'.encode('utf-8'))
               ]
 
 class PiMegaCommunicator():
