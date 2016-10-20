@@ -73,18 +73,26 @@ def main():
         distanceWalked_northwest = piMegaCommunicator.distanceWalked_northwest
         heading = piMegaCommunicator.heading
         
-#         currLocation[0] -= distanceWalked_north/math.sqrt(2)
-#         currLocation[1] += distanceWalked_north/math.sqrt(2)
-#         currLocation[1] += distanceWalked_northeast
-#         currLocation[0] += distanceWalked_east/math.sqrt(2)
-#         currLocation[1] += distanceWalked_east/math.sqrt(2)
+        currLocation = [0, 0]
+        currLocation[0] -= distanceWalked_north/math.sqrt(2)
+        currLocation[1] += distanceWalked_north/math.sqrt(2)
+        
+        currLocation[1] += distanceWalked_northeast
+        
+        currLocation[0] += distanceWalked_east/math.sqrt(2)
+        currLocation[1] += distanceWalked_east/math.sqrt(2)
+        
         currLocation[0] += distanceWalked_southeast
-#         currLocation[0] += distanceWalked_south/math.sqrt(2)
-#         currLocation[1] -= distanceWalked_south/math.sqrt(2)
-#         currLocation[1] -= distanceWalked_southwest
-#         currLocation[0] -= distanceWalked_west/math.sqrt(2)
-#         currLocation[1] -= distanceWalked_west/math.sqrt(2)
-#         currLocation[0] -= distanceWalked_northwest
+        
+        currLocation[0] += distanceWalked_south/math.sqrt(2)
+        currLocation[1] -= distanceWalked_south/math.sqrt(2)
+        
+        currLocation[1] -= distanceWalked_southwest
+        
+        currLocation[0] -= distanceWalked_west/math.sqrt(2)
+        currLocation[1] -= distanceWalked_west/math.sqrt(2)
+        
+        currLocation[0] -= distanceWalked_northwest
         print(stringHelper.INFO + ' currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
