@@ -126,10 +126,10 @@ def main():
         elif heading - expectedHeading > 67.5 and heading - expectedHeading < 180:
             print(stringHelper.AUDIO + ' Turn left.')
             audioOutput.playAudio('turnLeft')
-        elif heading - expectedHeading > 180 and heading - expectedHeading < 292.5:
+        elif heading - expectedHeading < -67.5 and heading - expectedHeading > -180:
             print(stringHelper.AUDIO + ' Turn right.')
             audioOutput.playAudio('turnRight')
-        elif heading - expectedHeading > 292.5 and heading - expectedHeading < 337.5:
+        elif heading - expectedHeading > -67.5 and heading - expectedHeading < -22.5:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
             audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
         
