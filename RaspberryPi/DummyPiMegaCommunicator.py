@@ -75,6 +75,7 @@ class PiMegaCommunicator():
         self.distanceWalked_northwest = int(dataPacket.distancesList[7])
         self.heading = int(dataPacket.heading)
         
+        dataPacket = dataPacket.replace('\n', '\n    ') # add indentation
         return dataPacket
 
 def _test():
