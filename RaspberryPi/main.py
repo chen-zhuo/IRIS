@@ -99,6 +99,7 @@ def main():
         if navigator.clearedRouteIdx + 1 == len(navigator.route):
             print(stringHelper.AUDIO + ' Navigation completed.')
             audioOutput.playAudio('navigationCompleted')
+            break
         
         naviInfo = navigator.getNaviInfo()
         
@@ -116,7 +117,7 @@ def main():
                                                     linkedMap.nodesDict[route[routeIdxOfPrevNode]].y,
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
-                                                    )
+                                                    ) + 45
         print(stringHelper.INFO + ' expectedHeading = ' + str(expectedHeading))
         print(linkedMap.nodesDict[route[routeIdxOfNextNode]].x)
         print(linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
