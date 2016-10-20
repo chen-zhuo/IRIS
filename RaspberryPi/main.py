@@ -24,10 +24,6 @@ def main():
     piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
     piMegaCommunicator.startUp() # <-----------------------------
     
-    print(piMegaCommunicator.pollData())
-    print(piMegaCommunicator.pollData())
-    print(piMegaCommunicator.pollData())
-    
     print(stringHelper.AUDIO + ' Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
     
