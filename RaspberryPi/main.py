@@ -59,6 +59,7 @@ def main():
     while isNavigationInProgress:
         piMegaCommunicator.pollData() # <-----------------------------
         
+        packetId = piMegaCommunicator.packetId
         distanceWalked_north = piMegaCommunicator.distanceWalked_north
         distanceWalked_northeast = piMegaCommunicator.distanceWalked_northeast
         distanceWalked_east = piMegaCommunicator.distanceWalked_east
@@ -92,7 +93,7 @@ def main():
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
-        print(stringHelper.INFO + ' currLocation = ' + str(currLocation))
+        print(stringHelper.INFO + ' ' + packetId + ' currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
         
@@ -104,13 +105,6 @@ def main():
         naviInfo = navigator.getNaviInfo()
         
         print('nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
-        
-        if naviInfo[1] > 67.5 and naviInfo[1] < 180:
-            print(stringHelper.AUDIO + ' Turn right.')
-            audioOutput.playAudio('turnRight')
-        elif naviInfo[1] > 180 and naviInfo[1] < 292.5:
-            print(stringHelper.AUDIO + ' Turn left.')
-            audioOutput.playAudio('turnLeft')
         
         print(stringHelper.INFO + ' heading = ' + str(heading))
         expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
@@ -131,6 +125,13 @@ def main():
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
             audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
         
+        print('naviInfo[1] = ' + str(naviInfo[1]))
+        if naviInfo[1] > 67.5 and naviInfo[1] < 180:
+            print(stringHelper.AUDIO + ' Turn right.')
+            audioOutput.playAudio('turnRight')
+        elif naviInfo[1] > 180 and naviInfo[1] < 292.5:
+            print(stringHelper.AUDIO + ' Turn left.')
+            audioOutput.playAudio('turnLeft')
         
         
         sleep(10)

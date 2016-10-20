@@ -15,19 +15,20 @@ dataPackets = [# at #1211, facing "right"
                # between #1211 and #1214, facing "right"
                DataPacket('2,0,0,0,0,[0,0,0,800,0,0,0,0],135,0;'.encode('utf-8')),
                # near #1214, facing "right" ("Turn right.")
-               DataPacket('2,0,0,0,0,[0,0,0,1400,0,0,0,0],135,0;'.encode('utf-8')),
+               DataPacket('3,0,0,0,0,[0,0,0,1400,0,0,0,0],135,0;'.encode('utf-8')),
                # at #1214, facing "down"
-               DataPacket('2,0,0,0,0,[0,0,0,1462,0,0,0,0],225,0;'.encode('utf-8')),
+               DataPacket('4,0,0,0,0,[0,0,0,1462,0,0,0,0],225,0;'.encode('utf-8')),
                # at #1237, facing "down"
-               DataPacket('3,0,0,0,0,[0,0,0,1462,0,244,0,0],135,0;'.encode('utf-8')),
+               DataPacket('5,0,0,0,0,[0,0,0,1462,0,244,0,0],135,0;'.encode('utf-8')),
                # between #1237 and #1216, facing "down", slightly deviated from graph edge
-               DataPacket('3,0,0,0,0,[0,0,0,1662,0,644,0,0],135,0;'.encode('utf-8')),
+               DataPacket('6,0,0,0,0,[0,0,0,1662,0,644,0,0],135,0;'.encode('utf-8')),
                # at #1216; destination reached
-               DataPacket('3,0,0,0,0,[0,0,0,1462,0,1056,0,0],135,0;'.encode('utf-8'))
+               DataPacket('7,0,0,0,0,[0,0,0,1462,0,1056,0,0],135,0;'.encode('utf-8'))
               ]
 
 class PiMegaCommunicator():
     def __init__(self):
+        self.packetId = 0
         self.handProximity = 0
         self.frontProximity = 0
         self.leftProximity = 0
@@ -61,6 +62,7 @@ class PiMegaCommunicator():
         dataPackets.pop(0)
         
         # to update the data fields
+        self.packetId = int(dataPacket.packetId)
         self.handProximity = int(dataPacket.handProximity)
         self.frontProximity = int(dataPacket.frontProximity)
         self.leftProximity = int(dataPacket.leftProximity)
