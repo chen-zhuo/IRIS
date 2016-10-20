@@ -104,6 +104,8 @@ def main():
         
         naviInfo = navigator.getNaviInfo()
         
+        routeIdxOfNextNode = navigator.route[navigator.clearedRouteIdx + 1]
+        routeIdxOfPrevNode = routeIdxOfNextNode - 1
         print('nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
         
         print(stringHelper.INFO + ' heading = ' + str(heading))
