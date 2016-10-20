@@ -83,7 +83,7 @@ def _test():
     piMegaCommunicator.startUp()
     
     print('The first data packet is:')
-    print('   ' + str(piMegaCommunicator.pollData()))
+    print('    ' + str(piMegaCommunicator.pollData()))
 
 if __name__ == '__main__':
     _test()

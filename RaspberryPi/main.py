@@ -22,7 +22,7 @@ def main():
     keypadInput.initKeypad()
     audioOutput.initAudio()
     piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
-    piMegaCommunicator.startup() # <-----------------------------
+    piMegaCommunicator.startUp() # <-----------------------------
     
     print(piMegaCommunicator.pollData())
     print(piMegaCommunicator.pollData())
