@@ -29,34 +29,13 @@ def main():
     print(stringHelper.AUDIO + ' Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
     
-    srcBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInOriginBuildingIdFollowedByTheHashKey')
-    srcBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInOriginBuildingStoreyFollowedByTheHashKey')
     srcNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
             'plsKeyInOriginNodeIdFollowedByTheHashKey')
-    destBuildingId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInDestinationBuildingIdFollowedByTheHashKey')
-    destBuildingStorey = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-        'plsKeyInDestinationBuildingStoreyFollowedByTheHashKey')
     destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-        'plsKeyInDestinationNodeIdFollowedByTheHashKey')
+            'plsKeyInDestinationNodeIdFollowedByTheHashKey')
     
-    print('srcBuildingId = ' + srcBuildingId)
-    print('srcBuildingStorey = ' + srcBuildingStorey)
-    print('srcNodeId = ' + srcNodeId)
-    
-    srcBuildingId = int(srcBuildingId)
-    srcBuildingStorey = int(srcBuildingStorey)
-    srcNodeId = int(srcNodeId)
-    destBuildingId = int(destBuildingId)
-    destBuildingStorey = int(destBuildingStorey)
-    destNodeId = int(destNodeId)
-    
-    srcNodeId += srcBuildingId*1000 + srcBuildingStorey*100
-    destNodeId += destBuildingId*1000 + destBuildingStorey*100
-    print('srcNodeId = ' + str(srcNodeId))
-    print('destNodeId = ' + str(destNodeId))
+    print(stringHelper.INFO + ' srcNodeId = ' + srcNodeId)
+    print(stringHelper.INFO + ' destNodeId = ' + destNodeId)
     
     mapOfCom1Level1 = algorithms.downloadAndParseMap('COM1', 1)
     mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', 2)
