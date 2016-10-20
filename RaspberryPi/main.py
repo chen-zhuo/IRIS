@@ -98,12 +98,12 @@ def main():
             print(stringHelper.AUDIO + ' Turn left.')
             audioOutput.playAudio('turnLeft')
         
-        print(stringHelper.INFO + ' heading = ' + heading)
+        print(stringHelper.INFO + ' heading = ' + str(heading))
         expectedHeading = algorithms.computeBearing(linkedMap[route[routeIdxOfNextNode]].x,
                                                     linkedMap[route[routeIdxOfNextNode]].y,
                                                     linkedMap[route[routeIdxOfPrevNode]].x,
                                                     linkedMap[route[routeIdxOfPrevNode]].y)
-        print(stringHelper.INFO + ' expectedHeading = ' + expectedHeading)
+        print(stringHelper.INFO + ' expectedHeading = ' + str(expectedHeading))
         
         if heading - expectedHeading > 25:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
