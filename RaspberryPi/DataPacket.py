@@ -124,7 +124,7 @@ class DataPacket:
         result += 'leftProximity = ' + str(self.leftProximity) + ' cm\n'
         result += 'rightProximity = ' + str(self.rightProximity) + ' cm\n'
         result += 'distancesList = ' + str(self.distancesList) + ' cm\n'
-        result += 'heading = ' + str(self.heading) + '\u00b0 from north\n'
+        result += 'heading = ' + str(self.heading) + ' degrees from north\n'
         result += 'numStairsClimbed = ' + str(self.numStairsClimbed)
         return result
 
