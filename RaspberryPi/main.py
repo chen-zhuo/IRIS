@@ -93,7 +93,7 @@ def main():
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
-        print(stringHelper.INFO + ' ' + packetId + ' currLocation = ' + str(currLocation))
+        print(stringHelper.INFO + ' ' + str(packetId) + ' currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
         
