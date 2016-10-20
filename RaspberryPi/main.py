@@ -124,10 +124,10 @@ def main():
         print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x)
         print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
         
-        if heading - expectedHeading > 25:
+        if heading - expectedHeading > 25 and heading - expectedHeading < 180:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
             audioOutput.playAudio('adjustYourBearingSlightlyToTheLeft')
-        elif heading - expectedHeading < -25:
+        elif heading - expectedHeading > 180 and heading - expectedHeading < 335:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
             audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
         
