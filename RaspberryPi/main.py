@@ -95,11 +95,12 @@ def main():
         print(stringHelper.INFO + ' currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
-        naviInfo = navigator.getNaviInfo()
         
         if navigator.clearedRouteIdx + 1 == len(navigator.route):
             print(stringHelper.AUDIO + ' Navigation completed.')
             audioOutput.playAudio('navigationCompleted')
+        
+        naviInfo = navigator.getNaviInfo()
         
         print('nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
         
@@ -116,6 +117,10 @@ def main():
                                                     linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
                                                     linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
         print(stringHelper.INFO + ' expectedHeading = ' + str(expectedHeading))
+        print(linkedMap.nodesDict[route[routeIdxOfNextNode]].x)
+        print(linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
+        print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x)
+        print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
         
         if heading - expectedHeading > 25:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
