@@ -82,27 +82,22 @@ def main():
         currLocation = [0, 0]
         currLocation[0] -= distanceWalked_north/math.sqrt(2)
         currLocation[1] += distanceWalked_north/math.sqrt(2)
-        
         currLocation[1] += distanceWalked_northeast
-        
         currLocation[0] += distanceWalked_east/math.sqrt(2)
         currLocation[1] += distanceWalked_east/math.sqrt(2)
-        
         currLocation[0] += distanceWalked_southeast
-        
         currLocation[0] += distanceWalked_south/math.sqrt(2)
         currLocation[1] -= distanceWalked_south/math.sqrt(2)
-        
         currLocation[1] -= distanceWalked_southwest
-        
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
-        
         currLocation[0] -= distanceWalked_northwest
         print(stringHelper.INFO + ' currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
         naviInfo = navigator.getNaviInfo()
+        
+        print('nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
         
         if naviInfo[1] > 67.5 and naviInfo[1] < 180:
             print(stringHelper.AUDIO + ' Turn right.')
