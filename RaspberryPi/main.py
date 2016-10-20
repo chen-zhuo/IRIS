@@ -73,6 +73,16 @@ def main():
         distanceWalked_northwest = piMegaCommunicator.distanceWalked_northwest
         heading = piMegaCommunicator.heading
         
+        print('distanceWalked_north = ' + str(distanceWalked_north))
+        print('distanceWalked_northeast = ' + str(distanceWalked_northeast))
+        print('distanceWalked_east = ' + str(distanceWalked_east))
+        print('distanceWalked_southeast = ' + str(distanceWalked_southeast))
+        print('distanceWalked_south = ' + str(distanceWalked_south))
+        print('distanceWalked_southwest = ' + str(distanceWalked_southwest))
+        print('distanceWalked_west = ' + str(distanceWalked_west))
+        print('distanceWalked_northwest = ' + str(distanceWalked_northwest))
+        print('heading = ' + str(heading))
+        
         currLocation = [0, 0]
         currLocation[0] -= distanceWalked_north/math.sqrt(2)
         currLocation[1] += distanceWalked_north/math.sqrt(2)
