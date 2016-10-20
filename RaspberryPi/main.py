@@ -99,10 +99,10 @@ def main():
             audioOutput.playAudio('turnLeft')
         
         print(stringHelper.INFO + ' heading = ' + str(heading))
-        expectedHeading = algorithms.computeBearing(linkedMap[route[routeIdxOfNextNode]].x,
-                                                    linkedMap[route[routeIdxOfNextNode]].y,
-                                                    linkedMap[route[routeIdxOfPrevNode]].x,
-                                                    linkedMap[route[routeIdxOfPrevNode]].y)
+        expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
+                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
+                                                    linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
+                                                    linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
         print(stringHelper.INFO + ' expectedHeading = ' + str(expectedHeading))
         
         if heading - expectedHeading > 25:
