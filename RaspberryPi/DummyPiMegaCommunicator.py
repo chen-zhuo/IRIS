@@ -10,11 +10,11 @@ from time import sleep
 
 dataPackets = [# at #1211, facing "right"
                DataPacket('0,0,0,0,0,[0,0,0,0,0,0,0,0],135,0;'.encode('utf-8')),
-               # between #1211 and #1214, facing "right" + 45 degrees (need to adjust heading back to "right")
+               # between #1211 and #1214, facing "right" + 45 degrees ("Adjust your bearing slightly to the left.")
                DataPacket('1,0,0,0,0,[0,0,0,700,0,0,0,0],180,0;'.encode('utf-8')),
                # between #1211 and #1214, facing "right"
                DataPacket('2,0,0,0,0,[0,0,0,800,0,0,0,0],135,0;'.encode('utf-8')),
-               # near #1214, facing "right"
+               # near #1214, facing "right" ("Turn right.")
                DataPacket('2,0,0,0,0,[0,0,0,1400,0,0,0,0],135,0;'.encode('utf-8')),
                # at #1214, facing "down"
                DataPacket('2,0,0,0,0,[0,0,0,1462,0,0,0,0],225,0;'.encode('utf-8')),
