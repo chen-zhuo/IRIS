@@ -8,18 +8,14 @@ import algorithms
 import Map
 import math
 
-'''
-@todo
-'''
 class Navigator():
-    def __init__(self, myMap, route, currentX, currentY, currentBearing, stepLength):
+    def __init__(self, myMap, route, currentX, currentY):
         self.myMap = myMap
         self.route = route # a list of node IDs
         self.clearedRouteIdx = 0 # if 'clearedRouteIdx == 3', then the user has cleared the node ID 'route[3]'
         self.currentX = currentX
         self.currentY = currentY
-        self.currentBearing = currentBearing
-        self.stepLength = stepLength # in cm
+        self.currentBearing = 0
         self.threshold = 100
     
     def updateLocation(self, currentX, currentY, currentBearing):

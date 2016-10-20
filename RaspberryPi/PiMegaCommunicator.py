@@ -61,7 +61,7 @@ def testPollData():
     while True:
         dataPacket = communicator.pollData()
         print(dataPacket.packetId)
-        print(dataPacket.gloveProximity)
+        print(dataPacket.handProximity)
         print(dataPacket.frontProximity)
         print(dataPacket.leftProximity)
         print(dataPacket.rightProximity)

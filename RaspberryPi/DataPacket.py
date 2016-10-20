@@ -2,34 +2,37 @@
 This file contains the definition of `DataPacket` object class. A `DataPacket` is instantiated from the transmitted
 bytestream from Arduino Mega. The format of the bytestream should be
 
-    <numPackets>,[<packetId>,<handProximity>,<frontProximity>,<leftProximity>,<rightProximity>,<displacement>,<heading>,
-    <numStairsClimbed>],[ ... ], ... ,[ ... ];
-                        ^~~~~~~       ^~~~~~~
-                        2nd packet    last packet
+    <numPackets>,[<packetId>,<handProximity>,<frontProximity>,<leftProximity>,<rightProximity>,<distancesList>,
+    <heading>,<numStairsClimbed>],[ ... ], ... ,[ ... ];
+                                  ^~~~~~~       ^~~~~~~
+                                  2nd packet    last packet
 
 . Note that <numPackets> should always be 1, unless packet loss occured. The lost packet will be appended behind the
 next packet, and be transmitted during the next data poll. Hence, the format of the bytestream representing one data
 packet is
 
-    <packetId>,<handProximity>,<frontProximity>,<leftProximity>,<rightProximity>,<displacement>,<heading>,
+    <packetId>,<handProximity>,<frontProximity>,<leftProximity>,<rightProximity>,<distancesList>,<heading>,
     <numStairsClimbed>;
 
-. In particular, <displacement> is the user's displacement from previous location (i.e. user location when previous data
-packet was polled) to the current location in the format of
+. In particular, <distancesList> indicates the user's displacement from the starting location to the current location
+in the format of
 
-    [<distance>,<direction>]
+    [<distanceWalked_north>,<distanceWalked_northeast>,<distanceWalked_east>,<distanceWalked_southeast>,
+    <distanceWalked_south>,<distanceWalked_southwest>,<distanceWalked_west>,<distanceWalked_northwest>]
 
-. Note that <direction> and <heading> are in degrees, with respect to geographical north. An example of a data packet is
+. Note that <heading> is in degrees, with respect to geographical north. An example of a data packet is
 
-    233,5,-1,100,100,[50,45],47,0;
+    233,5,-1,100,100,[0,50,0,0,0,0,0,0],45,0;
 
 , which means that this packet has an ID of 233, the current hand proximity is 5cm, front proximity is out of sensor
-range (i.e. no obstacles in front), left and right proximities are 100cm, the user has walked 50cm north-east since
-previous data packet was polled, the uers's current heading is 47 degrees clockwise from north, and the user did not
-climb any stairs since the previous data packet was polled.
+range (i.e. no obstacles in front), left and right proximities are 100cm, the user's current location is 50cm north-east
+from the starting location, the uers's current heading is 47 degrees clockwise from north, and the user did not climb
+any stairs since the start of navigation.
 
 @author: chen-zhuo
 '''
+
+import stringHelper
 
 class DataPacket:
     '''
@@ -41,7 +44,7 @@ class DataPacket:
         self.frontProximity = ''
         self.leftProximity = ''
         self.rightProximity = ''
-        self.displacement = ['', '']
+        self.distancesList = ['', '', '', '', '', '', '', '']
         self.heading = ''
         self.numStairsClimbed = ''
         
@@ -81,17 +84,23 @@ class DataPacket:
             i = i + 1
         self.rightProximity = int(self.rightProximity)
         
-        # to parse `displacement`
+        # to parse `distancesList`
         i = i + 2
         while chr(bytestream[i]) != ',':
-            self.displacement[0] += chr(bytestream[i])
+            self.distancesList[0] += chr(bytestream[i])
             i = i + 1
-        self.displacement[0] = int(self.displacement[0])
+        self.distancesList[0] = int(self.distancesList[0])
+        for j in range(1, 7):
+            i = i + 1
+            while chr(bytestream[i]) != ',':
+                self.distancesList[j] += chr(bytestream[i])
+                i = i + 1
+            self.distancesList[j] = int(self.distancesList[j])
         i = i + 1
         while chr(bytestream[i]) != ']':
-            self.displacement[1] += chr(bytestream[i])
+            self.distancesList[7] += chr(bytestream[i])
             i = i + 1
-        self.displacement[1] = int(self.displacement[1])
+        self.distancesList[7] = int(self.distancesList[7])
         
         # to parse `heading`
         i = i + 2
@@ -114,22 +123,18 @@ class DataPacket:
         result += 'frontProximity = ' + str(self.frontProximity) + ' cm\n'
         result += 'leftProximity = ' + str(self.leftProximity) + ' cm\n'
         result += 'rightProximity = ' + str(self.rightProximity) + ' cm\n'
-        result += 'displacement = ' + str(self.displacement[0]) + ' cm, ' + \
-                                      str(self.displacement[1]) + '\u00b0 from north\n'
+        result += 'distancesList = ' + str(self.distancesList) + ' cm\n'
         result += 'heading = ' + str(self.heading) + '\u00b0 from north\n'
         result += 'numStairsClimbed = ' + str(self.numStairsClimbed)
         return result
-    
-    def format(self, indent=0):
-        return '2'
 
 def test():
-    bytestream = '233,5,-1,100,100,[50,45],47,0;'
-    dataPacket = str(DataPacket(bytestream.encode('utf_8')))
+    bytestream = '233,5,-1,100,100,[0,50,0,0,0,0,0,0],45,0;'
+    dataPacket = str(DataPacket(bytestream.encode('utf-8')))
     dataPacket = dataPacket.replace('\n', '\n    ') # add indentation
     
-    print('Input Bytestream:\n    ' + bytestream)
-    print('Parsed Data:\n    ' + dataPacket)
+    print(stringHelper.INFO + ' Input Bytestream:\n    ' + bytestream)
+    print(stringHelper.INFO + ' Parsed Data:\n    ' + dataPacket)
 
 if __name__ == '__main__':
     test()

@@ -8,16 +8,39 @@ from DataPacket import DataPacket
 import stringHelper
 from time import sleep
 
-dataPackets = [DataPacket('0,233,233,100,100,[1000,135],135,0;'.encode('utf_8')), # between 1211 and 1214
-               DataPacket('1,233,233,100,100,[1002,135],135,0;'.encode('utf_8')), # at 1214
-               DataPacket('2,233,233,100,100,[244,225],225,0;'.encode('utf_8')), # at 1237
-               DataPacket('3,233,233,100,100,[812,225],135,0;'.encode('utf_8')), # at 1216
+dataPackets = [# at #1211, facing "right"
+               DataPacket('0,0,0,0,0,[0,0,0,0,0,0,0,0],135,0;'.encode('utf-8')),
+               # between #1211 and #1214, facing "right" + 45 degrees (need to adjust heading back to "right")
+               DataPacket('1,0,0,0,0,[0,0,0,700,0,0,0,0],180,0;'.encode('utf-8')),
+               # between #1211 and #1214, facing "right"
+               DataPacket('2,0,0,0,0,[0,0,0,800,0,0,0,0],135,0;'.encode('utf-8')),
+               # near #1214, facing "right"
+               DataPacket('2,0,0,0,0,[0,0,0,1400,0,0,0,0],135,0;'.encode('utf-8')),
+               # at #1214, facing "down"
+               DataPacket('2,0,0,0,0,[0,0,0,1462,0,0,0,0],225,0;'.encode('utf-8')),
+               # at #1237, facing "down"
+               DataPacket('3,0,0,0,0,[0,0,0,1462,0,244,0,0],135,0;'.encode('utf-8')),
+               # between #1237 and #1216, facing "down", slightly deviated from graph edge
+               DataPacket('3,0,0,0,0,[0,0,0,1662,0,644,0,0],135,0;'.encode('utf-8')),
+               # at #1216; destination reached
+               DataPacket('3,0,0,0,0,[0,0,0,1462,0,1056,0,0],135,0;'.encode('utf-8'))
               ]
 
 class PiMegaCommunicator():
     def __init__(self):
-        # initialize serial
-        pass
+        self.handProximity = 0
+        self.frontProximity = 0
+        self.leftProximity = 0
+        self.rightProximity = 0
+        self.distanceWalked_north = 0
+        self.distanceWalked_northeast = 0
+        self.distanceWalked_east = 0
+        self.distanceWalked_southeast = 0
+        self.distanceWalked_south = 0
+        self.distanceWalked_southwest = 0
+        self.distanceWalked_west = 0
+        self.distanceWalked_northwest = 0
+        self.heading = 0
     
     def startUp(self):
         # Pi sends `MSG_HELLO` to Mega.
@@ -37,19 +60,20 @@ class PiMegaCommunicator():
         dataPacket = dataPackets[0]
         dataPackets.pop(0)
         
-        # to process the data packet
-        processedDataDict = {}
-        processedDataDict['packetId'] = int(dataPacket.packetId)
-        processedDataDict['handProximity'] = int(dataPacket.handProximity)
-        processedDataDict['frontProximity'] = int(dataPacket.frontProximity)
-        processedDataDict['leftProximity'] = int(dataPacket.leftProximity)
-        processedDataDict['rightProximity'] = int(dataPacket.rightProximity)
-        processedDataDict['distance'] = int(dataPacket.displacement[0])
-        processedDataDict['direction'] = int(dataPacket.displacement[1])
-        processedDataDict['heading'] = int(dataPacket.heading)
-        processedDataDict['numStairsClimbed'] = int(dataPacket.numStairsClimbed)
-        
-        return processedDataDict
+        # to update the data fields
+        self.handProximity = int(dataPacket.handProximity)
+        self.frontProximity = int(dataPacket.frontProximity)
+        self.leftProximity = int(dataPacket.leftProximity)
+        self.rightProximity = int(dataPacket.rightProximity)
+        self.distanceWalked_north = int(dataPacket.distancesList[0])
+        self.distanceWalked_northeast = int(dataPacket.distancesList[1])
+        self.distanceWalked_east = int(dataPacket.distancesList[2])
+        self.distanceWalked_southeast = int(dataPacket.distancesList[3])
+        self.distanceWalked_south = int(dataPacket.distancesList[4])
+        self.distanceWalked_southwest = int(dataPacket.distancesList[5])
+        self.distanceWalked_west = int(dataPacket.distancesList[6])
+        self.distanceWalked_northwest = int(dataPacket.distancesList[7])
+        self.heading = int(dataPacket.heading)
 
 def _test():
     piMegaCommunicator = PiMegaCommunicator()

@@ -11,10 +11,10 @@ class Logger:
     def __init__(self):
         return
     
-    def writeToFile():
+    def writeToFile(self):
         return
     
-    def readFromFile():
+    def readFromFile(self):
         return
     
 
