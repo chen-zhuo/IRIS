@@ -74,6 +74,8 @@ class PiMegaCommunicator():
         self.distanceWalked_west = int(dataPacket.distancesList[6])
         self.distanceWalked_northwest = int(dataPacket.distancesList[7])
         self.heading = int(dataPacket.heading)
+        
+        return dataPacket
 
 def _test():
     piMegaCommunicator = PiMegaCommunicator()
