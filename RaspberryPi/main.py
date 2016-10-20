@@ -33,6 +33,8 @@ def main():
             'plsKeyInOriginNodeIdFollowedByTheHashKey')
     destNodeId = keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
             'plsKeyInDestinationNodeIdFollowedByTheHashKey')
+    srcNodeId = int(srcNodeId)
+    destNodeId = int(destNodeId)
     
     print(stringHelper.INFO + ' srcNodeId = ' + srcNodeId)
     print(stringHelper.INFO + ' destNodeId = ' + destNodeId)
@@ -41,13 +43,7 @@ def main():
     mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', 2)
     mapOfCom2Level2 = algorithms.downloadAndParseMap('COM2', 2)
     mapOfCom2Level3 = algorithms.downloadAndParseMap('COM2', 3)
-#     linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
-    
-    print('\n=============== Adjacency List for Linked Map ===============\n')
     linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
-    for node in linkedMap.nodesDict.values():
-        print(str(node.nodeId) + ': ' + str(sorted(list(node.adjacentNodes.keys()))))
-    print('\n==================================================\n')
     
     route = algorithms.computeRoute(linkedMap, 1211, 1216)
     print('Route: ', end='')
