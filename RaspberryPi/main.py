@@ -125,7 +125,7 @@ def main():
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
             audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
         
-        sleep(10)
+        sleep(5)
     
     # =========================== NAVIGATION END ===========================================
     
