@@ -27,3 +27,8 @@ default setting is 0 which is automatic. To change the volume, enter
     - In Terminal, enter `sudo nano /etc/profile`, and then append your script, for example:
         - `cd ~/Desktop/IRIS/RaspberryPi`
         - `python3 ~/Desktop/IRIS/RaspberryPi/main.py`
+
+## Credits
+
+### Text-To-Speech Audio Files Generator
+- http://www.fromtexttospeech.com
