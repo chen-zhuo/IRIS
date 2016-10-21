@@ -28,7 +28,10 @@ default setting is 0 which is automatic. To change the volume, enter
         - `cd ~/Desktop/IRIS/RaspberryPi`
         - `python3 ~/Desktop/IRIS/RaspberryPi/main.py`
 
-## Credits
+## References
 
 ### Text-To-Speech Audio Files Generator
 - http://www.fromtexttospeech.com
+
+### Raspberry Pi GPIO Pins
+- https://www.raspberrypi.org/documentation/usage/gpio/
