@@ -130,7 +130,7 @@ def main():
         else:
             print(stringHelper.AUDIO + ' Adjust heading: ' + str(expectedHeading - heading) + ' degrees.')
             audioOutput.playAudio('adjustHeading')
-            audioOutput.playNum(expectedHeading - heading)
+            audioOutput.playInt(expectedHeading - heading)
             audioOutput.playAudio('degrees')
         
         sleep(5)
