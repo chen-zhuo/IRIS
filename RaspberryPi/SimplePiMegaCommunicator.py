@@ -34,7 +34,7 @@ class PiMegaCommunicator():
         self.port.write(bytes('H', 'utf-8')) # send HELLO
         print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
         
-        msgReceived = ''
+#         msgReceived = ''
 #         while msgReceived == '':
 #             print(stringHelper.MESSAGE + ' Reading...')
 #             msgReceived = self.port.read().decode('utf-8')
