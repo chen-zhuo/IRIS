@@ -4,7 +4,7 @@ visually-impaired person.
 
 ## Setting Up the Raspberry Pi
 
-#### Install mpg123 MP3 Player
+### Install mpg123 MP3 Player
 - `sudo apt-get update`
 - `sudo apt-get install alsa-utils mpg123`
 - `sudo reboot`
@@ -16,11 +16,11 @@ default setting is 0 which is automatic. To change the volume, enter
 
     amixer set PCM -- 85%
 
-#### Clone This Repository
+### Clone This Repository
 - `cd ~/Desktop`
 - `git clone https://github.com/chen-zhuo/IRIS.git`
 
-#### Configure the Raspberry Pi to Run a Python File Upon Boot
+### Configure the Raspberry Pi to Run a Python File Upon Boot
 - Ensure that the boot option is set to “Console Autologin”, and “Wait for Network at Boot” is enabled.
     - In Terminal, enter `sudo raspi-config` to enter the configuration panel.
 - Add autorun script to the “profile” file
@@ -30,5 +30,5 @@ default setting is 0 which is automatic. To change the volume, enter
 
 ## Credits
 
-#### Text-To-Speech Audio Files Generator
+### Text-To-Speech Audio Files Generator
 - http://www.fromtexttospeech.com
