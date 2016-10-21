@@ -49,7 +49,7 @@ class PiMegaCommunicator():
         
         
         print ('Saying Hello')
-        self.port.write(bytes('H', 'UTF-8'))
+        self.port.write(bytes('H', 'UTF-8')) # <------------------
         print ('Arduino is reading..')
         
         while True:
@@ -61,7 +61,7 @@ class PiMegaCommunicator():
                 print('Pi reads:')
                 print(ch.decode('utf-8'))
                 print('Sending ACK')
-                self.port.write(bytes('A', 'UTF-8'))
+                self.port.write(bytes('A', 'UTF-8')) # <------------------
                 print ('Mega is ready')
                 break
     
