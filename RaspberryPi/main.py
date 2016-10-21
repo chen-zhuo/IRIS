@@ -21,8 +21,6 @@ def main():
     
     keypadInput.initKeypad()
     audioOutput.initAudio()
-    piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
-    piMegaCommunicator.startUp() # <-----------------------------
     
     print(stringHelper.AUDIO + ' Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
@@ -47,6 +45,9 @@ def main():
     print(route[len(route) - 1])
     
     # =========================== NAVIGATION START ===========================================
+    
+    piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
+    piMegaCommunicator.startUp() # <-----------------------------
     
     isNavigationInProgress = True
     currBuildingId = int(str(srcNodeId)[0])
