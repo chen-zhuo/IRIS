@@ -120,6 +120,8 @@ def main():
                                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
         stepsRemainingToNextNode = straightLineDistanceToNextNode//40
         print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
+        audioOutput.playInt(str(stepsRemainingToNextNode))
+        audioOutput.playAudio('stepsToNextNode')
         
         
         # to give turning instructions

@@ -116,6 +116,7 @@ def initAudio():
     audioDict['left'] = './AudioFiles/left.mp3'
     audioDict['right'] = './AudioFiles/right.mp3'
     audioDict['degrees'] = './AudioFiles/degrees.mp3'
+    audioDict['stepsToNextNode'] = './AudioFiles/stepsToNextNode.mp3'
     
     audioDict['0'] = './AudioFiles/0.mp3'
     audioDict['1'] = './AudioFiles/1.mp3'
@@ -164,6 +165,7 @@ def initAudio():
     audioTextDict['left'] = 'left'
     audioTextDict['right'] = 'right'
     audioTextDict['degrees'] = 'degrees'
+    audioTextDict['stepsToNextNode'] = 'steps to next node'
     
     audioTextDict['0'] = '0'
     audioTextDict['1'] = '1'
