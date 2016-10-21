@@ -118,7 +118,7 @@ def main():
                                                                     currLocation[1],
                                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
                                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
-        stepsRemainingToNextNode = straightLineDistanceToNextNode//40
+        stepsRemainingToNextNode = int(straightLineDistanceToNextNode//40)
         print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
         audioOutput.playInt(str(stepsRemainingToNextNode))
         audioOutput.playAudio('stepsToNextNode')
@@ -141,9 +141,9 @@ def main():
                 audioOutput.playAudio('adjustHeading')
                 audioOutput.playAudio('right')
         else:
-            print(stringHelper.AUDIO + ' Adjust heading: ' + str(int(expectedHeading - heading)) + ' degrees.')
+            print(stringHelper.AUDIO + ' Adjust heading: ' + str(expectedHeading - heading) + ' degrees.')
             audioOutput.playAudio('adjustHeading')
-            audioOutput.playInt(int(expectedHeading - heading))
+            audioOutput.playInt(expectedHeading - heading)
             audioOutput.playAudio('degrees')
         
         sleep(5)
