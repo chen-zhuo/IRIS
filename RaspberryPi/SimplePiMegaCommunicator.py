@@ -35,14 +35,28 @@ class PiMegaCommunicator():
         print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
         
         msgReceived = ''
-        while msgReceived == '':
+#         while msgReceived == '':
+#             print(stringHelper.MESSAGE + ' Reading...')
+#             msgReceived = self.port.read().decode('utf-8')
+#         if msgReceived == 'A': # if ACK is received
+#             print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega.')
+#             self.port.write(bytes('A', 'utf-8')) # send ACK
+#             print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent ACK to Mega. Three-way handshake is done.')
+#         else: # if ACK is not received
+#             print(stringHelper.ERROR + ' at PiMegaCommunicator.startUp(): Pi did not receive ACK from Mega.')
+        
+        
+        
+        
+        while True:
+            print(stringHelper.MESSAGE + ' Reading...')
             msgReceived = self.port.read().decode('utf-8')
-        if msgReceived == 'A': # if ACK is received
-            print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega.')
-            self.port.write(bytes('A', 'utf-8')) # send ACK
-            print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent ACK to Mega. Three-way handshake is done.')
-        else: # if ACK is not received
-            print(stringHelper.ERROR + ' at PiMegaCommunicator.startUp(): Pi did not receive ACK from Mega.')
+            print(stringHelper.MESSAGE + ' ' + str(msgReceived))
+            if msgReceived == 'A':
+                print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega.')
+                self.port.write(bytes('A', 'utf-8')) # send ACK
+                print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent ACK to Mega. Three-way handshake is done.')
+                break
     
     def pollData(self):
         self.port.write(bytes('P', 'utf-8')) # send POLL
