@@ -113,6 +113,16 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].x) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
+        # to give steps remaining instructions
+        straightLineDistanceToNextNode = algorithms.computeDistance(currLocation[0],
+                                                                    currLocation[1],
+                                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
+                                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
+        stepsRemainingToNextNode = straightLineDistanceToNextNode//40
+        print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
+        
+        
+        # to give turning instructions
         if packetId != 0:
             if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
                 print(stringHelper.AUDIO + ' Adjust heading: left')
