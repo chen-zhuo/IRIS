@@ -54,7 +54,7 @@ def playAudio(audioName):
 
 def playInt(num):
     for i in range(len(str(num))):
-        playAudio(num[i])
+        playAudio(str(num)[i])
 
 '''
 Defines `playAudioQueueThread` which is started by `initAudio()`.
