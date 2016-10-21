@@ -112,18 +112,21 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].x) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
-        if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
-            print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
-            audioOutput.playAudio('adjustYourBearingSlightlyToTheLeft')
-        elif heading - expectedHeading > 67.5 and heading - expectedHeading < 180:
-            print(stringHelper.AUDIO + ' Turn left.')
-            audioOutput.playAudio('turnLeft')
-        elif heading - expectedHeading < -67.5 and heading - expectedHeading > -180:
-            print(stringHelper.AUDIO + ' Turn right.')
-            audioOutput.playAudio('turnRight')
-        elif heading - expectedHeading > -67.5 and heading - expectedHeading < -22.5:
-            print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
-            audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
+        if packetId != 0:
+            if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
+                print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
+                audioOutput.playAudio('adjustYourBearingSlightlyToTheLeft')
+            elif heading - expectedHeading > 67.5 and heading - expectedHeading < 180:
+                print(stringHelper.AUDIO + ' Turn left.')
+                audioOutput.playAudio('turnLeft')
+            elif heading - expectedHeading < -67.5 and heading - expectedHeading > -180:
+                print(stringHelper.AUDIO + ' Turn right.')
+                audioOutput.playAudio('turnRight')
+            elif heading - expectedHeading > -67.5 and heading - expectedHeading < -22.5:
+                print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
+                audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
+        else:
+            print('Adjust heading: ' + str(heading - expectedHeading) + ' degrees.')
         
         sleep(5)
     
