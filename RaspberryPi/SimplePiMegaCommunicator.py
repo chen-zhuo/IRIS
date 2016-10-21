@@ -56,8 +56,8 @@ class PiMegaCommunicator():
         while True:
             #ch = self.readlineCR()
             ch = self.port.read()
-            print('ch (decoded)= ' + str(ch.decode('utf-8')))
-            print('ch (as-is) = ' + str(ch.decode('utf-8')))
+#             print('ch (decoded)= ' + str(ch.decode('utf-8')))
+#             print('ch (as-is) = ' + str(ch.decode('utf-8')))
             if ch == b'A':
                 print('Pi reads:')
                 print(ch.decode('utf-8'))
