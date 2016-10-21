@@ -18,7 +18,7 @@ class Navigator():
         self.currentX = currentX
         self.currentY = currentY
         self.currentBearing = 0
-        self.threshold = 100
+        self.threshold = 50
     
     def updateLocation(self, currentX, currentY, currentBearing):
         self.currentX = currentX
