@@ -53,6 +53,9 @@ def playAudio(audioName):
         print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
 def playInt(num):
+    if str(num)[0] == '-':
+        playAudio('negative')
+        num = str(num)[1:]
     for i in range(len(str(num))):
         playAudio(str(num)[i])
 
@@ -113,6 +116,7 @@ def initAudio():
     audioDict['adjustYourBearingSlightlyToTheLeft'] = './AudioFiles/adjustYourBearingSlightlyToTheLeft.mp3'
     audioDict['adjustYourBearingSlightlyToTheRight'] = './AudioFiles/adjustYourBearingSlightlyToTheRight.mp3'
     audioDict['adjustHeading'] = './AudioFiles/adjustHeading.mp3'
+    audioDict['negative'] = './AudioFiles/negative.mp3'
     audioDict['left'] = './AudioFiles/left.mp3'
     audioDict['right'] = './AudioFiles/right.mp3'
     audioDict['degrees'] = './AudioFiles/degrees.mp3'
@@ -162,6 +166,7 @@ def initAudio():
     audioTextDict['adjustYourBearingSlightlyToTheLeft'] = 'Adjust your bearing slightly to the left.'
     audioTextDict['adjustYourBearingSlightlyToTheRight'] = 'Adjust your bearing slightly to the right.'
     audioTextDict['adjustHeading'] = 'Adjust heading: '
+    audioTextDict['negative'] = 'negative'
     audioTextDict['left'] = 'left'
     audioTextDict['right'] = 'right'
     audioTextDict['degrees'] = 'degrees'
