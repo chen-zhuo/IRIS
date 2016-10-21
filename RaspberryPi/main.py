@@ -114,15 +114,15 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
         # to give steps remaining instructions
-        straightLineDistanceToNextNode = algorithms.computeDistance(currLocation[0],
-                                                                    currLocation[1],
-                                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
-                                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
-        stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
-        print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
-        audioOutput.playInt(str(int(stepsRemainingToNextNode)))
-        audioOutput.playAudio('stepsToNextNode')
-        
+        if packetId % 10 == 0:
+            straightLineDistanceToNextNode = algorithms.computeDistance(currLocation[0],
+                                                                        currLocation[1],
+                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
+                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
+            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
+            print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
+            audioOutput.playInt(str(int(stepsRemainingToNextNode)))
+            audioOutput.playAudio('stepsToNextNode')
         
         # to give turning instructions
         if packetId != 0:
