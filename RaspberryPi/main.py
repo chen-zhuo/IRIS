@@ -107,10 +107,10 @@ def main():
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
                                                     ) + 45
         print('expectedHeading = ' + str(expectedHeading))
-        print(stringHelper.INFO + ' prevNode -> nextNode = (' + linkedMap.nodesDict[route[routeIdxOfPrevNode]].x +
-              ', ' + linkedMap.nodesDict[route[routeIdxOfPrevNode]].y + ') -> (' +
-              linkedMap.nodesDict[route[routeIdxOfNextNode]].x + ', ' +
-              linkedMap.nodesDict[route[routeIdxOfNextNode]].y + ')')
+        print(stringHelper.INFO + ' prevNode -> nextNode = (' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x) +
+              ', ' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y) + ') -> (' +
+              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].x) + ', ' +
+              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
         if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
