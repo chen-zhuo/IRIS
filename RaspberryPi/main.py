@@ -11,7 +11,7 @@ import audioOutput
 import keypadInput
 import math
 from Navigator import Navigator
-from SimplePiMegaCommunicator import PiMegaCommunicator # <-----------------------------
+from DummyPiMegaCommunicator import PiMegaCommunicator # <-----------------------------
 import stringHelper
 # from threading import Thread
 from time import sleep

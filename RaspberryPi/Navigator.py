@@ -30,6 +30,7 @@ class Navigator():
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).y) < self.threshold:
             self.clearedRouteIdx = self.clearedRouteIdx + 1
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
+            audioOutput.playAudio('reachedNewNodeSoundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playAudio('nodeId')
             audioOutput.playInt(self.route[self.clearedRouteIdx])
