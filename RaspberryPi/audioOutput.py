@@ -245,7 +245,7 @@ def _test():
     
     print(stringHelper.AUDIO + ' ' + audioTextDict['adjustYourBearingSlightlyToTheRight'])
     playAudio('adjustYourBearingSlightlyToTheRight')
-    playAudio('reachedNewNodeSoundEffect')
+    
     sleep(9)
     
     closeAudioThread()
