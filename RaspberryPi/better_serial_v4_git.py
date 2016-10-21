@@ -79,11 +79,11 @@ class MegaCommunicator():
         if (self.theorySum != self.checkSum):
             print ('CheckSum Error: please poll again')
             self.check_flag = 0
-            self.port.write(bytes('N', 'UTF-8'))
+            #self.port.write(bytes('N', 'UTF-8'))
         else:
             print ('Data successfully polled')
             self.check_flag = 1
-            self.port.write(bytes('A', 'UTF-8'))
+            #self.port.write(bytes('A', 'UTF-8'))
 ###TEST
 test = MegaCommunicator()
 test.startup()
@@ -120,7 +120,7 @@ for i in range (20):
     print (test.distance_W)
     print (test.distance_NW)
     print (test.orientation_tag)
-    test.checkError()
+    #test.checkError()
     while (test.check_flag == 0):
         print (test.gloveSensor)
         print (test.frontSensor)
