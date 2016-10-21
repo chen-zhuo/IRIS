@@ -41,7 +41,7 @@ def main():
     linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
     
     route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
-    print('Route: ', end='')
+    print(stringHelper.INFO + ' Route: ', end='')
     for i in range(len(route) - 1):
         print(str(route[i]) + ' -> ', end = "")
     print(route[len(route) - 1])
@@ -70,16 +70,6 @@ def main():
         distanceWalked_northwest = piMegaCommunicator.distanceWalked_northwest
         heading = piMegaCommunicator.heading
         
-        print('distanceWalked_north = ' + str(distanceWalked_north))
-        print('distanceWalked_northeast = ' + str(distanceWalked_northeast))
-        print('distanceWalked_east = ' + str(distanceWalked_east))
-        print('distanceWalked_southeast = ' + str(distanceWalked_southeast))
-        print('distanceWalked_south = ' + str(distanceWalked_south))
-        print('distanceWalked_southwest = ' + str(distanceWalked_southwest))
-        print('distanceWalked_west = ' + str(distanceWalked_west))
-        print('distanceWalked_northwest = ' + str(distanceWalked_northwest))
-        print('heading = ' + str(heading))
-        
         currLocation = [linkedMap.nodesDict[srcNodeId].x, linkedMap.nodesDict[srcNodeId].y]
         currLocation[0] -= distanceWalked_north/math.sqrt(2)
         currLocation[1] += distanceWalked_north/math.sqrt(2)
@@ -93,7 +83,8 @@ def main():
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
-        print(stringHelper.INFO + ' ' + str(packetId) + ' currLocation = ' + str(currLocation))
+        print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
+        print('currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
         
@@ -106,15 +97,15 @@ def main():
         
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = routeIdxOfNextNode - 1
-        print('nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
+        print(stringHelper.INFO + ' nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
         
-        print(stringHelper.INFO + ' heading = ' + str(heading))
+        print(stringHelper.INFO + ' heading = ' + str(heading) + ', ', end='')
         expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
                                                     linkedMap.nodesDict[route[routeIdxOfPrevNode]].y,
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
                                                     ) + 45
-        print(stringHelper.INFO + ' expectedHeading = ' + str(expectedHeading))
+        print('expectedHeading = ' + str(expectedHeading))
         print(linkedMap.nodesDict[route[routeIdxOfNextNode]].x)
         print(linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
         print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x)
