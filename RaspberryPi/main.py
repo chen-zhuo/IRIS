@@ -83,6 +83,7 @@ def main():
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
+        print('\n==================================================\n')
         print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
         print('currLocation = ' + str(currLocation))
         
@@ -106,10 +107,10 @@ def main():
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
                                                     ) + 45
         print('expectedHeading = ' + str(expectedHeading))
-        print(linkedMap.nodesDict[route[routeIdxOfNextNode]].x)
-        print(linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
-        print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x)
-        print(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y)
+        print(stringHelper.INFO + ' prevNode -> nextNode = (' + linkedMap.nodesDict[route[routeIdxOfPrevNode]].x +
+              ', ' + linkedMap.nodesDict[route[routeIdxOfPrevNode]].y + ') -> (' +
+              linkedMap.nodesDict[route[routeIdxOfNextNode]].x + ', ' +
+              linkedMap.nodesDict[route[routeIdxOfNextNode]].y + ')')
         
         if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
             print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
