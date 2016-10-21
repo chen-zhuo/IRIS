@@ -70,7 +70,12 @@ class PiMegaCommunicator():
     def pollData(self):
         self.port.write(bytes('P', 'utf-8')) # send POLL
         # @author chen-zhuo: possible logic error here; data might not be ready yet right after sending POLL
-        self.packetId = int(self.port.readline().decode('utf-8').replace('\r\n',''))
+
+        msg = ''
+        while msg == '':
+            print('in while loop')
+            msg = self.port.readline().decode('utf-8').replace('\r\n','')
+        self.packetId = int(msg)
         self.handProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
 #         self.frontProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.leftProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
@@ -84,7 +89,7 @@ class PiMegaCommunicator():
         self.distanceWalked_west = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.distanceWalked_northwest = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.heading = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.checksum = int(self.port.readline().decode('utf-8').replace('\r\n',''))
+        #self.checksum = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         
         print(stringHelper.INFO + ' ' + str(self.handProximity) + ', ' + str(self.frontProximity) + ', ' +
               str(self.leftProximity) + ', ' + str(self.rightProximity) + ', [' + str(self.distanceWalked_north) +

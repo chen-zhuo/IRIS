@@ -53,6 +53,7 @@ def playAudio(audioName):
         print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
 def playInt(num):
+    num = int(num)
     if str(num)[0] == '-':
         playAudio('negative')
         num = str(num)[1:]

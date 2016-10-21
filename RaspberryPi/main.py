@@ -118,7 +118,7 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
         # to give steps remaining instructions
-        if packetId % 10 == 0 and packetId != 0:
+        if packetId % 7 == 0 and packetId != 0:
             straightLineDistanceToNextNode = algorithms.computeDistance(currLocation[0],
                                                                         currLocation[1],
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
@@ -168,7 +168,7 @@ def main():
         
         
         
-        sleep(2)
+        sleep(5)
     
     # =========================== NAVIGATION END ===========================================
     
