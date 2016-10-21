@@ -69,7 +69,7 @@ class PiMegaCommunicator():
         self.port.write(bytes('P', 'utf-8')) # send POLL
         # @author chen-zhuo: possible logic error here; data might not be ready yet right after sending POLL 
         self.handProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.frontProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
+#         self.frontProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.leftProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.rightProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.distanceWalked_north = int(self.port.readline().decode('utf-8').replace('\r\n',''))
