@@ -114,7 +114,7 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
         # to give steps remaining instructions
-        if packetId % 10 == 0:
+        if packetId % 10 == 0 and packetId != 0:
             straightLineDistanceToNextNode = algorithms.computeDistance(currLocation[0],
                                                                         currLocation[1],
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
@@ -146,7 +146,7 @@ def main():
             audioOutput.playInt(expectedHeading - heading)
             audioOutput.playAudio('degrees')
         
-        sleep(5)
+        sleep(3)
     
     # =========================== NAVIGATION END ===========================================
     
