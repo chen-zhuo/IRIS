@@ -47,7 +47,7 @@ def main():
     # =========================== NAVIGATION START ===========================================
     
     piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
-    piMegaCommunicator.startUp() # <-----------------------------
+#     piMegaCommunicator.startUp() # <-----------------------------
     
     isNavigationInProgress = True
     currBuildingId = int(str(srcNodeId)[0])
