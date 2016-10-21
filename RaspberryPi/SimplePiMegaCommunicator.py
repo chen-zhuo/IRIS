@@ -31,8 +31,8 @@ class PiMegaCommunicator():
     
     # three-way handshake
     def startUp(self):
-        self.port.write(bytes('H', 'utf-8')) # send HELLO
-        print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
+#         self.port.write(bytes('H', 'utf-8')) # send HELLO
+#         print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
         
 #         msgReceived = ''
 #         while msgReceived == '':
