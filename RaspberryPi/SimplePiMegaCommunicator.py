@@ -51,7 +51,7 @@ class PiMegaCommunicator():
         while True:
             print(stringHelper.MESSAGE + ' Reading...')
             msgReceived = self.port.read().decode('utf-8')
-            print(stringHelper.MESSAGE + ' ' + str(msgReceived))
+            print(stringHelper.MESSAGE + ' msgRecevied = ' + str(msgReceived))
             if msgReceived == 'A':
                 print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega.')
                 self.port.write(bytes('A', 'utf-8')) # send ACK
