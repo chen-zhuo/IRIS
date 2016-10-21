@@ -32,12 +32,14 @@ def main():
     print(stringHelper.INFO + ' srcNodeId = ' + str(srcNodeId))
     print(stringHelper.INFO + ' destNodeId = ' + str(destNodeId))
     
+    #--------------------------------------------------------------------------------
+    
     mapOfCom1Level1 = algorithms.downloadAndParseMap('COM1', 1)
     mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', 2)
     mapOfCom2Level2 = algorithms.downloadAndParseMap('COM2', 2)
     mapOfCom2Level3 = algorithms.downloadAndParseMap('COM2', 3)
     linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
-    
+    print('lalala')
     route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
     print(stringHelper.INFO + ' Route: ', end='')
     for i in range(len(route) - 1):
