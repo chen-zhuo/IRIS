@@ -53,7 +53,7 @@ def playAudio(audioName):
         print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
 def playInt(num):
-    for i in range(len(num)):
+    for i in range(len(str(num))):
         playAudio(num[i])
 
 '''
