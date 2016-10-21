@@ -7,6 +7,8 @@ This file defines the `Navigator` object class.
 import algorithms
 import Map
 import math
+import stringHelper
+import audioOutput
 
 class Navigator():
     def __init__(self, myMap, route, currentX, currentY):
@@ -27,6 +29,10 @@ class Navigator():
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).x,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).y) < self.threshold:
             self.clearedRouteIdx = self.clearedRouteIdx + 1
+            print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
+            audioOutput.playAudio('reached')
+            audioOutput.playAudio('nodeId')
+            audioOutput.playInt(self.route[self.clearedRouteIdx])
     
     def getNaviInfo(self):
         distance = algorithms.computeDistance(self.currentX, self.currentY,

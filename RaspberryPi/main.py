@@ -11,7 +11,7 @@ import audioOutput
 import keypadInput
 import math
 from Navigator import Navigator
-from SimplePiMegaCommunicator import PiMegaCommunicator # <-----------------------------
+from DummyPiMegaCommunicator import PiMegaCommunicator # <-----------------------------
 import stringHelper
 # from threading import Thread
 from time import sleep
@@ -32,14 +32,12 @@ def main():
     print(stringHelper.INFO + ' srcNodeId = ' + str(srcNodeId))
     print(stringHelper.INFO + ' destNodeId = ' + str(destNodeId))
     
-    #--------------------------------------------------------------------------------
-    
     mapOfCom1Level1 = algorithms.downloadAndParseMap('COM1', 1)
     mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', 2)
     mapOfCom2Level2 = algorithms.downloadAndParseMap('COM2', 2)
     mapOfCom2Level3 = algorithms.downloadAndParseMap('COM2', 3)
     linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
-    print('lalala')
+    
     route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
     print(stringHelper.INFO + ' Route: ', end='')
     for i in range(len(route) - 1):
@@ -62,7 +60,7 @@ def main():
     while isNavigationInProgress:
         piMegaCommunicator.pollData() # <-----------------------------
         
-#         packetId = piMegaCommunicator.packetId
+        packetId = piMegaCommunicator.packetId
         distanceWalked_north = piMegaCommunicator.distanceWalked_north
         distanceWalked_northeast = piMegaCommunicator.distanceWalked_northeast
         distanceWalked_east = piMegaCommunicator.distanceWalked_east
@@ -87,7 +85,7 @@ def main():
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
         print('\n==================================================\n')
-#         print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
+        print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
         print('currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
