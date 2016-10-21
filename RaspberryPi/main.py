@@ -114,8 +114,9 @@ def main():
         
         if packetId != 0:
             if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
-                print(stringHelper.AUDIO + ' Adjust your bearing slightly to the left.')
-                audioOutput.playAudio('adjustYourBearingSlightlyToTheLeft')
+                print(stringHelper.AUDIO + ' Adjust heading: left')
+                audioOutput.playAudio('adjustHeading')
+                audioOutput.playAudio('left')
             elif heading - expectedHeading > 67.5 and heading - expectedHeading < 180:
                 print(stringHelper.AUDIO + ' Turn left.')
                 audioOutput.playAudio('turnLeft')
@@ -123,10 +124,14 @@ def main():
                 print(stringHelper.AUDIO + ' Turn right.')
                 audioOutput.playAudio('turnRight')
             elif heading - expectedHeading > -67.5 and heading - expectedHeading < -22.5:
-                print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
-                audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
+                print(stringHelper.AUDIO + ' Adjust heading: right')
+                audioOutput.playAudio('adjustHeading')
+                audioOutput.playAudio('right')
         else:
             print(stringHelper.AUDIO + ' Adjust heading: ' + str(expectedHeading - heading) + ' degrees.')
+            audioOutput.playAudio('adjustHeading')
+            audioOutput.playNum(expectedHeading - heading)
+            audioOutput.playAudio('degrees')
         
         sleep(5)
     

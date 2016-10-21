@@ -112,6 +112,10 @@ def initAudio():
     audioDict['turnRight'] = './AudioFiles/turnRight.mp3'
     audioDict['adjustYourBearingSlightlyToTheLeft'] = './AudioFiles/adjustYourBearingSlightlyToTheLeft.mp3'
     audioDict['adjustYourBearingSlightlyToTheRight'] = './AudioFiles/adjustYourBearingSlightlyToTheRight.mp3'
+    audioDict['adjustHeading'] = './AudioFiles/adjustHeading.mp3'
+    audioDict['left'] = './AudioFiles/left.mp3'
+    audioDict['right'] = './AudioFiles/right.mp3'
+    audioDict['degrees'] = './AudioFiles/degrees.mp3'
     
     audioDict['0'] = './AudioFiles/0.mp3'
     audioDict['1'] = './AudioFiles/1.mp3'
@@ -156,6 +160,10 @@ def initAudio():
     audioTextDict['turnRight'] = 'Turn right.'
     audioTextDict['adjustYourBearingSlightlyToTheLeft'] = 'Adjust your bearing slightly to the left.'
     audioTextDict['adjustYourBearingSlightlyToTheRight'] = 'Adjust your bearing slightly to the right.'
+    audioTextDict['adjustHeading'] = 'Adjust heading: '
+    audioTextDict['left'] = 'left'
+    audioTextDict['right'] = 'right'
+    audioTextDict['degrees'] = 'degrees'
     
     audioTextDict['0'] = '0'
     audioTextDict['1'] = '1'
