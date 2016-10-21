@@ -53,19 +53,19 @@ class PiMegaCommunicator():
         self.port.write(bytes('H', 'UTF-8'))
         print ('Arduino is reading..')
         
-        while True:
-            print('before read') # <--------------------------
-            #ch = self.readlineCR()
-            ch = self.port.read()
-            print('after read') # <--------------------------
-            print (ch.decode('utf-8'))
-            if ch == b'A':
-                print('Pi reads:')
-                print(ch.decode('utf-8'))
-                print('Sending ACK')
-                self.port.write(bytes('A', 'UTF-8'))
-                print ('Mega is ready')
-                break
+#         while True:
+#             print('before read') # <--------------------------
+#             #ch = self.readlineCR()
+#             ch = self.port.read()
+#             print('after read') # <--------------------------
+#             print (ch.decode('utf-8'))
+#             if ch == b'A':
+#                 print('Pi reads:')
+#                 print(ch.decode('utf-8'))
+#                 print('Sending ACK')
+#                 self.port.write(bytes('A', 'UTF-8'))
+#                 print ('Mega is ready')
+#                 break
     
     def pollData(self):
         self.port.write(bytes('P', 'utf-8')) # send POLL

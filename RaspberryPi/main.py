@@ -47,7 +47,7 @@ def main():
     # =========================== NAVIGATION START ===========================================
     
     piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
-#     piMegaCommunicator.startUp() # <-----------------------------
+    piMegaCommunicator.startUp() # <-----------------------------
     
     isNavigationInProgress = True
     currBuildingId = int(str(srcNodeId)[0])
@@ -56,6 +56,8 @@ def main():
     routeIdxOfNextNode = 1
     
     navigator = Navigator(linkedMap, route, currLocation[0], currLocation[1])
+    
+    locationOffset = [0, 0]
     
     while isNavigationInProgress:
         piMegaCommunicator.pollData() # <-----------------------------
@@ -84,6 +86,8 @@ def main():
         currLocation[0] -= distanceWalked_west/math.sqrt(2)
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
+        currLocation[0] += locationOffset[0]
+        currLocation[1] += locationOffset[1]
         print('\n==================================================\n')
         print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
         print('currLocation = ' + str(currLocation))
@@ -146,7 +150,25 @@ def main():
             audioOutput.playInt(expectedHeading - heading)
             audioOutput.playAudio('degrees')
         
-        sleep(3)
+        # if user press the cheat key, auto step forward/backward among nodes in route
+        if keypadInput.tempUserInput == '1':
+            keypadInput.tempUserInput = ''
+            navigator.clearedRouteIdx -= 1
+        elif keypadInput.tempUserInput == '3':
+            keypadInput.tempUserInput = ''
+            navigator.clearedRouteIdx += 1
+            print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
+            audioOutput.playAudio('reachedNewNodeSoundEffect')
+            audioOutput.playAudio('reached')
+            audioOutput.playAudio('nodeId')
+            audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
+            locationOffset[0] = linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].x - currLocation[0]
+            locationOffset[1] = linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].y - currLocation[1]
+        
+        
+        
+        
+        sleep(2)
     
     # =========================== NAVIGATION END ===========================================
     
