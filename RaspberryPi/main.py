@@ -126,7 +126,7 @@ def main():
                 print(stringHelper.AUDIO + ' Adjust your bearing slightly to the right.')
                 audioOutput.playAudio('adjustYourBearingSlightlyToTheRight')
         else:
-            print('Adjust heading: ' + str(heading - expectedHeading) + ' degrees.')
+            print(stringHelper.AUDIO + ' Adjust heading: ' + str(expectedHeading - heading) + ' degrees.')
         
         sleep(5)
     
