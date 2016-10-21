@@ -50,19 +50,20 @@ class PiMegaCommunicator():
         
         
         print ('Saying Hello')
-        self.port.write(bytes('H', 'UTF-8')) # <------------------
+        self.port.write(bytes('H', 'UTF-8'))
         print ('Arduino is reading..')
         
         while True:
+            print('before read') # <--------------------------
             #ch = self.readlineCR()
             ch = self.port.read()
-#             print('ch (decoded)= ' + str(ch.decode('utf-8')))
-#             print('ch (as-is) = ' + str(ch.decode('utf-8')))
+            print('after read') # <--------------------------
+            print (ch.decode('utf-8'))
             if ch == b'A':
                 print('Pi reads:')
                 print(ch.decode('utf-8'))
                 print('Sending ACK')
-                self.port.write(bytes('A', 'UTF-8')) # <------------------
+                self.port.write(bytes('A', 'UTF-8'))
                 print ('Mega is ready')
                 break
     
