@@ -60,7 +60,7 @@ def main():
     while isNavigationInProgress:
         piMegaCommunicator.pollData() # <-----------------------------
         
-        packetId = piMegaCommunicator.packetId
+#         packetId = piMegaCommunicator.packetId
         distanceWalked_north = piMegaCommunicator.distanceWalked_north
         distanceWalked_northeast = piMegaCommunicator.distanceWalked_northeast
         distanceWalked_east = piMegaCommunicator.distanceWalked_east
@@ -85,7 +85,7 @@ def main():
         currLocation[1] -= distanceWalked_west/math.sqrt(2)
         currLocation[0] -= distanceWalked_northwest
         print('\n==================================================\n')
-        print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
+#         print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
         print('currLocation = ' + str(currLocation))
         
         navigator.updateLocation(currLocation[0], currLocation[1], heading)
