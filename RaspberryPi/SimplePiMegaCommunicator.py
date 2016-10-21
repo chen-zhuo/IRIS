@@ -48,14 +48,20 @@ class PiMegaCommunicator():
         
         
         
+        print ('Saying Hello')
+        self.port.write(bytes('H', 'UTF-8'))
+        print ('Arduino is reading..')
+        
         while True:
-            print(stringHelper.MESSAGE + ' Reading...')
-            msgReceived = self.port.read().decode('utf-8')
-            print(stringHelper.MESSAGE + ' msgRecevied = ' + str(msgReceived))
-            if msgReceived == 'A':
-                print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega.')
-                self.port.write(bytes('A', 'utf-8')) # send ACK
-                print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent ACK to Mega. Three-way handshake is done.')
+            #ch = self.readlineCR()
+            ch = self.port.read()
+            print (ch.decode('utf-8'))
+            if ch == b'A':
+                print('Pi reads:')
+                print(ch.decode('utf-8'))
+                print('Sending ACK')
+                self.port.write(bytes('A', 'UTF-8'))
+                print ('Mega is ready')
                 break
     
     def pollData(self):
