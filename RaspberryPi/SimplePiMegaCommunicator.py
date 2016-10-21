@@ -27,6 +27,7 @@ class PiMegaCommunicator():
         self.distanceWalked_northwest = 0
         self.heading = 0
         
+        
         self.checksum = 0 # sum of all values above (from `handProximity` to `heading`)
     
     # three-way handshake
@@ -90,27 +91,27 @@ class PiMegaCommunicator():
               str(self.distanceWalked_southwest) + ', ' + str(self.distanceWalked_west) + ', ' +
               str(self.distanceWalked_northwest) + '], ' + str(self.heading))
         
-        expectedChecksum = self.handProximity + self.frontProximity + self.leftProximity + self.rightProximity +\
-                self.distanceWalked_north + self.distanceWalked_northeast + self.distanceWalked_east +\
-                self.distanceWalked_southeast + self.distanceWalked_south + self.distanceWalked_southwest +\
-                self.distanceWalked_west + self.distanceWalked_northwest + self.heading
-        if self.checkum != expectedChecksum:
-            print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Dropping this' +
-                  'erroneous data packet.')
-            self.handProximity = 0
-            self.frontProximity = 0
-            self.leftProximity = 0
-            self.rightProximity = 0
-            self.distanceWalked_north = 0
-            self.distanceWalked_northeast = 0
-            self.distanceWalked_east = 0
-            self.distanceWalked_southeast = 0
-            self.distanceWalked_south = 0
-            self.distanceWalked_southwest = 0
-            self.distanceWalked_west = 0
-            self.distanceWalked_northwest = 0
-            self.heading = 0
-            self.checksum = 0
+#         expectedChecksum = self.handProximity + self.frontProximity + self.leftProximity + self.rightProximity +\
+#                 self.distanceWalked_north + self.distanceWalked_northeast + self.distanceWalked_east +\
+#                 self.distanceWalked_southeast + self.distanceWalked_south + self.distanceWalked_southwest +\
+#                 self.distanceWalked_west + self.distanceWalked_northwest + self.heading
+#         if self.checkum != expectedChecksum:
+#             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Dropping this' +
+#                   'erroneous data packet.')
+#             self.handProximity = 0
+#             self.frontProximity = 0
+#             self.leftProximity = 0
+#             self.rightProximity = 0
+#             self.distanceWalked_north = 0
+#             self.distanceWalked_northeast = 0
+#             self.distanceWalked_east = 0
+#             self.distanceWalked_southeast = 0
+#             self.distanceWalked_south = 0
+#             self.distanceWalked_southwest = 0
+#             self.distanceWalked_west = 0
+#             self.distanceWalked_northwest = 0
+#             self.heading = 0
+#             self.checksum = 0
 
 def _test():
     piMegaCommunicator = PiMegaCommunicator()
