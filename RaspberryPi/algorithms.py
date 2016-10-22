@@ -65,7 +65,8 @@ def downloadAndParseMap(buildingName, buildingStorey):
     with open(fileNameWithPath) as jsonFile:
         rawMap = json.load(jsonFile)
     
-    buildingId = buildingDict[buildingName]
+#     buildingId = buildingDict[buildingName]
+    buildingId = buildingName
     northAt = int(rawMap['info']['northAt'])
     myMap = Map(buildingId, buildingName, buildingStorey, northAt)
     
