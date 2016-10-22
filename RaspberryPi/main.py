@@ -112,7 +112,7 @@ def main():
                                                     linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
                                                     ) + 45
         print('expectedHeading = ' + str(expectedHeading))
-        print(stringHelper.INFO + ' prevNode -> nextNode = (' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x) +
+        print(stringHelper.INFO + ' prevNode -> nextNode = ' + str(route[routeIdxOfPrevNode]) + ' -> ' + str(route[routeIdxOfNextNode]) + ' = (' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x) +
               ', ' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y) + ') -> (' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].x) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
@@ -157,16 +157,14 @@ def main():
         elif keypadInput.tempUserInput == '3':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx += 1
+            
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNodeSoundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
-            locationOffset[0] = linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].x - currLocation[0]
-            locationOffset[1] = linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].y - currLocation[1]
-        
-        
-        
+            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].x - currLocation[0]
+            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].y - currLocation[1]
         
         sleep(5)
     

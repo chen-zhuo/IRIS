@@ -88,6 +88,10 @@ class PiMegaCommunicator():
         self.distanceWalked_southwest = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.distanceWalked_west = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         self.distanceWalked_northwest = int(self.port.readline().decode('utf-8').replace('\r\n',''))
+        
+#         print(str(self.packetId) + ' ' + str(self.leftProximity) + ' ' + str(self.rightProximity) + ' ' + str(self.distanceWalked_north) + ' ' +\
+#               str(self.distanceWalked_northeast) + ' ' + str(self))
+        
         self.heading = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         #self.checksum = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         
