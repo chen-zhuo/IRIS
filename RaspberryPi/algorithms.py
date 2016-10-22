@@ -51,16 +51,16 @@ def downloadAndParseMap(buildingName, buildingStorey):
     fileName = 'mapOf' + str(buildingName) + 'Storey' + str(buildingStorey) + '.json'
     
     # to download map from Internet; if no Internet access, use cached map
-#     try:
-#         fileNameWithPath = './Downloads/' + fileName
-#         with urllib.request.urlopen(url) as response, open(fileNameWithPath, 'wb') as file:
-#             shutil.copyfileobj(response, file)
-#         with open(fileNameWithPath) as jsonFile:
-#             rawMap = json.load(jsonFile)
-#     except IOError:
-#         fileNameWithPath = './Downloads/Caches/' + fileName
-#         with open(fileNameWithPath) as jsonFile:
-#             rawMap = json.load(jsonFile)
+    try:
+        fileNameWithPath = './Downloads/' + fileName
+        with urllib.request.urlopen(url) as response, open(fileNameWithPath, 'wb') as file:
+            shutil.copyfileobj(response, file)
+        with open(fileNameWithPath) as jsonFile:
+            rawMap = json.load(jsonFile)
+    except IOError:
+        fileNameWithPath = './Downloads/Caches/' + fileName
+        with open(fileNameWithPath) as jsonFile:
+            rawMap = json.load(jsonFile)
     fileNameWithPath = './Downloads/Caches/' + fileName
     with open(fileNameWithPath) as jsonFile:
         rawMap = json.load(jsonFile)
