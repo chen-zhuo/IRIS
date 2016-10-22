@@ -48,7 +48,7 @@ def downloadAndParseMap(buildingName, buildingStorey):
     url = url.replace('XXX', str(buildingName))
     url = url.replace('YYY', str(buildingStorey))
     print(url)
-    fileName = 'mapOf' + buildingName.title() + 'Storey' + str(buildingStorey) + '.json'
+    fileName = 'mapOf' + buildingName + 'Storey' + str(buildingStorey) + '.json'
     
     # to download map from Internet; if no Internet access, use cached map
 #     try:
