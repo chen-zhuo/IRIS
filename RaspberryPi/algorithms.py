@@ -47,6 +47,7 @@ def downloadAndParseMap(buildingName, buildingStorey):
     url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=XXX&Level=YYY'
     url = url.replace('XXX', str(buildingName))
     url = url.replace('YYY', str(buildingStorey))
+    print(url)
     fileName = 'mapOf' + buildingName.title() + 'Storey' + str(buildingStorey) + '.json'
     
     # to download map from Internet; if no Internet access, use cached map
