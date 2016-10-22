@@ -87,6 +87,7 @@ def initAudio():
     isAudioInitted = True
     
     audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
+    audioDict['beep'] = './AudioFiles/beep.mp3'
     
     audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
     audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
@@ -138,6 +139,7 @@ def initAudio():
     audioDict['hash'] = './AudioFiles/hash.mp3'
     
     audioTextDict['null'] = 'null'
+    audioTextDict['beep'] = 'beep'
     
     audioTextDict['welcomeToIris'] = 'Welcome to IRIS.'
     audioTextDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = 'Please key in origin building ID, followed by the hash key.'

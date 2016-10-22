@@ -61,6 +61,7 @@ def main():
     
     while isNavigationInProgress:
         piMegaCommunicator.pollData() # <-----------------------------
+        audioOutput.playAudio('beep')
         
         packetId = piMegaCommunicator.packetId
         distanceWalked_north = piMegaCommunicator.distanceWalked_north
