@@ -40,6 +40,8 @@ def main():
     
     linkedMap = algorithms.downloadAndParseMap(int(str(srcNodeId)[0]), int(str(srcNodeId)[1]))
     
+    srcNodeId = int(str(srcNodeId)[2:])
+    destNodeId = int(str(destNodeId)[2:])
     
     route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
     print(stringHelper.INFO + ' Route: ', end='')
