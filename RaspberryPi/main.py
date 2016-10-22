@@ -154,8 +154,14 @@ def main():
         # if user press the cheat key, auto step forward/backward among nodes in route
         if keypadInput.tempUserInput == '1':
             keypadInput.tempUserInput = ''
-            navigator.clearedRouteIdx -= 2
+            navigator.clearedRouteIdx -= 1
             print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
+            
+            print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
+            audioOutput.playAudio('reachedNewNodeSoundEffect')
+            audioOutput.playAudio('reached')
+            audioOutput.playAudio('nodeId')
+            audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
         elif keypadInput.tempUserInput == '3':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx += 1
