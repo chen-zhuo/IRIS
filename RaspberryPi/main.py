@@ -158,6 +158,8 @@ def main():
         elif keypadInput.tempUserInput == '3':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx += 1
+        else:
+            keypadInput.tempUserInput = ''
             
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNodeSoundEffect')
