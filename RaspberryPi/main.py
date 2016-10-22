@@ -103,8 +103,8 @@ def main():
         naviInfo = navigator.getNaviInfo()
         
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
-        routeIdxOfPrevNode = routeIdxOfNextNode - 1
-        print(stringHelper.INFO + ' nextNodeId = ' + str(navigator.route[navigator.clearedRouteIdx + 1]))
+        routeIdxOfPrevNode = navigator.clearedRouteIdx
+        print(stringHelper.INFO + ' nextNodeId = ' + str(navigator.route[routeIdxOfNextNode]))
         
         print(stringHelper.INFO + ' heading = ' + str(heading) + ', ', end='')
         expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
@@ -154,7 +154,7 @@ def main():
         # if user press the cheat key, auto step forward/backward among nodes in route
         if keypadInput.tempUserInput == '1':
             keypadInput.tempUserInput = ''
-            navigator.clearedRouteIdx -= 1
+            navigator.clearedRouteIdx -= 2
             print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
             
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
