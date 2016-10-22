@@ -92,12 +92,12 @@ def main():
         print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
         print('currLocation = ' + str(currLocation))
         
-        navigator.updateLocation(currLocation[0], currLocation[1], heading)
-        
         if navigator.clearedRouteIdx + 1 == len(navigator.route):
             print(stringHelper.AUDIO + ' Navigation completed.')
             audioOutput.playAudio('navigationCompleted')
             break
+        
+        navigator.updateLocation(currLocation[0], currLocation[1], heading)
         
         naviInfo = navigator.getNaviInfo()
         
