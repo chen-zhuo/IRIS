@@ -61,7 +61,7 @@ def downloadAndParseMap(buildingName, buildingStorey):
         fileNameWithPath = './Downloads/Caches/' + fileName
         with open(fileNameWithPath) as jsonFile:
             rawMap = json.load(jsonFile)
-    fileNameWithPath = './Downloads/Caches/' + fileName
+        fileNameWithPath = './Downloads/Caches/' + fileName
     with open(fileNameWithPath) as jsonFile:
         rawMap = json.load(jsonFile)
     
