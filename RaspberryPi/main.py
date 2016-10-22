@@ -123,7 +123,7 @@ def main():
                                                                         currLocation[1],
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
-            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//35)
+            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
             print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
             audioOutput.playAudio('stepsToNextNode')
