@@ -26,7 +26,7 @@ class Map:
         if nodeId in self.nodesDict:
             return self.nodesDict[nodeId]
         else:
-            print(stringHelper.ERROR + ' at Map.getNode(): Node #' + nodeId + ' does not exist.')
+            print(stringHelper.ERROR + ' at Map.getNode(): Node #' + str(nodeId) + ' does not exist.')
             return None
     
     def addEdge(self, srcNodeId, destNodeId, weight=0):
