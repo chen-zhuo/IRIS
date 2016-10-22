@@ -155,6 +155,7 @@ def main():
         if keypadInput.tempUserInput == '1':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx -= 1
+            print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
         elif keypadInput.tempUserInput == '3':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx += 1
