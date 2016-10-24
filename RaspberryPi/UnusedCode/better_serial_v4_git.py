@@ -1,4 +1,4 @@
-import serial
+import serial # @UnresolvedImport
 from time import sleep
 
 class MegaCommunicator():
