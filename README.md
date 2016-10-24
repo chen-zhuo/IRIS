@@ -5,7 +5,7 @@ visually-impaired person.
 
 
 
-## Setting Up the Raspberry Pi
+## Setting Up Raspberry Pi
 
 ### Install mpg123 MP3 Player
 
@@ -20,7 +20,7 @@ default setting is 0 which is automatic. To change the volume, enter
 
 `amixer set PCM -- 85%`
 
-### Configure the RaspberryPi to Communicate with Arduino Mega
+### Configure RaspberryPi to Communicate with Arduino Mega
 
 - `sudo systemctl stop serial-getty@ttyAMA0.service`
 - `sudo systemctl disable serial-getty@ttyAMA0.service`
@@ -34,7 +34,7 @@ default setting is 0 which is automatic. To change the volume, enter
 - `cd ~/Desktop`
 - `git clone https://github.com/chen-zhuo/IRIS.git`
 
-### Configure the Raspberry Pi to Run a Python File Upon Boot
+### Configure Raspberry Pi to Run a Python File Upon Boot
 
 - Ensure that the boot option is set to “Console Autologin”, and “Wait for Network at Boot” is enabled.
 - In Terminal, enter `sudo raspi-config` to enter the configuration panel.
@@ -51,12 +51,12 @@ default setting is 0 which is automatic. To change the volume, enter
 
 - https://www.raspberrypi.org/documentation/usage/gpio/
 
-### Safely Shut Down or Reboot the Raspberry Pi
+### Safely Shut Down or Reboot Raspberry Pi
 
 - `sudo halt`
 - `sudo reboot`
 
-### Viewing RaspberryPi's memory on Mac
+### Access Files in Raspberry Pi on Mac
 
 - `open afp://192.168.0.104` (use your Raspberry pi's IP address)
 - Reference: http://raspberrypituts.com/access-raspberry-pi-files-in-your-os-x-finder/
