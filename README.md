@@ -36,18 +36,19 @@ default setting is 0 which is automatic. To change the volume, enter
 
 ### Configuring RaspberryPi to communicate with Arduino Mega
 
-- Step 1: $ sudo systemctl stop serial-getty@ttyAMA0.service
-- Step 2: $ sudo systemctl disable serial-getty@ttyAMA0.service
-- Step 3: $ sudo nano /boot/cmdline.txt
-    - You will see something like:
-    - dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes root wait
-    - remove the line: console=serial0,115200 and save and reboot for changes to take effect.
-    - http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/#Using_the_serial_port_with_other_hardware
+- `sudo systemctl stop serial-getty@ttyAMA0.service`
+- `sudo systemctl disable serial-getty@ttyAMA0.service`
+- `sudo nano /boot/cmdline.txt`
+    - You will see something like: `dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2
+      rootfstype=ext4 elevator=deadline fsck.repair=yes root wait`
+    - Remove the line: `console=serial0,115200` and save and reboot for changes to take effect.
+    - Reference: http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/
+      #Using_the_serial_port_with_other_hardware
 
 ### Viewing RaspberryPi's memory on Mac
 
 - `open afp://192.168.0.104` (use your Raspberry pi's IP address)
-- http://raspberrypituts.com/access-raspberry-pi-files-in-your-os-x-finder/
+- Reference: http://raspberrypituts.com/access-raspberry-pi-files-in-your-os-x-finder/
 
 
 
