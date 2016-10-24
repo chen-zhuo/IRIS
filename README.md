@@ -40,8 +40,8 @@ default setting is 0 which is automatic. To change the volume, enter
 - In Terminal, enter `sudo raspi-config` to enter the configuration panel.
 - Add autorun script to the “profile” file
 - In Terminal, enter `sudo nano /etc/profile`, and then append your script, for example:
-- `cd ~/Desktop/IRIS/RaspberryPi`
-- `python3 ~/Desktop/IRIS/RaspberryPi/main.py`
+    - `cd ~/Desktop/IRIS/RaspberryPi`
+    - `python3 ~/Desktop/IRIS/RaspberryPi/main.py`
 
 
 
@@ -58,7 +58,7 @@ default setting is 0 which is automatic. To change the volume, enter
 
 ### Access Files in Raspberry Pi on Mac
 
-- `open afp://192.168.0.104` (use your Raspberry pi's IP address)
+- `open afp://192.168.0.104` (use your Raspberry Pi's IP address)
 - Reference: http://raspberrypituts.com/access-raspberry-pi-files-in-your-os-x-finder/
 
 ### Text-To-Speech Audio Files Generator
