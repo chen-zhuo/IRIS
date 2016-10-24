@@ -15,7 +15,7 @@
             "x": "2152",
             "y": "2436",
             "nodeName": "P2",
-            "linkTo": "1, 3, 4  "
+            "linkTo": "1, 3, 4 "
         },
         {
             "nodeId": "3",
@@ -211,7 +211,7 @@
             "x": "12180",
             "y": "731",
             "nodeName": "TO Canteen",
-            "linkTo": "28  "
+            "linkTo": "28 "
         },
         {
             "nodeId": "31",
