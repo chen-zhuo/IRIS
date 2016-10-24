@@ -26,8 +26,8 @@ default setting is 0 which is automatic. To change the volume, enter
 - `sudo systemctl disable serial-getty@ttyAMA0.service`
 - `sudo nano /boot/cmdline.txt`
     - You will see something like: `dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2rootfstype=ext4 elevator=deadline fsck.repair=yes root wait`
-    - Remove the line: `console=serial0,115200` and save and reboot for changes to take effect.
-    - Reference: http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/#Using_the_serial_port_with_other_hardware
+    - Remove the line `console=serial0,115200` and then save and reboot for changes to take effect.
+- Reference: http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/#Using_the_serial_port_with_other_hardware
 
 ### Clone This Repository
 
