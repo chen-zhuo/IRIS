@@ -20,6 +20,17 @@ default setting is 0 which is automatic. To change the volume, enter
 
 `amixer set PCM -- 85%`
 
+### Configure the RaspberryPi to Communicate with Arduino Mega
+
+- `sudo systemctl stop serial-getty@ttyAMA0.service`
+- `sudo systemctl disable serial-getty@ttyAMA0.service`
+- `sudo nano /boot/cmdline.txt`
+    - You will see something like: `dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2
+      rootfstype=ext4 elevator=deadline fsck.repair=yes root wait`
+    - Remove the line: `console=serial0,115200` and save and reboot for changes to take effect.
+    - Reference: http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/
+      #Using_the_serial_port_with_other_hardware
+
 ### Clone This Repository
 
 - `cd ~/Desktop`
@@ -34,16 +45,13 @@ default setting is 0 which is automatic. To change the volume, enter
 - `cd ~/Desktop/IRIS/RaspberryPi`
 - `python3 ~/Desktop/IRIS/RaspberryPi/main.py`
 
-### Configuring RaspberryPi to communicate with Arduino Mega
 
-- `sudo systemctl stop serial-getty@ttyAMA0.service`
-- `sudo systemctl disable serial-getty@ttyAMA0.service`
-- `sudo nano /boot/cmdline.txt`
-    - You will see something like: `dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2
-      rootfstype=ext4 elevator=deadline fsck.repair=yes root wait`
-    - Remove the line: `console=serial0,115200` and save and reboot for changes to take effect.
-    - Reference: http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/
-      #Using_the_serial_port_with_other_hardware
+
+## Tips
+
+### Safely Shut Down or Reboot the Raspberry Pi
+- `sudo halt`
+- `sudo reboot`
 
 ### Viewing RaspberryPi's memory on Mac
 
