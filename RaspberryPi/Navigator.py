@@ -46,7 +46,8 @@ class Navigator():
             return False
         
         # to calculate the current location based on the distances travelled in 8 directions, as well as the offset
-        self.currLocation = self.myMap.nodesDict[self.srcNodeId].location
+        self.currLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
+        self.currLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
         self.currLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
         self.currLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
         self.currLocation[1] += dataPacket.distancesList[1]
