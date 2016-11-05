@@ -5,6 +5,7 @@ This file defines the `Navigator` object class.
 '''
 
 import algorithms
+import copy
 import Map
 import math
 import stringHelper
@@ -23,8 +24,7 @@ class Navigator():
                                                                 myMap.nodesDict[route[1]].location)
         self.nodeReachedThreshold = 100
         
-        self.currLocation[0] = currLocation[0]
-        self.currLocation[1] = currLocation[1]
+        self.currLocation = copy.deepcopy(currLocation)
         self.locationOffset = [0, 0]
         
         self.currHeading = 0
