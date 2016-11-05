@@ -91,6 +91,7 @@ def linkMaps(mapsList):
     for aMap in mapsList:
         for node in aMap.nodesDict.values():
             modifiedNode = copy.deepcopy(node)
+            print(str(aMap.buildingId) + ' ' + str(aMap.buildingStorey))
             modifiedNode.nodeId += aMap.buildingId*1000 + aMap.buildingStorey*100
             modifiedNode.adjacentNodes.clear()
             
