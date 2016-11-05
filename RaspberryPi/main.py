@@ -15,7 +15,7 @@ import stringHelper
 # from threading import Thread
 from time import sleep
 
-isFastDebugMode = False
+isFastDebugMode = True
 hardCodedSrcNodeId = 1211
 hardCodedDestNodeId = 1216
 
@@ -70,7 +70,7 @@ def main():
         # to poll for new data and update `navigator`
         print('\n========================= NEW DATA POLL =========================\n')
         dataPacket = piMegaCommunicator.pollData()
-        print(stringHelper.INFO + ' ' + str(dataPacket))
+        print(stringHelper.INFO + ' Data Packet: ' + str(dataPacket))
         isNavigationInProgress = navigator.update(dataPacket)
         if not isNavigationInProgress:
             break
@@ -78,7 +78,7 @@ def main():
         # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
+        print(stringHelper.INFO + ' #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
               str(route[routeIdxOfNextNode]) + ' = (' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[1]) + ') -> (' +
@@ -135,12 +135,17 @@ def main():
         
         # if the user input is '9', give detailed audio feedback
         if userInput == '9':
+            audioOutput.playAudio('from')
+            audioOutput.playInt(linkedMap.nodesDict[route[routeIdxOfPrevNode]])
+            audioOutput.playAudio('towards')
+            audioOutput.playInt(linkedMap.nodesDict[route[routeIdxOfNextNode]])
+            
             straightLineDistanceToNextNode = algorithms.computeDistance(currLocation,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
             stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
-            print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
+            
+            audioOutput.playAudio('steps remaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
-            audioOutput.playAudio('stepsToNextNode')
         
         # if the user input is '1', snap the current location to the previous node in route
         if userInput == '1':

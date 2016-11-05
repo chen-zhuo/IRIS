@@ -99,6 +99,11 @@ def initAudio():
     audioDict['heading+180_soundEffect'] = './AudioFiles/heading+180_soundEffect.mp3'
     audioDict['reachedNewNode_soundEffect'] = './AudioFiles/reachedNewNode_soundEffect.mp3'
     
+    audioDict['from'] = './AudioFiles/from.mp3'
+    audioDict['towards'] = './AudioFiles/towards.mp3'
+    audioDict['then'] = './AudioFiles/then.mp3'
+    audioDict['stepsRemaining'] = './AudioFiles/stepsRemaining.mp3'
+    
     audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
     audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
     audioDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingStoreyFollowedByTheHashKey.mp3'
