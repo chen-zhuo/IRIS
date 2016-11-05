@@ -219,7 +219,7 @@ def _test():
     playAudioNow('turnLeft')
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnRight'])
     playAudioNow('turnRight')
-    sleep(4)
+    sleep(3)
     
     print(stringHelper.MESSAGE + ' Playing multiple audio files one after another...')
     sleep(1)
@@ -229,7 +229,7 @@ def _test():
     playAudio('turnLeft')
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnRight'])
     playAudio('turnRight')
-    sleep(9)
+    sleep(7)
     
     closeAudioThread()
 
