@@ -15,7 +15,7 @@ import stringHelper
 # from threading import Thread
 from time import sleep
 
-isFastDebugMode = True
+isFastDebugMode = False
 hardCodedSrcNodeId = 1211
 hardCodedDestNodeId = 1216
 
@@ -170,7 +170,7 @@ def main():
             locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
             locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
         print('lalala')
-        sleep(3)
+        sleep(2)
         
         # ======================================== END NAVIGATION ========================================
         
