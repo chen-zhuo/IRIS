@@ -19,7 +19,8 @@ class Navigator():
         self.srcNodeId = route[0]
         self.destNodeId = route[len(route) - 1]
         self.clearedRouteIdx = 0 # if `clearedRouteIdx == 3`, then the user has cleared the node ID `route[3]`
-        self.distanceUntilNextNode = algorithms.computeDistance(route[0].location, route[1].location)
+        self.distanceUntilNextNode = algorithms.computeDistance(myMap.nodesDict[route[0]].location,
+                                                                myMap.nodesDict[route[1]].location)
         self.nodeReachedThreshold = 100
         
         self.currLocation = currLocation
