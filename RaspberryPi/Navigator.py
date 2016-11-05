@@ -78,9 +78,8 @@ class Navigator():
         self.currHeading = dataPacket.heading
         
         # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
-        if algorithms.computeDistance(self.currX, self.currY,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).x,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).y) < self.nodeReachedThreshold:
+        if algorithms.computeDistance(self.currLocation,
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < self.nodeReachedThreshold:
 #             self.currX = self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).x
 #             self.currY = self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).y
             self.clearedRouteIdx = self.clearedRouteIdx + 1
