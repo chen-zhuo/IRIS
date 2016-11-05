@@ -14,8 +14,6 @@ from time import sleep
 import urllib.request
 import stringHelper
 
-buildingDict = {'COM1': 1, 'COM2': 2} # to map `buildingName` to the corresponding `buildingId`
-
 # for modified Dijkstra's algorithm
 pq = [] # priority queue; stores tuples `(displacement, nodeId)`
 displacement = {} # if `displacement[i] == 1000`, then the displacement of node `i` from the source node is 1000 cm
@@ -37,18 +35,17 @@ def printWelcomeMsg():
 Downloads a map file from the Internet and save it locally in the path './Downloads/'. Next, parse the file into a `Map`
 object and return it. If there is no internet connection, use the cached map file from './Downloads/Caches/'.
 
-@param buildingName
-           the building name of the map file to be downloaded, e.g. 'COM1'
+@param buildingId
+           the building ID of the map file to be downloaded, e.g. 1
 @param buildingStorey
            the storey of the map file to be downloaded, e.g. 2
 @return the parsed `Map` object
 '''
-def downloadAndParseMap(buildingName, buildingStorey):
+def downloadAndParseMap(buildingId, buildingStorey):
     url = 'http://showmyway.comp.nus.edu.sg/getMapInfo.php?Building=XXX&Level=YYY'
-    url = url.replace('XXX', str(buildingName))
+    url = url.replace('XXX', str(buildingId))
     url = url.replace('YYY', str(buildingStorey))
-    print(url)
-    fileName = 'mapOf' + str(buildingName) + 'Storey' + str(buildingStorey) + '.json'
+    fileName = 'mapOfBuilding' + str(buildingId) + 'Storey' + str(buildingStorey) + '.json'
     
     # to download map from Internet; if no Internet access, use cached map
     try:
@@ -58,17 +55,15 @@ def downloadAndParseMap(buildingName, buildingStorey):
         with open(fileNameWithPath) as jsonFile:
             rawMap = json.load(jsonFile)
     except IOError:
+        print(stringHelper.WARNING + ' at algorithms.downloadAndParseMap(): Failed to download map; using caches\
+              instead.')
         fileNameWithPath = './Downloads/Caches/' + fileName
         with open(fileNameWithPath) as jsonFile:
             rawMap = json.load(jsonFile)
         fileNameWithPath = './Downloads/Caches/' + fileName
-    with open(fileNameWithPath) as jsonFile:
-        rawMap = json.load(jsonFile)
     
-#     buildingId = buildingDict[buildingName]
-    buildingId = buildingName
     northAt = int(rawMap['info']['northAt'])
-    myMap = Map(buildingId, buildingName, buildingStorey, northAt)
+    myMap = Map(buildingId, buildingStorey, northAt)
     
     # to populate `Node` objects in `myMap`, except edge information (i.e. do not connect the nodes yet)
     for i in range(len(rawMap['map'])):
@@ -76,7 +71,7 @@ def downloadAndParseMap(buildingName, buildingStorey):
         nodeName = rawMap['map'][i]['nodeName']
         x = int(rawMap['map'][i]['x'])
         y = int(rawMap['map'][i]['y'])
-        myNode = Node(nodeId, nodeName, x, y)
+        myNode = Node(nodeId, nodeName, [x, y])
         myMap.addNode(myNode)
     
     # to update edge information (i.e. to connect the nodes) in `myMap`
@@ -85,14 +80,13 @@ def downloadAndParseMap(buildingName, buildingStorey):
         neighborNodeIds = rawMap['map'][i]['linkTo'].replace(' ', '').split(',') # warning: type is str[]
         for neighborNodeId in neighborNodeIds:
             neighborNodeId = int(neighborNodeId)                                 # cast to int
-            weight = computeDistance(myMap.getNode(nodeId).x, myMap.getNode(nodeId).y,
-                                     myMap.getNode(neighborNodeId).x, myMap.getNode(neighborNodeId).y)
+            weight = computeDistance(myMap.getNode(nodeId).location, myMap.getNode(neighborNodeId).location)
             myMap.getNode(nodeId).adjacentNodes[neighborNodeId] = weight
     
     return myMap
 
 def linkMaps(mapsList):
-    resultMap = Map(None, None, None, 0)
+    resultMap = Map(None, None, 315)
     
     for aMap in mapsList:
         for node in aMap.nodesDict.values():
@@ -126,8 +120,14 @@ def computeRoute(myMap, srcNodeId, destNodeId):
     populateRoute(destNodeId)
     return route
 
-def computeDistance(x1, y1, x2, y2):
-    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+def printRoute(route):
+    print(stringHelper.INFO + ' Route: ', end='')
+    for i in range(len(route) - 1):
+        print(str(route[i]) + ' -> ', end="")
+    print(route[len(route) - 1])
+
+def computeDistance(location1, location2):
+    return math.sqrt((location2[0] - location1[0])**2 + (location2[1] - location1[1])**2)
 
 def dijkstra(myMap, srcNodeId):
     global pq, displacement, hasVisited, parentOf
@@ -183,35 +183,31 @@ def populateRoute(destNodeId):
 '''
 Computes the bearing of point B from point A.
 
-@param x1
-           x-coordinate of point A
-@param y1
-           y-coordinate of point A
-@param x2
-           x-coordinate of point B
-@param y2
-           y-coordinate of point B
+@param locationA
+           location of point A
+@param locationB
+           location of point B
 @return the bearing of point B from point A
 '''
-def computeBearing(x1, y1, x2, y2):
-    if x2 == x1 and y2 == y1:
+def computeBearing(locationA, locationB):
+    if locationB[0] == locationA[0] and locationB[1] == locationA[1]:
         return 0
-    elif x2 == x1 and y2 > y1:
+    elif locationB[0] == locationA[0] and locationB[1] > locationA[1]:
         return 0
-    elif x2 == x1 and y2 < y1:
+    elif locationB[0] == locationA[0] and locationB[1] < locationA[1]:
         return 180
-    elif y2 == y1 and x2 > x1:
+    elif locationB[1] == locationA[1] and locationB[0] > locationA[0]:
         return 90
-    elif y2 == y1 and x2 < x1:
+    elif locationB[1] == locationA[1] and locationB[0] < locationA[0]:
         return 270
-    elif x2 > x1 and y2 > y1: # first quadrant
-        return math.degrees(math.atan((x2 - x1)/(y2 - y1)))
-    elif x2 < x1 and y2 > y1: # second quadrant
-        return 360 - math.degrees(math.atan((x1 - x2)/(y2 - y1)))
-    elif x2 < x1 and y2 < y1: # third quadrant
-        return 180 + math.degrees(math.atan((x1 - x2)/(y1 - y2)))
+    elif locationB[0] > locationA[0] and locationB[1] > locationA[1]: # first quadrant
+        return math.degrees(math.atan((locationB[0] - locationA[0])/(locationB[1] - locationA[1])))
+    elif locationB[0] < locationA[0] and locationB[1] > locationA[1]: # second quadrant
+        return 360 - math.degrees(math.atan((locationA[0] - locationB[0])/(locationB[1] - locationA[1])))
+    elif locationB[0] < locationA[0] and locationB[1] < locationA[1]: # third quadrant
+        return 180 + math.degrees(math.atan((locationA[0] - locationB[0])/(locationA[1] - locationB[1])))
     else: # fourth quadrant
-        return 180 - math.degrees(math.atan((x2 - x1)/(y1 - y2)))
+        return 180 - math.degrees(math.atan((locationB[0] - locationA[0])/(locationA[1] - locationB[1])))
 
 
 
@@ -223,8 +219,6 @@ def computeBearing(x1, y1, x2, y2):
 
 
 '''
-@todo
-
 Waits for a keypad input from the user, and returns the keypad input. A keypad input ends with a hash key ('#'). This
 function blocks the function that calls this function.
 

@@ -86,8 +86,18 @@ def initAudio():
     
     isAudioInitted = True
     
-    audioDict['null'] = './AudioFiles/null.mp3' # a short, blank audio file
     audioDict['beep'] = './AudioFiles/beep.mp3'
+    
+    audioDict['arpeggio_soundEffect'] = './AudioFiles/arpeggio_soundEffect.mp3'
+    audioDict['heading+0_soundEffect'] = './AudioFiles/heading+0_soundEffect.mp3'
+    audioDict['heading-45_soundEffect'] = './AudioFiles/heading-45_soundEffect.mp3'
+    audioDict['heading+45_soundEffect'] = './AudioFiles/heading+45_soundEffect.mp3'
+    audioDict['heading-90_soundEffect'] = './AudioFiles/heading-90_soundEffect.mp3'
+    audioDict['heading+90_soundEffect'] = './AudioFiles/heading+90_soundEffect.mp3'
+    audioDict['heading-135_soundEffect'] = './AudioFiles/heading-135_soundEffect.mp3'
+    audioDict['heading+135_soundEffect'] = './AudioFiles/heading+135_soundEffect.mp3'
+    audioDict['heading+180_soundEffect'] = './AudioFiles/heading+180_soundEffect.mp3'
+    audioDict['reachedNewNode_soundEffect'] = './AudioFiles/reachedNewNode_soundEffect.mp3'
     
     audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
     audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
@@ -102,7 +112,6 @@ def initAudio():
     
     audioDict['navigationStarted'] = './AudioFiles/navigationStarted.mp3'
     audioDict['navigationCompleted'] = './AudioFiles/navigationCompleted.mp3'
-    audioDict['nextNodeIdIs'] = './AudioFiles/nextNodeIdIs.mp3'
     audioDict['reached'] = './AudioFiles/reached.mp3'
     audioDict['building'] = './AudioFiles/buildling.mp3'
     audioDict['storey'] = './AudioFiles/storey.mp3'
@@ -115,15 +124,12 @@ def initAudio():
     audioDict['goStraight'] = './AudioFiles/goStraight.mp3'
     audioDict['turnLeft'] = './AudioFiles/turnLeft.mp3'
     audioDict['turnRight'] = './AudioFiles/turnRight.mp3'
-    audioDict['adjustYourBearingSlightlyToTheLeft'] = './AudioFiles/adjustYourBearingSlightlyToTheLeft.mp3'
-    audioDict['adjustYourBearingSlightlyToTheRight'] = './AudioFiles/adjustYourBearingSlightlyToTheRight.mp3'
     audioDict['adjustHeading'] = './AudioFiles/adjustHeading.mp3'
     audioDict['negative'] = './AudioFiles/negative.mp3'
     audioDict['left'] = './AudioFiles/left.mp3'
     audioDict['right'] = './AudioFiles/right.mp3'
     audioDict['degrees'] = './AudioFiles/degrees.mp3'
     audioDict['stepsToNextNode'] = './AudioFiles/stepsToNextNode.mp3'
-    audioDict['reachedNewNodeSoundEffect'] = './AudioFiles/reachedNewNodeSoundEffect.mp3'
     
     audioDict['0'] = './AudioFiles/0.mp3'
     audioDict['1'] = './AudioFiles/1.mp3'
@@ -138,9 +144,6 @@ def initAudio():
     audioDict['asterisk'] = './AudioFiles/asterisk.mp3'
     audioDict['hash'] = './AudioFiles/hash.mp3'
     
-    audioTextDict['null'] = 'null'
-    audioTextDict['beep'] = 'beep'
-    
     audioTextDict['welcomeToIris'] = 'Welcome to IRIS.'
     audioTextDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = 'Please key in origin building ID, followed by the hash key.'
     audioTextDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = 'Please key in origin building storey, followed by the hash key.'
@@ -154,7 +157,6 @@ def initAudio():
     
     audioTextDict['navigationStarted'] = 'Navigation started.'
     audioTextDict['navigationCompleted'] = 'Navigation completed.'
-    audioTextDict['nextNodeIdIs'] = 'Next node ID is'
     audioTextDict['reached'] = 'Reached'
     audioTextDict['building'] = 'building'
     audioTextDict['storey'] = 'storey'
@@ -167,8 +169,6 @@ def initAudio():
     audioTextDict['goStraight'] = 'Go straight.'
     audioTextDict['turnLeft'] = 'Turn left.'
     audioTextDict['turnRight'] = 'Turn right.'
-    audioTextDict['adjustYourBearingSlightlyToTheLeft'] = 'Adjust your bearing slightly to the left.'
-    audioTextDict['adjustYourBearingSlightlyToTheRight'] = 'Adjust your bearing slightly to the right.'
     audioTextDict['adjustHeading'] = 'Adjust heading: '
     audioTextDict['negative'] = 'negative'
     audioTextDict['left'] = 'left'
@@ -191,7 +191,7 @@ def initAudio():
     
     # to start `playAudioQueueThread`
     audioQueue = []
-    playAudioQueueThread = Thread(target = _playAudioQueue)
+    playAudioQueueThread = Thread(target=_playAudioQueue)
     playAudioQueueThread.start()
 
 '''

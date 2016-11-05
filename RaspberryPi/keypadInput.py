@@ -27,25 +27,29 @@ def initKeypad():
 '''
 Wait for the next key press, and then return it.
 '''
-def waitAndGetKeyPress():
-    userInput = None
-    while userInput == None:
-        userInput = _getKeyPress()
-    return userInput
+# def waitAndGetKeyPress():
+#     userInput = None
+#     while userInput == None:
+#         userInput = _getKeyPress()
+#     return userInput
 
-def waitAndGetKeyPressesUntilHashKey():
+'''
+Wait for the next keypad input, and then return it. A keypad input is a sequence of key presses, ending with '#'. '*' is
+treated as "clear".
+'''
+def waitAndGetKeypadInput():
     userInput = None
     while userInput == None:
         userInput = _getKeyPressesUntilHashKey()
     return userInput
 
-def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
+def waitAndGetKeypadInputWithAudioPrompt(promptAudioName):
     userInput = ''
     while True:
         print(stringHelper.AUDIO + ' ' + audioOutput.audioTextDict[promptAudioName])
         audioOutput.playAudio(promptAudioName)
         
-        userInput = waitAndGetKeyPressesUntilHashKey()
+        userInput = waitAndGetKeypadInput()
         print(stringHelper.AUDIO + ' You have keyed in: ' + userInput)
         audioOutput.playAudio('youHaveKeyedIn')
         audioOutput.playInt(userInput)
@@ -63,6 +67,16 @@ def waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(promptAudioName):
         else: # if isUserInputConfirmed == '*'
             continue
     return userInput
+
+def getKeypadInput():
+    global userInputs
+    
+    if len(userInputs) > 0:
+        userInput = userInputs[0]
+        userInputs.pop(0)
+        return userInput
+    else:
+        return None
 
 '''
 Closes `readKeypadInputThread`.
@@ -129,7 +143,7 @@ def _test():
     audioOutput.playAudio('welcomeToIris')
     sleep(1)
     
-    destNodeId = waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
+    destNodeId = waitAndGetKeypadInputWithAudioPrompt(
         'plsKeyInDestinationNodeIdFollowedByTheHashKey')
     print(stringHelper.INFO + ' destNodeId = ' + destNodeId)
     

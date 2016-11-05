@@ -7,157 +7,139 @@ scheduling, thread instantiations, are defined here.
 
 import algorithms
 import audioOutput
-# import json
 import keypadInput
-import math
+# import math
 from Navigator import Navigator
-from SimplePiMegaCommunicator import PiMegaCommunicator # <-----------------------------
+from DummyPiMegaCommunicator import PiMegaCommunicator
 import stringHelper
 # from threading import Thread
 from time import sleep
 
+isFastDebugMode = True
+hardCodedSrcNodeId = 1211
+hardCodedDestNodeId = 1216
+
 def main():
-    algorithms.printWelcomeMsg()
+    global isFastDebugMode, hardCodedSrcNodeId, hardCodedDestNodeId
     
+    algorithms.printWelcomeMsg()
     keypadInput.initKeypad()
     audioOutput.initAudio()
     
     print(stringHelper.AUDIO + ' Welcome to IRIS.')
     audioOutput.playAudio('welcomeToIris')
+    print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
+    audioOutput.playAudio('arpeggio_soundEffect')
     
-    srcNodeId = int(keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInOriginNodeIdFollowedByTheHashKey'))
-    destNodeId = int(keypadInput.waitAndGetKeyPressesUntilHashKeyWithConfirmationDialog(
-            'plsKeyInDestinationNodeIdFollowedByTheHashKey'))
+    # to get `srcNodeId` and `destNodeId`
+    if isFastDebugMode:
+        srcNodeId = hardCodedSrcNodeId
+        destNodeId = hardCodedDestNodeId
+    else:
+        srcNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
+                'plsKeyInOriginNodeIdFollowedByTheHashKey'))
+        destNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
+                'plsKeyInDestinationNodeIdFollowedByTheHashKey'))
     print(stringHelper.INFO + ' srcNodeId = ' + str(srcNodeId))
     print(stringHelper.INFO + ' destNodeId = ' + str(destNodeId))
     
-#     mapOfCom1Level1 = algorithms.downloadAndParseMap('COM1', 1)
-#     mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', 2)
-#     mapOfCom2Level2 = algorithms.downloadAndParseMap('COM2', 2)
-#     mapOfCom2Level3 = algorithms.downloadAndParseMap('COM2', 3)
-#     linkedMap = algorithms.linkMaps([mapOfCom1Level1, mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
-    
-    linkedMap = algorithms.downloadAndParseMap(int(str(srcNodeId)[0]), int(str(srcNodeId)[1]))
-    
-    srcNodeId = int(str(srcNodeId)[2:])
-    destNodeId = int(str(destNodeId)[2:])
-    
+    # to get map info and compute route
+    mapOfCom1Level2 = algorithms.downloadAndParseMap('COM1', '2')
+    mapOfCom2Level2 = algorithms.downloadAndParseMap('COM2', '2')
+    mapOfCom2Level3 = algorithms.downloadAndParseMap('COM2', '3')
+    linkedMap = algorithms.linkMaps([mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
     route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
-    print(stringHelper.INFO + ' Route: ', end='')
-    for i in range(len(route) - 1):
-        print(str(route[i]) + ' -> ', end = "")
-    print(route[len(route) - 1])
+    algorithms.printRoute(route)
     
-    # =========================== NAVIGATION START ===========================================
-    
-    piMegaCommunicator = PiMegaCommunicator() # <-----------------------------
-    piMegaCommunicator.startUp() # <-----------------------------
+    # ======================================== BEGIN NAVIGATION ========================================
     
     isNavigationInProgress = True
-    currBuildingId = int(str(srcNodeId)[0])
+    isNavigationPaused = False # when paused, ignore any steps that the user performs
     currLocation = [linkedMap.nodesDict[srcNodeId].x, linkedMap.nodesDict[srcNodeId].y]
+    locationOffset = [0, 0]
     routeIdxOfPrevNode = 0
     routeIdxOfNextNode = 1
     
-    navigator = Navigator(linkedMap, route, currLocation[0], currLocation[1])
+    navigator = Navigator(linkedMap, route, currLocation)
     
-    locationOffset = [0, 0]
+    piMegaCommunicator = PiMegaCommunicator()
+    piMegaCommunicator.startUp()
     
     while isNavigationInProgress:
-        piMegaCommunicator.pollData() # <-----------------------------
-        audioOutput.playAudio('beep')
+        # to poll for new data and update `navigator`
+        print('\n========================= NEW DATA POLL =========================\n')
+        dataPacket = piMegaCommunicator.pollData()
+        print(stringHelper.INFO + ' ' + str(dataPacket))
+        isNavigationInProgress = navigator.update(dataPacket)
         
-        packetId = piMegaCommunicator.packetId
-        distanceWalked_north = piMegaCommunicator.distanceWalked_north
-        distanceWalked_northeast = piMegaCommunicator.distanceWalked_northeast
-        distanceWalked_east = piMegaCommunicator.distanceWalked_east
-        distanceWalked_southeast = piMegaCommunicator.distanceWalked_southeast
-        distanceWalked_south = piMegaCommunicator.distanceWalked_south
-        distanceWalked_southwest = piMegaCommunicator.distanceWalked_southwest
-        distanceWalked_west = piMegaCommunicator.distanceWalked_west
-        distanceWalked_northwest = piMegaCommunicator.distanceWalked_northwest
-        heading = piMegaCommunicator.heading
-        
-        currLocation = [linkedMap.nodesDict[srcNodeId].x, linkedMap.nodesDict[srcNodeId].y]
-        currLocation[0] -= distanceWalked_north/math.sqrt(2)
-        currLocation[1] += distanceWalked_north/math.sqrt(2)
-        currLocation[1] += distanceWalked_northeast
-        currLocation[0] += distanceWalked_east/math.sqrt(2)
-        currLocation[1] += distanceWalked_east/math.sqrt(2)
-        currLocation[0] += distanceWalked_southeast
-        currLocation[0] += distanceWalked_south/math.sqrt(2)
-        currLocation[1] -= distanceWalked_south/math.sqrt(2)
-        currLocation[1] -= distanceWalked_southwest
-        currLocation[0] -= distanceWalked_west/math.sqrt(2)
-        currLocation[1] -= distanceWalked_west/math.sqrt(2)
-        currLocation[0] -= distanceWalked_northwest
-        currLocation[0] += locationOffset[0]
-        currLocation[1] += locationOffset[1]
-        print('\n==================================================\n')
-        print(stringHelper.INFO + ' packetId = ' + str(packetId) + ', ', end='')
-        print('currLocation = ' + str(currLocation))
-        
-        if navigator.clearedRouteIdx + 1 == len(navigator.route):
-            print(stringHelper.AUDIO + ' Navigation completed.')
-            audioOutput.playAudio('navigationCompleted')
-            break
-        
-        navigator.updateLocation(currLocation[0], currLocation[1], heading)
-        
-        naviInfo = navigator.getNaviInfo()
-        
+        # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        print(stringHelper.INFO + ' nextNodeId = ' + str(navigator.route[routeIdxOfNextNode]))
-        
-        print(stringHelper.INFO + ' heading = ' + str(heading) + ', ', end='')
-        expectedHeading = algorithms.computeBearing(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x,
-                                                    linkedMap.nodesDict[route[routeIdxOfPrevNode]].y,
-                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
-                                                    linkedMap.nodesDict[route[routeIdxOfNextNode]].y,
-                                                    ) + 45
-        print('expectedHeading = ' + str(expectedHeading))
-        print(stringHelper.INFO + ' prevNode -> nextNode = ' + str(route[routeIdxOfPrevNode]) + ' -> ' + str(route[routeIdxOfNextNode]) + ' = (' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x) +
+        print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
+              str(route[routeIdxOfNextNode]) + ' = (' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x) +
               ', ' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y) + ') -> (' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].x) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
         
-        # to give steps remaining instructions
-        if packetId % 7 == 0 and packetId != 0:
-            straightLineDistanceToNextNode = algorithms.computeDistance(currLocation[0],
-                                                                        currLocation[1],
-                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].x,
-                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].y)
+        # to compute and print the current heading and the expected heading
+        print(stringHelper.INFO + ' heading = ' + str(dataPacket.heading) + ', ', end='')
+        expectedHeading = algorithms.computeBearing(
+                linkedMap.nodesDict[route[routeIdxOfPrevNode]].x, linkedMap.nodesDict[route[routeIdxOfPrevNode]].y,
+                linkedMap.nodesDict[route[routeIdxOfNextNode]].x, linkedMap.nodesDict[route[routeIdxOfNextNode]].y
+                ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
+        print('expectedHeading = ' + str(expectedHeading))
+        
+        # to give beep sounds as the turning instruction; with C major scale (1 = C4),
+        #     "3" means "go straight";
+        #     "1" means "turn left 45 degrees";
+        #     "5" means "turn right 45 degrees";
+        #     "11" means "turn left 90 degrees";
+        #     "55" means "turn right 90 degrees";
+        #     "111" means "turn left 135 degrees";
+        #     "555" means "turn right 135 degrees";
+        #     "1(+8va)" means "turn 180 degrees"
+        if expectedHeading - dataPacket.heading == 0:
+            print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
+            audioOutput.playAudioNow('heading+0_soundEffect')
+        elif expectedHeading - dataPacket.heading == -45 or expectedHeading - dataPacket.heading == 315:
+            print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
+            audioOutput.playAudioNow('heading-45_soundEffect')
+        elif expectedHeading - dataPacket.heading == 45 or expectedHeading - dataPacket.heading == -315:
+            print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
+            audioOutput.playAudioNow('heading+45_soundEffect')
+        elif expectedHeading - dataPacket.heading == -90 or expectedHeading - dataPacket.heading == 270:
+            print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
+            audioOutput.playAudioNow('heading-90_soundEffect')
+        elif expectedHeading - dataPacket.heading == 90 or expectedHeading - dataPacket.heading == -270:
+            print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
+            audioOutput.playAudioNow('heading+90_soundEffect')
+        elif expectedHeading - dataPacket.heading == -135 or expectedHeading - dataPacket.heading == 225:
+            print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
+            audioOutput.playAudioNow('heading-135_soundEffect')
+        elif expectedHeading - dataPacket.heading == 135 or expectedHeading - dataPacket.heading == -225:
+            print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
+            audioOutput.playAudioNow('heading+135_soundEffect')
+        elif expectedHeading - dataPacket.heading == 180 or expectedHeading - dataPacket.heading == -180:
+            print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
+            audioOutput.playAudioNow('heading+180_soundEffect')
+        else:
+            print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \
+                  dataPacket.heading = ' + str(expectedHeading - dataPacket.heading))
+        
+        # get the user input (if any)
+        userInput = keypadInput.getKeypadInput()
+        
+        # if the user input is '9', give detailed audio feedback
+        if userInput == '9':
+            straightLineDistanceToNextNode = algorithms.computeDistance(currLocation,
+                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
             stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
             print(stringHelper.AUDIO + ' ' + str(stepsRemainingToNextNode) + ' steps to next node.')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
             audioOutput.playAudio('stepsToNextNode')
         
-        # to give turning instructions
-        if packetId != 0:
-            if heading - expectedHeading > 22.5 and heading - expectedHeading < 67.5:
-                print(stringHelper.AUDIO + ' Adjust heading: left')
-                audioOutput.playAudio('adjustHeading')
-                audioOutput.playAudio('left')
-            elif heading - expectedHeading > 67.5 and heading - expectedHeading < 180:
-                print(stringHelper.AUDIO + ' Turn left.')
-                audioOutput.playAudio('turnLeft')
-            elif heading - expectedHeading < -67.5 and heading - expectedHeading > -180:
-                print(stringHelper.AUDIO + ' Turn right.')
-                audioOutput.playAudio('turnRight')
-            elif heading - expectedHeading > -67.5 and heading - expectedHeading < -22.5:
-                print(stringHelper.AUDIO + ' Adjust heading: right')
-                audioOutput.playAudio('adjustHeading')
-                audioOutput.playAudio('right')
-        else:
-            print(stringHelper.AUDIO + ' Adjust heading: ' + str(expectedHeading - heading) + ' degrees.')
-            audioOutput.playAudio('adjustHeading')
-            audioOutput.playInt(expectedHeading - heading)
-            audioOutput.playAudio('degrees')
-        
-        # if user press the cheat key, auto step forward/backward among nodes in route
-        if keypadInput.tempUserInput == '1':
+        # if the user input is '1', snap the current location to the previous node in route
+        if userInput == '1':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx -= 1
             print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
@@ -168,9 +150,11 @@ def main():
             audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
             
-            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].x - currLocation[0]
-            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].y - currLocation[1]
-        elif keypadInput.tempUserInput == '3':
+            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
+            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
+        
+        # if the user input is '3', snap the current location to the next node in route
+        if userInput == '3':
             keypadInput.tempUserInput = ''
             navigator.clearedRouteIdx += 1
         
@@ -179,17 +163,52 @@ def main():
             audioOutput.playAudio('reached')
             audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
-            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].x - currLocation[0]
-            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].y - currLocation[1]
-        else:
-            keypadInput.tempUserInput = ''
+            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
+            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
         
-        sleep(5)
-    
-    # =========================== NAVIGATION END ===========================================
-    
-    keypadInput.closeKeypadThread()
-    audioOutput.closeAudioThread()
+        # to give turning instructions; with C major scale (1 = C4),
+        #     "3" means "go straight";
+        #     "1" means "turn left 45 degrees";
+        #     "5" means "turn right 45 degrees";
+        #     "11" means "turn left 90 degrees";
+        #     "55" means "turn right 90 degrees";
+        #     "111" means "turn left 135 degrees";
+        #     "555" means "turn right 135 degrees";
+        #     "1(+8va)" means "turn 180 degrees"
+        if expectedHeading - dataPacket.heading == 0:
+            print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
+            audioOutput.playAudioNow('heading+0_soundEffect')
+        elif expectedHeading - dataPacket.heading == -45 or expectedHeading - dataPacket.heading == 315:
+            print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
+            audioOutput.playAudioNow('heading-45_soundEffect')
+        elif expectedHeading - dataPacket.heading == 45 or expectedHeading - dataPacket.heading == -315:
+            print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
+            audioOutput.playAudioNow('heading+45_soundEffect')
+        elif expectedHeading - dataPacket.heading == -90 or expectedHeading - dataPacket.heading == 270:
+            print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
+            audioOutput.playAudioNow('heading-90_soundEffect')
+        elif expectedHeading - dataPacket.heading == 90 or expectedHeading - dataPacket.heading == -270:
+            print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
+            audioOutput.playAudioNow('heading+90_soundEffect')
+        elif expectedHeading - dataPacket.heading == -135 or expectedHeading - dataPacket.heading == 225:
+            print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
+            audioOutput.playAudioNow('heading-135_soundEffect')
+        elif expectedHeading - dataPacket.heading == 135 or expectedHeading - dataPacket.heading == -225:
+            print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
+            audioOutput.playAudioNow('heading+135_soundEffect')
+        elif expectedHeading - dataPacket.heading == 180 or expectedHeading - dataPacket.heading == -180:
+            print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
+            audioOutput.playAudioNow('heading+180_soundEffect')
+        else:
+            print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \
+                  dataPacket.heading = ' + str(expectedHeading - dataPacket.heading))
+        
+        sleep(3)
+        
+        # ======================================== END NAVIGATION ========================================
+        
+        keypadInput.closeKeypadThread()
+        audioOutput.closeAudioThread()
 
 if __name__ == '__main__':
     main()

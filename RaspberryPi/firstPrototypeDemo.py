@@ -49,7 +49,7 @@ def demo():
                 currentY = int(input('Please enter the y-coordinate of current location: '))
                 currentBearing = int(input('Please enter the bearing (w.r.t. geographical north) of current location: '))
                 
-                navigator.updateLocation(currentX, currentY, currentBearing)
+                navigator.update(currentX, currentY, currentBearing)
                 if navigator.clearedRouteIdx == len(navigator.route) - 1:
                     print('You have reached the destination node.')
                     break

@@ -30,43 +30,36 @@ class PiMegaCommunicator():
         
         while True:
             msgReceived = self.port.read()
+            print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi is waiting for ACK from Mega...')
             if msgReceived == MSG_ACK:
-                print(stringHelper.MESSAGE + ' Pi received ACK from Mega!')
+                print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega!')
                 self.port.write(MSG_ACK)
-                print(stringHelper.MESSAGE + ' Pi sent ACK to Mega. Three-way handshake is done.')
+                print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent ACK to Mega.' +
+                      'Three-way handshake is done.')
                 break
     
     def pollData(self):
         self.port.write(MSG_POLL_DATA)
-        print('MESSAGE: Pi sent POLL_DATA to Mega.')
+        print(stringHelper.MESSAGE + ' at PiMegaCommunicator.pollData(): Pi sent POLL_DATA to Mega.')
         
         while True:
             bytestreamReceived = self.port.read()
             if bytestreamReceived != None:
                 decodedBytestream = hammingCode.decode(bytestreamReceived)
                 if decodedBytestream == None: # if the bytestream received is erroneous
-                    self.port.write(MSG_NAK)
+                    print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData():' +
+                          ' The data packet received is erroneous; dropping this data packet.')
+                    return None
                 else:
-                    self.port.write(MSG_ACK)
                     dataPacket = DataPacket(decodedBytestream)
-                    break
-        
-        return dataPacket
+                    return dataPacket
 
-def testPollData():
+def _test():
     communicator = PiMegaCommunicator()
     communicator.startUp()
-    
-    totalNumStepsWalked = 0
     while True:
         dataPacket = communicator.pollData()
-        print(dataPacket.packetId)
-        print(dataPacket.handProximity)
-        print(dataPacket.frontProximity)
-        print(dataPacket.leftProximity)
-        print(dataPacket.rightProximity)
-        print(dataPacket.numSteps)
-        print(dataPacket.orientation_tag)
+        print(str(dataPacket))
 
 if __name__ == '__main__':
-    testPollData()
+    _test()

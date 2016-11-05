@@ -5,6 +5,7 @@ dropped without requesting for re-transmission.
 @author joelle, reviewed by chen-zhuo
 '''
 
+from DataPacket import DataPacket
 import serial # @UnresolvedImport
 import stringHelper
 from time import sleep
@@ -12,117 +13,87 @@ from time import sleep
 class PiMegaCommunicator():
     def __init__(self):
         self.port = serial.Serial('/dev/ttyAMA0',baudrate=9600,timeout=3.0)
-        
-        self.handProximity = 0
-        self.frontProximity = 0
-        self.leftProximity = 0
-        self.rightProximity = 0
-        self.distanceWalked_north = 0
-        self.distanceWalked_northeast = 0
-        self.distanceWalked_east = 0
-        self.distanceWalked_southeast = 0
-        self.distanceWalked_south = 0
-        self.distanceWalked_southwest = 0
-        self.distanceWalked_west = 0
-        self.distanceWalked_northwest = 0
-        self.heading = 0
-        
-        
-        self.checksum = 0 # sum of all values above (from `handProximity` to `heading`)
     
-    # three-way handshake
     def startUp(self):
-#         self.port.write(bytes('H', 'utf-8')) # send HELLO
-#         print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
-        
-#         msgReceived = ''
-#         while msgReceived == '':
-#             print(stringHelper.MESSAGE + ' Reading...')
-#             msgReceived = self.port.read().decode('utf-8')
-#         if msgReceived == 'A': # if ACK is received
-#             print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi received ACK from Mega.')
-#             self.port.write(bytes('A', 'utf-8')) # send ACK
-#             print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent ACK to Mega. Three-way handshake is done.')
-#         else: # if ACK is not received
-#             print(stringHelper.ERROR + ' at PiMegaCommunicator.startUp(): Pi did not receive ACK from Mega.')
-        
-        
-        
-        
-        print ('Saying Hello')
-        self.port.write(bytes('H', 'UTF-8'))
-        print ('Arduino is reading..')
-        
-#         while True:
-#             print('before read') # <--------------------------
-#             #ch = self.readlineCR()
-#             ch = self.port.read()
-#             print('after read') # <--------------------------
-#             print (ch.decode('utf-8'))
-#             if ch == b'A':
-#                 print('Pi reads:')
-#                 print(ch.decode('utf-8'))
-#                 print('Sending ACK')
-#                 self.port.write(bytes('A', 'UTF-8'))
-#                 print ('Mega is ready')
-#                 break
+        self.port.write(bytes('H', 'utf-8'))
+        print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
     
+    '''
+    Requests for data by sending a 'P' character to Mega. Assumes data comes one by one, separated by a newline
+    character. Using a simple sum as the checksum.
+    
+    @return a `DataPacket` object if the checksum is correct; return None if the checksum is incorrect
+    '''
     def pollData(self):
         self.port.write(bytes('P', 'utf-8')) # send POLL
-        # @author chen-zhuo: possible logic error here; data might not be ready yet right after sending POLL
-
-        msg = ''
-        while msg == '':
-            print('in while loop')
-            msg = self.port.readline().decode('utf-8').replace('\r\n','')
-        self.packetId = int(msg)
-        self.handProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-#         self.frontProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.leftProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.rightProximity = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_north = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_northeast = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_east = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_southeast = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_south = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_southwest = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_west = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        self.distanceWalked_northwest = int(self.port.readline().decode('utf-8').replace('\r\n',''))
         
-#         print(str(self.packetId) + ' ' + str(self.leftProximity) + ' ' + str(self.rightProximity) + ' ' + str(self.distanceWalked_north) + ' ' +\
-#               str(self.distanceWalked_northeast) + ' ' + str(self))
+        # ============================== BEGIN DATA ==============================
         
-        self.heading = int(self.port.readline().decode('utf-8').replace('\r\n',''))
-        #self.checksum = int(self.port.readline().decode('utf-8').replace('\r\n',''))
+        packetId = int(self.waitAndReadLine())
+        handProximity = int(self.waitAndReadLine())
+#         leftLegFrontProximity = int(self.waitAndReadLine())
+#         rightLegFrontProximity = int(self.waitAndReadLine())
+#         leftLegLeftProximity = int(self.waitAndReadLine())
+#         rightLegRightProximity = int(self.waitAndReadLine())
+        leftArmLeftProximity = int(self.waitAndReadLine())
+        rightArmRightProximity = int(self.waitAndReadLine())
         
-        print(stringHelper.INFO + ' ' + str(self.handProximity) + ', ' + str(self.frontProximity) + ', ' +
-              str(self.leftProximity) + ', ' + str(self.rightProximity) + ', [' + str(self.distanceWalked_north) +
-              ', ' + str(self.distanceWalked_northeast) + ', ' + str(self.distanceWalked_east) + ', ' +
-              str(self.distanceWalked_southeast) + ', ' + str(self.distanceWalked_south) + ', ' +
-              str(self.distanceWalked_southwest) + ', ' + str(self.distanceWalked_west) + ', ' +
-              str(self.distanceWalked_northwest) + '], ' + str(self.heading))
+        distanceWalked_north = int(self.waitAndReadLine())
+        distanceWalked_northeast = int(self.waitAndReadLine())
+        distanceWalked_east = int(self.waitAndReadLine())
+        distanceWalked_southeast = int(self.waitAndReadLine())
+        distanceWalked_south = int(self.waitAndReadLine())
+        distanceWalked_southwest = int(self.waitAndReadLine())
+        distanceWalked_west = int(self.waitAndReadLine())
+        distanceWalked_northwest = int(self.waitAndReadLine())
         
-#         expectedChecksum = self.handProximity + self.frontProximity + self.leftProximity + self.rightProximity +\
-#                 self.distanceWalked_north + self.distanceWalked_northeast + self.distanceWalked_east +\
-#                 self.distanceWalked_southeast + self.distanceWalked_south + self.distanceWalked_southwest +\
-#                 self.distanceWalked_west + self.distanceWalked_northwest + self.heading
-#         if self.checkum != expectedChecksum:
-#             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Dropping this' +
-#                   'erroneous data packet.')
-#             self.handProximity = 0
-#             self.frontProximity = 0
-#             self.leftProximity = 0
-#             self.rightProximity = 0
-#             self.distanceWalked_north = 0
-#             self.distanceWalked_northeast = 0
-#             self.distanceWalked_east = 0
-#             self.distanceWalked_southeast = 0
-#             self.distanceWalked_south = 0
-#             self.distanceWalked_southwest = 0
-#             self.distanceWalked_west = 0
-#             self.distanceWalked_northwest = 0
-#             self.heading = 0
-#             self.checksum = 0
+        heading = int(self.waitAndReadLine())
+        
+        checksum = int(self.waitAndReadLine())
+        
+        # ============================== END DATA ==============================
+        
+        # to verify checksum
+        expectedChecksum = handProximity +\
+                           leftArmLeftProximity +\
+                           rightArmRightProximity +\
+                           distanceWalked_north +\
+                           distanceWalked_northeast +\
+                           distanceWalked_east +\
+                           distanceWalked_southeast +\
+                           distanceWalked_south +\
+                           distanceWalked_southwest +\
+                           distanceWalked_west +\
+                           distanceWalked_northwest +\
+                           heading
+        if checksum != expectedChecksum:
+            print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Dropping this \
+                  erroneous data packet.')
+            return None
+        else:
+            # to compile the data received into a single `DataPacket` object
+            bytestream = str(packetId) + ',' +\
+                         str(handProximity) + ',' +\
+                         str(leftArmLeftProximity) + ',' +\
+                         str(rightArmRightProximity) + ',[' +\
+                         str(distanceWalked_north) + ',' +\
+                         str(distanceWalked_northeast) + ',' +\
+                         str(distanceWalked_east) + ',' +\
+                         str(distanceWalked_southeast) + ',' +\
+                         str(distanceWalked_south) + ',' +\
+                         str(distanceWalked_southwest) + ',' +\
+                         str(distanceWalked_west) + ',' +\
+                         str(distanceWalked_northwest) + '],' +\
+                         str(heading) + ',' +\
+                         str(checksum) + ';'
+            dataPacket = DataPacket(bytestream)
+            return dataPacket
+    
+    def waitAndReadLine(self):
+        msgReceived = ''
+        while msgReceived == '':
+            msgReceived = self.port.readline().decode('utf-8').replace('\r\n','')
+        return msgReceived
 
 def _test():
     piMegaCommunicator = PiMegaCommunicator()

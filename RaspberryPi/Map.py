@@ -8,9 +8,8 @@ with known locations. A `Map` contains information for one storey of a particula
 import stringHelper
 
 class Map:
-    def __init__(self, buildingId, buildingName, buildingStorey, northAt):
+    def __init__(self, buildingId, buildingStorey, northAt):
         self.buildingId = buildingId # e.g. 1
-        self.buildingName = buildingName # e.g. 'COM1'
         self.buildingStorey = buildingStorey # e.g. 2
         self.northAt = northAt # e.g. 315; the bearing of geographical north to 0 degree of this map
         
@@ -42,11 +41,10 @@ class Map:
         return self.nodesDict.keys()
 
 class Node:
-    def __init__(self, nodeId, nodeName, x, y):
+    def __init__(self, nodeId, nodeName, location):
         self.nodeId = nodeId
         self.nodeName = nodeName
-        self.x = x # x-coordinate (in cm) of this node
-        self.y = y # y-coordinate (in cm) of this node
+        self.location = location # x and y coordinates (in cm) of this node
         
         self.adjacentNodes = {} # if `adjacentNodes[6]` is 1000, that means this node is connected to node 6 (`nodeId`
                                 # is 6), and they are 1000 cm apart (a.k.a. 'edge weight')
