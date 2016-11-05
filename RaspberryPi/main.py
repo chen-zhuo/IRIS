@@ -76,16 +76,17 @@ def main():
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
         print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
-              str(route[routeIdxOfNextNode]) + ' = (' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].x) +
-              ', ' + str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].y) + ') -> (' +
-              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].x) + ', ' +
-              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].y) + ')')
+              str(route[routeIdxOfNextNode]) + ' = (' +
+              str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
+              str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[1]) + ') -> (' +
+              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[0]) + ', ' +
+              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
         
         # to compute and print the current heading and the expected heading
         print(stringHelper.INFO + ' heading = ' + str(dataPacket.heading) + ', ', end='')
         expectedHeading = algorithms.computeBearing(
-                linkedMap.nodesDict[route[routeIdxOfPrevNode]].x, linkedMap.nodesDict[route[routeIdxOfPrevNode]].y,
-                linkedMap.nodesDict[route[routeIdxOfNextNode]].x, linkedMap.nodesDict[route[routeIdxOfNextNode]].y
+                linkedMap.nodesDict[route[routeIdxOfPrevNode]].location,
+                linkedMap.nodesDict[route[routeIdxOfNextNode]].location
                 ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
         print('expectedHeading = ' + str(expectedHeading))
         
