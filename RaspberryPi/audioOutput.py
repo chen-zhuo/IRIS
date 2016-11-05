@@ -237,7 +237,7 @@ def _test():
     playInt('180')
     playAudio('degrees')
     sleep(5)
-    
+    playAudio('reachedNewNode_soundEffect')
     closeAudioThread()
 
 if __name__ == '__main__':
