@@ -47,18 +47,18 @@ class Navigator():
         
         # to calculate the current location based on the distances travelled in 8 directions, as well as the offset
         self.currLocation = self.myMap.nodesDict[self.srcNodeId].location
-        self.currLocation[0] -= dataPacket.distanceWalked_north/math.sqrt(2)
-        self.currLocation[1] += dataPacket.distanceWalked_north/math.sqrt(2)
-        self.currLocation[1] += dataPacket.distanceWalked_northeast
-        self.currLocation[0] += dataPacket.distanceWalked_east/math.sqrt(2)
-        self.currLocation[1] += dataPacket.distanceWalked_east/math.sqrt(2)
-        self.currLocation[0] += dataPacket.distanceWalked_southeast
-        self.currLocation[0] += dataPacket.distanceWalked_south/math.sqrt(2)
-        self.currLocation[1] -= dataPacket.distanceWalked_south/math.sqrt(2)
-        self.currLocation[1] -= dataPacket.distanceWalked_southwest
-        self.currLocation[0] -= dataPacket.distanceWalked_west/math.sqrt(2)
-        self.currLocation[1] -= dataPacket.distanceWalked_west/math.sqrt(2)
-        self.currLocation[0] -= dataPacket.distanceWalked_northwest
+        self.currLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
+        self.currLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
+        self.currLocation[1] += dataPacket.distancesList[1]
+        self.currLocation[0] += dataPacket.distancesList[2]/math.sqrt(2)
+        self.currLocation[1] += dataPacket.distancesList[2]/math.sqrt(2)
+        self.currLocation[0] += dataPacket.distancesList[3]
+        self.currLocation[0] += dataPacket.distancesList[4]/math.sqrt(2)
+        self.currLocation[1] -= dataPacket.distancesList[4]/math.sqrt(2)
+        self.currLocation[1] -= dataPacket.distancesList[5]
+        self.currLocation[0] -= dataPacket.distancesList[6]/math.sqrt(2)
+        self.currLocation[1] -= dataPacket.distancesList[6]/math.sqrt(2)
+        self.currLocation[0] -= dataPacket.distancesList[7]
         self.currLocation[0] += self.locationOffset[0]
         self.currLocation[1] += self.locationOffset[1]
         
