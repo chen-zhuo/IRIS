@@ -33,7 +33,7 @@ def main():
     
     # to get `srcNodeId` and `destNodeId`
     if isFastDebugMode:
-        sleep(5)
+        sleep(7)
         srcNodeId = hardCodedSrcNodeId
         destNodeId = hardCodedDestNodeId
     else:
@@ -147,7 +147,7 @@ def main():
             print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
             
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
-            audioOutput.playAudio('reachedNewNodeSoundEffect')
+            audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
@@ -161,7 +161,7 @@ def main():
             navigator.clearedRouteIdx += 1
         
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
-            audioOutput.playAudio('reachedNewNodeSoundEffect')
+            audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
