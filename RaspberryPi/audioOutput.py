@@ -213,42 +213,22 @@ def _test():
     
     print(stringHelper.MESSAGE + ' Playing multiple audio files simultaneously...')
     sleep(1)
-    
     print(stringHelper.AUDIO + ' ' + audioTextDict['goStraight'])
     playAudioNow('goStraight')
-    
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnLeft'])
     playAudioNow('turnLeft')
-    
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnRight'])
     playAudioNow('turnRight')
-    
-    print(stringHelper.AUDIO + ' ' + audioTextDict['adjustYourBearingSlightlyToTheLeft'])
-    playAudioNow('adjustYourBearingSlightlyToTheLeft')
-    
-    print(stringHelper.AUDIO + ' ' + audioTextDict['adjustYourBearingSlightlyToTheRight'])
-    playAudioNow('adjustYourBearingSlightlyToTheRight')
-    
     sleep(4)
     
     print(stringHelper.MESSAGE + ' Playing multiple audio files one after another...')
     sleep(1)
-    
     print(stringHelper.AUDIO + ' ' + audioTextDict['goStraight'])
     playAudio('goStraight')
-    
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnLeft'])
     playAudio('turnLeft')
-    
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnRight'])
     playAudio('turnRight')
-    
-    print(stringHelper.AUDIO + ' ' + audioTextDict['adjustYourBearingSlightlyToTheLeft'])
-    playAudio('adjustYourBearingSlightlyToTheLeft')
-    
-    print(stringHelper.AUDIO + ' ' + audioTextDict['adjustYourBearingSlightlyToTheRight'])
-    playAudio('adjustYourBearingSlightlyToTheRight')
-    
     sleep(9)
     
     closeAudioThread()
