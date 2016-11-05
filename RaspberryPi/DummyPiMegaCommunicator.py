@@ -24,8 +24,7 @@ dataPackets = [DataPacket('0,0,0,0,[0,0,0,0,0,0,0,0],45;'.encode('utf-8')),
                # between #1237 and #1216, facing "down", slightly deviated from graph edge
                DataPacket('7,0,0,0,[0,0,0,1662,0,644,0,0],225;'.encode('utf-8')),
                # at #1216; destination reached
-               DataPacket('8,0,0,0,[0,0,0,1462,0,1056,0,0],225;'.encode('utf-8')),
-               DataPacket('9,0,0,0,[0,0,0,1462,0,1056,0,0],225;'.encode('utf-8'))
+               DataPacket('8,0,0,0,[0,0,0,1462,0,1056,0,0],225;'.encode('utf-8'))
               ]
 
 class PiMegaCommunicator():

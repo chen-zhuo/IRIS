@@ -23,7 +23,8 @@ class Navigator():
                                                                 myMap.nodesDict[route[1]].location)
         self.nodeReachedThreshold = 100
         
-        self.currLocation = currLocation
+        self.currLocation[0] = currLocation[0]
+        self.currLocation[1] = currLocation[1]
         self.locationOffset = [0, 0]
         
         self.currHeading = 0
@@ -65,9 +66,9 @@ class Navigator():
         
         # to print the current location (absolute coordinates and relative coordinates from starting location)
         print(stringHelper.INFO + ' currLocation = (' +
-              str(self.currLocation[0]) + ',' + str(self.currLocation[1]) + '), ' +
+              str(self.currLocation[0]) + ', ' + str(self.currLocation[1]) + '), ' +
               'displacementFromStartingLocation = (' +
-              str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) + ',' +
+              str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) + ', ' +
               str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) + ')')
         
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
