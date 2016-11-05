@@ -229,7 +229,7 @@ def _test():
     playAudio('turnLeft')
     print(stringHelper.AUDIO + ' ' + audioTextDict['turnRight'])
     playAudio('turnRight')
-    sleep(7)
+    sleep(5)
     
     closeAudioThread()
 
