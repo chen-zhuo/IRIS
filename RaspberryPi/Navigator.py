@@ -73,7 +73,7 @@ class Navigator():
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
         
         self.expectedHeading = algorithms.computeBearing(self.currLocation,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]))
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
         
         self.currHeading = dataPacket.heading
         
