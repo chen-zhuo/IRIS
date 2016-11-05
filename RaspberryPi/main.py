@@ -76,7 +76,7 @@ def main():
         # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        if routeIdxOfPrevNode < len(route):
+        if routeIdxOfPrevNode < len(route) - 1:
             print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
                   str(route[routeIdxOfNextNode]) + ' = (' +
                   str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
