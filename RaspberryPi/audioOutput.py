@@ -211,7 +211,7 @@ def _test():
     playAudio('welcomeToIris')
     print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
     playAudio('arpeggio_soundEffect')
-    sleep(7)
+    sleep(9)
     
     print(stringHelper.MESSAGE + ' Playing sample heading feedback...')
     sleep(1)
@@ -224,13 +224,13 @@ def _test():
     playAudio('turnLeft')
     playInt('45')
     playAudio('degrees')
-    sleep(3)
+    sleep(5)
     print(stringHelper.AUDIO + ' Turn right 90 degrees.')
     playAudioNow('heading+90_soundEffect')
     playAudio('turnRight')
     playInt('90')
     playAudio('degrees')
-    sleep(3)
+    sleep(5)
     
     closeAudioThread()
 
