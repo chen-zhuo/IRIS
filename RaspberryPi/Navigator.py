@@ -66,8 +66,8 @@ class Navigator():
         print(stringHelper.INFO + ' currLocation = (' +
               str(self.currLocation[0]) + ',' + str(self.currLocation[1]) + '), ' +
               'displacementFromStartingLocation = (' +
-              str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].x) + ',' +
-              str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].y) + ')')
+              str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) + ',' +
+              str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) + ')')
         
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
