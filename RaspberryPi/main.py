@@ -167,13 +167,13 @@ def main():
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
             locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
             locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
-        
+        print('lalala')
         sleep(3)
         
         # ======================================== END NAVIGATION ========================================
         
-        keypadInput.closeKeypadThread()
-        audioOutput.closeAudioThread()
+    keypadInput.closeKeypadThread()
+    audioOutput.closeAudioThread()
 
 if __name__ == '__main__':
     main()
