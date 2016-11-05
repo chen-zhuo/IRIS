@@ -231,6 +231,12 @@ def _test():
     playInt('90')
     playAudio('degrees')
     sleep(5)
+    print(stringHelper.AUDIO + ' Turn 180 degrees.')
+    playAudioNow('heading+180_soundEffect')
+    playAudio('turnRight')
+    playInt('180')
+    playAudio('degrees')
+    sleep(5)
     
     closeAudioThread()
 
