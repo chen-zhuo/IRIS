@@ -55,7 +55,7 @@ def main():
     
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
-    currLocation = [linkedMap.nodesDict[srcNodeId].x, linkedMap.nodesDict[srcNodeId].y]
+    currLocation = linkedMap.nodesDict[srcNodeId].location
     locationOffset = [0, 0]
     routeIdxOfPrevNode = 0
     routeIdxOfNextNode = 1
