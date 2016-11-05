@@ -76,12 +76,15 @@ def main():
         # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
-              str(route[routeIdxOfNextNode]) + ' = (' +
-              str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
-              str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[1]) + ') -> (' +
-              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[0]) + ', ' +
-              str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
+        if isNavigationInProgress:
+            print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
+                  str(route[routeIdxOfNextNode]) + ' = (' +
+                  str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
+                  str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[1]) + ') -> (' +
+                  str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[0]) + ', ' +
+                  str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
+        else:
+            print('Destination is reached.')
         
         # to compute and print the current heading and the expected heading
         print(stringHelper.INFO + ' heading = ' + str(dataPacket.heading) + ', ', end='')
