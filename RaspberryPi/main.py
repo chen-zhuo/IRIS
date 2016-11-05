@@ -33,6 +33,7 @@ def main():
     
     # to get `srcNodeId` and `destNodeId`
     if isFastDebugMode:
+        sleep(5)
         srcNodeId = hardCodedSrcNodeId
         destNodeId = hardCodedDestNodeId
     else:
