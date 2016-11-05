@@ -44,9 +44,9 @@ def main():
     print(stringHelper.INFO + ' destNodeId = ' + str(destNodeId))
     
     # to get map info and compute route
-    mapOfCom1Level2 = algorithms.downloadAndParseMap('1', '2')
-    mapOfCom2Level2 = algorithms.downloadAndParseMap('2', '2')
-    mapOfCom2Level3 = algorithms.downloadAndParseMap('2', '3')
+    mapOfCom1Level2 = algorithms.downloadAndParseMap(1, 2)
+    mapOfCom2Level2 = algorithms.downloadAndParseMap(2, 2)
+    mapOfCom2Level3 = algorithms.downloadAndParseMap(2, 3)
     linkedMap = algorithms.linkMaps([mapOfCom1Level2, mapOfCom2Level2, mapOfCom2Level3]);
     route = algorithms.computeRoute(linkedMap, srcNodeId, destNodeId)
     algorithms.printRoute(route)
