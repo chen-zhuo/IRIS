@@ -91,7 +91,6 @@ def linkMaps(mapsList):
     for aMap in mapsList:
         for node in aMap.nodesDict.values():
             modifiedNode = copy.deepcopy(node)
-            print(str(aMap.buildingId) + ' ' + str(aMap.buildingStorey))
             modifiedNode.nodeId += aMap.buildingId*1000 + aMap.buildingStorey*100
             modifiedNode.adjacentNodes.clear()
             
@@ -108,8 +107,6 @@ def linkMaps(mapsList):
     # to link COM2 storey 2 to COM2 storey 3
     resultMap.addEdge(2216, 2311, 0)
     resultMap.addEdge(2311, 2216, 0)
-    
-    resultMap.getNode(1101).adjacentNodes[1101] = 0
     
     return resultMap
 
