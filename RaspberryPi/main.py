@@ -136,9 +136,9 @@ def main():
         # if the user input is '9', give detailed audio feedback
         if userInput == '9':
             audioOutput.playAudio('from')
-            audioOutput.playInt(linkedMap.nodesDict[route[routeIdxOfPrevNode]])
+            audioOutput.playInt(route[routeIdxOfPrevNode])
             audioOutput.playAudio('towards')
-            audioOutput.playInt(linkedMap.nodesDict[route[routeIdxOfNextNode]])
+            audioOutput.playInt(route[routeIdxOfNextNode])
             
             straightLineDistanceToNextNode = algorithms.computeDistance(currLocation,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
