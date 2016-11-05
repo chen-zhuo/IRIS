@@ -29,9 +29,9 @@ def playAudioNow(audioName):
     if isAudioInitted == False:
         initAudio()
     
-    if audioDict[audioName] != None:
+    try:
         os.system('mpg123 -q ' + audioDict[audioName] + ' &')
-    else:
+    except KeyError:
         print('Error when calling audio.playAudioNow(): The audio file with name ' + audioName + ' does not exist.')
 
 '''
@@ -47,9 +47,9 @@ def playAudio(audioName):
     if isAudioInitted == False:
         initAudio()
     
-    if audioDict[audioName] != None:
+    try:
         audioQueue.append(audioDict[audioName])
-    else:
+    except KeyError:
         print(stringHelper.ERROR + ' at audio.playAudio(): The audio file with name ' + audioName + ' does not exist.')
 
 def playInt(num):
