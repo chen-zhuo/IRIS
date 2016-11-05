@@ -40,12 +40,6 @@ class Navigator():
     def update(self, dataPacket):
         global STEP_LENGTH
         
-        # if the last node is cleared then return False
-        if self.clearedRouteIdx == len(self.route) - 1:
-            print(stringHelper.AUDIO + ' Navigation completed.')
-            audioOutput.playAudio('navigationCompleted')
-            return False
-        
         # to calculate the current location based on the distances travelled in 8 directions, as well as the offset
         self.currLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
         self.currLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
@@ -89,6 +83,12 @@ class Navigator():
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playInt(self.route[self.clearedRouteIdx])
+        
+        # if the last node is cleared then return False
+        if self.clearedRouteIdx == len(self.route) - 1:
+            print(stringHelper.AUDIO + ' Navigation completed.')
+            audioOutput.playAudio('navigationCompleted')
+            return False
         
         return True # `isNavigationInProgress` is True
     
