@@ -144,7 +144,7 @@ def main():
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
             stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
             
-            audioOutput.playAudio('steps remaining')
+            audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
         
         # if the user input is '1', snap the current location to the previous node in route
@@ -174,7 +174,6 @@ def main():
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
             locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
             locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
-        print('lalala')
         sleep(2)
         
         # ======================================== END NAVIGATION ========================================
