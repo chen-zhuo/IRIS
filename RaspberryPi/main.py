@@ -26,17 +26,17 @@ def main():
     keypadInput.initKeypad()
     audioOutput.initAudio()
     
-    print(stringHelper.AUDIO + ' Welcome to IRIS.')
-    audioOutput.playAudio('welcomeToIris')
-    print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
-    audioOutput.playAudio('arpeggio_soundEffect')
-    
     # to get `srcNodeId` and `destNodeId`
     if isFastDebugMode:
-        sleep(10)
         srcNodeId = hardCodedSrcNodeId
         destNodeId = hardCodedDestNodeId
     else:
+        print(stringHelper.AUDIO + ' Welcome to IRIS.')
+        audioOutput.playAudio('welcomeToIris')
+        print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
+        audioOutput.playAudio('arpeggio_soundEffect')
+        sleep(10)
+        
         srcNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
                 'plsKeyInOriginNodeIdFollowedByTheHashKey'))
         destNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
@@ -76,7 +76,7 @@ def main():
         # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        if isNavigationInProgress:
+        if routeIdxOfPrevNode < len(route):
             print(stringHelper.INFO + ' prevNode -> nextNode = #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
                   str(route[routeIdxOfNextNode]) + ' = (' +
                   str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
