@@ -29,6 +29,7 @@ class Navigator():
         
         self.currHeading = 0
         self.expectedHeading = 0
+        self.headingOffset = 0
     
     '''
     Updates the fields of `self`.
@@ -37,26 +38,47 @@ class Navigator():
            the data packet received from Mega
     @return False if the last node in `route` is cleared; else return True
     '''
-    def update(self, dataPacket):
+    def update(self, dataPacket, isNavigationPaused):
         global STEP_LENGTH
         
-        # to calculate the current location based on the distances travelled in 8 directions, as well as the offset
-        self.currLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
-        self.currLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
-        self.currLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
-        self.currLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
-        self.currLocation[1] += dataPacket.distancesList[1]
-        self.currLocation[0] += dataPacket.distancesList[2]/math.sqrt(2)
-        self.currLocation[1] += dataPacket.distancesList[2]/math.sqrt(2)
-        self.currLocation[0] += dataPacket.distancesList[3]
-        self.currLocation[0] += dataPacket.distancesList[4]/math.sqrt(2)
-        self.currLocation[1] -= dataPacket.distancesList[4]/math.sqrt(2)
-        self.currLocation[1] -= dataPacket.distancesList[5]
-        self.currLocation[0] -= dataPacket.distancesList[6]/math.sqrt(2)
-        self.currLocation[1] -= dataPacket.distancesList[6]/math.sqrt(2)
-        self.currLocation[0] -= dataPacket.distancesList[7]
-        self.currLocation[0] += self.locationOffset[0]
-        self.currLocation[1] += self.locationOffset[1]
+        if not isNavigationPaused:
+            # to calculate the current location based on the distances travelled in 8 directions, as well as the offset
+            self.currLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
+            self.currLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
+            self.currLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
+            self.currLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
+            self.currLocation[1] += dataPacket.distancesList[1]
+            self.currLocation[0] += dataPacket.distancesList[2]/math.sqrt(2)
+            self.currLocation[1] += dataPacket.distancesList[2]/math.sqrt(2)
+            self.currLocation[0] += dataPacket.distancesList[3]
+            self.currLocation[0] += dataPacket.distancesList[4]/math.sqrt(2)
+            self.currLocation[1] -= dataPacket.distancesList[4]/math.sqrt(2)
+            self.currLocation[1] -= dataPacket.distancesList[5]
+            self.currLocation[0] -= dataPacket.distancesList[6]/math.sqrt(2)
+            self.currLocation[1] -= dataPacket.distancesList[6]/math.sqrt(2)
+            self.currLocation[0] -= dataPacket.distancesList[7]
+            self.currLocation[0] += self.locationOffset[0]
+            self.currLocation[1] += self.locationOffset[1]
+        else:
+            tempCurrLocation = [0, 0]
+            tempCurrLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
+            tempCurrLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
+            tempCurrLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
+            tempCurrLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
+            tempCurrLocation[1] += dataPacket.distancesList[1]
+            tempCurrLocation[0] += dataPacket.distancesList[2]/math.sqrt(2)
+            tempCurrLocation[1] += dataPacket.distancesList[2]/math.sqrt(2)
+            tempCurrLocation[0] += dataPacket.distancesList[3]
+            tempCurrLocation[0] += dataPacket.distancesList[4]/math.sqrt(2)
+            tempCurrLocation[1] -= dataPacket.distancesList[4]/math.sqrt(2)
+            tempCurrLocation[1] -= dataPacket.distancesList[5]
+            tempCurrLocation[0] -= dataPacket.distancesList[6]/math.sqrt(2)
+            tempCurrLocation[1] -= dataPacket.distancesList[6]/math.sqrt(2)
+            tempCurrLocation[0] -= dataPacket.distancesList[7]
+            tempCurrLocation[0] += self.locationOffset[0]
+            tempCurrLocation[1] += self.locationOffset[1]
+            self.locationOffset[0] = self.currLocation[0] - tempCurrLocation[0]
+            self.locationOffset[1] = self.currLocation[1] - tempCurrLocation[1]
         
         # to print the current location (absolute coordinates and relative coordinates from starting location)
         print(stringHelper.INFO + ' currLocation = (' +
@@ -71,13 +93,11 @@ class Navigator():
         self.expectedHeading = algorithms.computeBearing(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
         
-        self.currHeading = dataPacket.heading
+        self.currHeading = dataPacket.heading + self.headingOffset
         
         # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < self.nodeReachedThreshold:
-#             self.currX = self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).x
-#             self.currY = self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).y
             self.clearedRouteIdx = self.clearedRouteIdx + 1
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')

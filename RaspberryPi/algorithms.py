@@ -207,6 +207,9 @@ def computeBearing(locationA, locationB):
     else: # fourth quadrant
         return 180 - math.degrees(math.atan((locationB[0] - locationA[0])/(locationA[1] - locationB[1])))
 
+def convertToHeadingPrincipalRange(heading):
+    if heading < 360:
+        return heading % 360
 
 
 

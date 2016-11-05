@@ -57,7 +57,6 @@ def main():
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
     currLocation = linkedMap.nodesDict[srcNodeId].location
-    locationOffset = [0, 0]
     routeIdxOfPrevNode = 0
     routeIdxOfNextNode = 1
     
@@ -71,7 +70,7 @@ def main():
         print('\n========================= NEW DATA POLL =========================\n')
         dataPacket = piMegaCommunicator.pollData()
         print(stringHelper.INFO + ' Data Packet: ' + str(dataPacket))
-        isNavigationInProgress = navigator.update(dataPacket)
+        isNavigationInProgress = navigator.update(dataPacket, isNavigationPaused)
         if not isNavigationInProgress:
             break
         
@@ -79,7 +78,7 @@ def main():
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
         print(stringHelper.INFO + ' #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
-              str(route[routeIdxOfNextNode]) + ' = (' +
+              str(route[routeIdxOfNextNode]) + ' === (' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[1]) + ') -> (' +
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[0]) + ', ' +
@@ -133,6 +132,37 @@ def main():
         # get the user input (if any)
         userInput = keypadInput.getKeypadInput()
         
+        # if the user input is '1', snap the current location to the previous node in route
+        if userInput == '1':
+            navigator.clearedRouteIdx -= 1
+            print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
+            
+            print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
+            audioOutput.playAudio('reachedNewNode_soundEffect')
+            audioOutput.playAudio('reached')
+            audioOutput.playAudio('nodeId')
+            audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
+            
+            navigator.locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
+            navigator.locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
+        
+        # if the user input is '3', snap the current location to the next node in route
+        if userInput == '3':
+            navigator.clearedRouteIdx += 1
+        
+            print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
+            audioOutput.playAudio('reachedNewNode_soundEffect')
+            audioOutput.playAudio('reached')
+            audioOutput.playAudio('nodeId')
+            audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
+            navigator.locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
+            navigator.locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
+        
+        # if the user input is '5', assume current heading is the expected heading (update heading offset)
+        if userInput == '5':
+            navigator.headingOffset += expectedHeading - dataPacket.heading
+            navigator.headingOffset %= 360
+        
         # if the user input is '9', give detailed audio feedback
         if userInput == '9':
             audioOutput.playAudio('from')
@@ -147,33 +177,10 @@ def main():
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
         
-        # if the user input is '1', snap the current location to the previous node in route
-        if userInput == '1':
-            keypadInput.tempUserInput = ''
-            navigator.clearedRouteIdx -= 1
-            print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
-            
-            print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
-            audioOutput.playAudio('reachedNewNode_soundEffect')
-            audioOutput.playAudio('reached')
-            audioOutput.playAudio('nodeId')
-            audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
-            
-            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
-            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
+        # if the user input is '0', toggle on/off steps counting
+        if userInput == '0':
+            isNavigationPaused = not isNavigationPaused
         
-        # if the user input is '3', snap the current location to the next node in route
-        if userInput == '3':
-            keypadInput.tempUserInput = ''
-            navigator.clearedRouteIdx += 1
-        
-            print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
-            audioOutput.playAudio('reachedNewNode_soundEffect')
-            audioOutput.playAudio('reached')
-            audioOutput.playAudio('nodeId')
-            audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
-            locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
-            locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
         sleep(2)
         
         # ======================================== END NAVIGATION ========================================
