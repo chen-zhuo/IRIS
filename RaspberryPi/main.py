@@ -33,7 +33,7 @@ def main():
     
     # to get `srcNodeId` and `destNodeId`
     if isFastDebugMode:
-        sleep(7)
+        sleep(10)
         srcNodeId = hardCodedSrcNodeId
         destNodeId = hardCodedDestNodeId
     else:
@@ -167,43 +167,6 @@ def main():
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
             locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
             locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
-        
-        # to give turning instructions; with C major scale (1 = C4),
-        #     "3" means "go straight";
-        #     "1" means "turn left 45 degrees";
-        #     "5" means "turn right 45 degrees";
-        #     "11" means "turn left 90 degrees";
-        #     "55" means "turn right 90 degrees";
-        #     "111" means "turn left 135 degrees";
-        #     "555" means "turn right 135 degrees";
-        #     "1(+8va)" means "turn 180 degrees"
-        if expectedHeading - dataPacket.heading == 0:
-            print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
-            audioOutput.playAudioNow('heading+0_soundEffect')
-        elif expectedHeading - dataPacket.heading == -45 or expectedHeading - dataPacket.heading == 315:
-            print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
-            audioOutput.playAudioNow('heading-45_soundEffect')
-        elif expectedHeading - dataPacket.heading == 45 or expectedHeading - dataPacket.heading == -315:
-            print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
-            audioOutput.playAudioNow('heading+45_soundEffect')
-        elif expectedHeading - dataPacket.heading == -90 or expectedHeading - dataPacket.heading == 270:
-            print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
-            audioOutput.playAudioNow('heading-90_soundEffect')
-        elif expectedHeading - dataPacket.heading == 90 or expectedHeading - dataPacket.heading == -270:
-            print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
-            audioOutput.playAudioNow('heading+90_soundEffect')
-        elif expectedHeading - dataPacket.heading == -135 or expectedHeading - dataPacket.heading == 225:
-            print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
-            audioOutput.playAudioNow('heading-135_soundEffect')
-        elif expectedHeading - dataPacket.heading == 135 or expectedHeading - dataPacket.heading == -225:
-            print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
-            audioOutput.playAudioNow('heading+135_soundEffect')
-        elif expectedHeading - dataPacket.heading == 180 or expectedHeading - dataPacket.heading == -180:
-            print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
-            audioOutput.playAudioNow('heading+180_soundEffect')
-        else:
-            print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \
-                  dataPacket.heading = ' + str(expectedHeading - dataPacket.heading))
         
         sleep(3)
         
