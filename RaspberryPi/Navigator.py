@@ -97,7 +97,7 @@ class Navigator():
         self.expectedHeading = algorithms.computeBearing(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
         
-        self.currHeading = dataPacket.heading + self.headingOffset
+        self.currHeading = (dataPacket.heading + self.headingOffset) % 360
         
         # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
