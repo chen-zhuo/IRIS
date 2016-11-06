@@ -29,7 +29,8 @@ class PiMegaCommunicator():
         
         # ============================== BEGIN DATA ==============================
         
-        packetId = int(self.waitAndReadLine())
+        packetId = self.waitAndReadLine()
+        print(packetId)
         handProximity = int(self.waitAndReadLine())
 #         leftLegFrontProximity = int(self.waitAndReadLine())
 #         rightLegFrontProximity = int(self.waitAndReadLine())
@@ -49,7 +50,7 @@ class PiMegaCommunicator():
         
         heading = int(self.waitAndReadLine())
         
-        checksum = int(self.waitAndReadLine())
+#         checksum = int(self.waitAndReadLine())
         
         # ============================== END DATA ==============================
         
