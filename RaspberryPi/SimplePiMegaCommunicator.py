@@ -12,10 +12,9 @@ from time import sleep
 
 class PiMegaCommunicator():
     def __init__(self):
-        self.port = serial.Serial('/dev/ttyAMA0',baudrate=9600,timeout=3.0)
+        self.port = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=3.0)
     
     def startUp(self):
-        print('In startUp()')
         self.port.write(bytes('H', 'utf-8'))
         print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
     
@@ -51,12 +50,13 @@ class PiMegaCommunicator():
         
         heading = int(self.waitAndReadLine())
         
-#         checksum = int(self.waitAndReadLine())
+        checksum = int(self.waitAndReadLine())
         
         # ============================== END DATA ==============================
         
         # to verify checksum
-        expectedChecksum = handProximity +\
+        expectedChecksum = packetId +\
+                           handProximity +\
                            leftArmLeftProximity +\
                            rightArmRightProximity +\
                            distanceWalked_north +\
