@@ -15,6 +15,7 @@ class PiMegaCommunicator():
         self.port = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=3.0)
     
     def startUp(self):
+        print('in startUp()')
         self.port.write(bytes('H', 'utf-8'))
         print(stringHelper.MESSAGE + ' at PiMegaCommunicator.startUp(): Pi sent HELLO to Mega.')
     
