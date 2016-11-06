@@ -81,14 +81,14 @@ class Navigator():
             self.locationOffset[1] = self.currLocation[1] - tempCurrLocation[1]
         
         # to print the current location (absolute coordinates and relative coordinates from starting location)
-        print(stringHelper.INFO + ' currLocation = (' +
-              str(self.currLocation[0]) + ', ' + str(self.currLocation[1]) + '), ' +
-              'displacementFromStartingLocation = (' +
+        print(stringHelper.INFO + ' Current Location (' +
+              str(self.currLocation[0]) + ', ' + str(self.currLocation[1]) + ')')
+        print(stringHelper.INFO + ' Location Relative to Starting Location: (' +
               str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) + ', ' +
               str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) + ')')
         
         # to print the number of steps walked
-        print(stringHelper.INFO + ' numStepsWalked = (' +
+        print(stringHelper.INFO + ' Number of Steps: (' +
               str(int(self.currLocation[0] / STEP_LENGTH)) + ', ' + str(int(self.currLocation[1] / STEP_LENGTH)) + ')')
         
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,

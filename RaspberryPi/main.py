@@ -86,12 +86,12 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
         
         # to compute and print the current heading and the expected heading
-        print(stringHelper.INFO + ' heading = ' + str(dataPacket.heading) + ', ', end='')
+        print(stringHelper.INFO + '          Heading: ' + str(dataPacket.heading) + ' degrees', end='')
         expectedHeading = algorithms.computeBearing(
                 linkedMap.nodesDict[route[routeIdxOfPrevNode]].location,
                 linkedMap.nodesDict[route[routeIdxOfNextNode]].location
                 ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
-        print('expectedHeading = ' + str(expectedHeading))
+        print('Expected Heading: ' + str(expectedHeading) + ' degrees')
         
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";
