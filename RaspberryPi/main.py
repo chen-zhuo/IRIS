@@ -10,7 +10,8 @@ import audioOutput
 import keypadInput
 # import math
 from Navigator import Navigator
-from SimplePiMegaCommunicator import PiMegaCommunicator
+from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
+# from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
 # from threading import Thread
 from time import sleep
