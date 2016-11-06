@@ -89,7 +89,9 @@ class Navigator():
         
         # to print the number of steps walked
         print(stringHelper.INFO + ' Number of Steps: (' +
-              str(int(self.currLocation[0] / STEP_LENGTH)) + ', ' + str(int(self.currLocation[1] / STEP_LENGTH)) + ')')
+              str(int(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) // STEP_LENGTH) +
+              ', ' +
+              str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1] // STEP_LENGTH) + ')')
         
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)

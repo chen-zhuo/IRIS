@@ -9,7 +9,7 @@ import algorithms
 import audioOutput
 import keypadInput
 # import math
-from Navigator import Navigator
+from Navigator import Navigator, STEP_LENGTH
 # from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
 from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
@@ -174,7 +174,7 @@ def main():
             
             straightLineDistanceToNextNode = algorithms.computeDistance(currLocation,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
-            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode)//40)
+            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // navigator.STEP_LENGTH)
             
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
