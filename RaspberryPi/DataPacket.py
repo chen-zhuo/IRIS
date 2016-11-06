@@ -45,7 +45,9 @@ class DataPacket:
         
         i = 0 # for traversing through `bytestream`
         
-        print(chr(bytestream[i]))
+        print(chr(
+            bytestream[
+            i]))
         print(bytestream[i])
         
         # to parse `packetId`
