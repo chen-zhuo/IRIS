@@ -44,16 +44,16 @@ class DataPacket:
         
         i = 0 # for traversing through `bytestream`
         
-        print(bytestream[i])
+        print(chr(bytestream[i]))
         # to parse `packetId`
-        while chr(bytestream[i]) != ',':
+        while str(chr(bytestream[i])) != ',':
             self.packetId += chr(bytestream[i])
             i = i + 1
         self.packetId = int(self.packetId)
         
         # to parse `handProximity`
         i = i + 1
-        while chr(bytestream[i]) != ',':
+        while str(chr(bytestream[i])) != ',':
             self.handProximity += chr(bytestream[i])
             i = i + 1
         self.handProximity = int(self.handProximity)
