@@ -49,7 +49,8 @@ class DataPacket:
 #         print(bytestream[i])
         
         # to parse `packetId`
-        while chr(bytestream[i]) is not ',':
+        while chr(bytestream[i]) != \
+                ',':
             self.packetId += chr(bytestream[i])
             i = i + 1
         self.packetId = int(self.packetId)

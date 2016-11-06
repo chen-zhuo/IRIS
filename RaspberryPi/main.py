@@ -177,7 +177,7 @@ def main():
             
             straightLineDistanceToNextNode = algorithms.computeDistance(currLocation,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
-            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // navigator.STEP_LENGTH)
+            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
             
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
