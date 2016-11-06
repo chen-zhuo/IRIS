@@ -53,8 +53,8 @@ class DataPacket:
         
         # to parse `handProximity`
         i = i + 1
-        while bytestream[i] != ',':
-            self.handProximity += bytestream[i]
+        while chr(bytestream[i]) != ',':
+            self.handProximity += chr(bytestream[i])
             i = i + 1
         self.handProximity = int(self.handProximity)
         
@@ -88,54 +88,54 @@ class DataPacket:
         
         # to parse `leftArmLeftProximity`
         i = i + 1
-        while bytestream[i] != ',':
-            self.leftArmLeftProximity += bytestream[i]
+        while chr(bytestream[i]) != ',':
+            self.leftArmLeftProximity += chr(bytestream[i])
             i = i + 1
         self.leftArmLeftProximity = int(self.leftArmLeftProximity)
         
         # to parse `rightArmRightProximity`
         i = i + 1
-        while bytestream[i] != ',':
-            self.rightArmRightProximity += bytestream[i]
+        while chr(bytestream[i]) != ',':
+            self.rightArmRightProximity += chr(bytestream[i])
             i = i + 1
         self.rightArmRightProximity = int(self.rightArmRightProximity)
         
         # to parse `distancesList`
         i = i + 2
-        while bytestream[i] != ',':
-            self.distancesList[0] += bytestream[i]
+        while chr(bytestream[i]) != ',':
+            self.distancesList[0] += chr(bytestream[i])
             i = i + 1
         self.distancesList[0] = int(self.distancesList[0])
         for j in range(1, 7):
             i = i + 1
-            while bytestream[i] != ',':
-                self.distancesList[j] += bytestream[i]
+            while chr(bytestream[i]) != ',':
+                self.distancesList[j] += chr(bytestream[i])
                 i = i + 1
             self.distancesList[j] = int(self.distancesList[j])
         i = i + 1
-        while bytestream[i] != ']':
-            self.distancesList[7] += bytestream[i]
+        while chr(bytestream[i]) != ']':
+            self.distancesList[7] += chr(bytestream[i])
             i = i + 1
         self.distancesList[7] = int(self.distancesList[7])
         
         # to parse `heading`
         i = i + 2
-        while bytestream[i] != ',':
-            self.heading += bytestream[i]
+        while chr(bytestream[i]) != ',':
+            self.heading += chr(bytestream[i])
             i = i + 1
         self.heading = int(self.heading)
         
         # to parse `orientationTag`
         i = i + 1
-        while bytestream[i] != ',':
-            self.orientationTag += bytestream[i]
+        while chr(bytestream[i]) != ',':
+            self.orientationTag += chr(bytestream[i])
             i = i + 1
         self.orientationTag = int(self.orientationTag)
         
         # to parse `checksum`
         i = i + 1
-        while bytestream[i] != ';':
-            self.checksum += bytestream[i]
+        while chr(bytestream[i]) != ';':
+            self.checksum += chr(bytestream[i])
             i = i + 1
         self.checksum = int(self.checksum)
     
