@@ -86,7 +86,7 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
         
         # to compute and print the current heading and the expected heading
-        print(stringHelper.INFO + ' Heading:          ' + str(dataPacket.heading) + ' degrees')
+        print(stringHelper.INFO + ' Heading:          ' + str(navigator.currHeading) + ' degrees')
         expectedHeading = algorithms.computeBearing(
                 linkedMap.nodesDict[route[routeIdxOfPrevNode]].location,
                 linkedMap.nodesDict[route[routeIdxOfNextNode]].location
@@ -103,33 +103,33 @@ def main():
         #     "111" means "turn left 135 degrees";
         #     "555" means "turn right 135 degrees";
         #     "1(+8va)" means "turn 180 degrees"
-        if expectedHeading - dataPacket.heading == 0:
+        if expectedHeading - navigator.currHeading == 0:
             print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
             audioOutput.playAudioNow('heading+0_soundEffect')
-        elif expectedHeading - dataPacket.heading == -45 or expectedHeading - dataPacket.heading == 315:
+        elif expectedHeading - navigator.currHeading == -45 or expectedHeading - navigator.currHeading == 315:
             print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
             audioOutput.playAudioNow('heading-45_soundEffect')
-        elif expectedHeading - dataPacket.heading == 45 or expectedHeading - dataPacket.heading == -315:
+        elif expectedHeading - navigator.currHeading == 45 or expectedHeading - navigator.currHeading == -315:
             print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
             audioOutput.playAudioNow('heading+45_soundEffect')
-        elif expectedHeading - dataPacket.heading == -90 or expectedHeading - dataPacket.heading == 270:
+        elif expectedHeading - navigator.currHeading == -90 or expectedHeading - navigator.currHeading == 270:
             print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
             audioOutput.playAudioNow('heading-90_soundEffect')
-        elif expectedHeading - dataPacket.heading == 90 or expectedHeading - dataPacket.heading == -270:
+        elif expectedHeading - navigator.currHeading == 90 or expectedHeading - navigator.currHeading == -270:
             print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
             audioOutput.playAudioNow('heading+90_soundEffect')
-        elif expectedHeading - dataPacket.heading == -135 or expectedHeading - dataPacket.heading == 225:
+        elif expectedHeading - navigator.currHeading == -135 or expectedHeading - navigator.currHeading == 225:
             print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
             audioOutput.playAudioNow('heading-135_soundEffect')
-        elif expectedHeading - dataPacket.heading == 135 or expectedHeading - dataPacket.heading == -225:
+        elif expectedHeading - navigator.currHeading == 135 or expectedHeading - navigator.currHeading == -225:
             print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
             audioOutput.playAudioNow('heading+135_soundEffect')
-        elif expectedHeading - dataPacket.heading == 180 or expectedHeading - dataPacket.heading == -180:
+        elif expectedHeading - navigator.currHeading == 180 or expectedHeading - navigator.currHeading == -180:
             print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
             audioOutput.playAudioNow('heading+180_soundEffect')
         else:
             print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \
-                  dataPacket.heading = ' + str(expectedHeading - dataPacket.heading))
+                  navigator.currHeading = ' + str(expectedHeading - navigator.currHeading))
         
         # get the user input (if any)
         userInput = keypadInput.getKeypadInput()
@@ -162,7 +162,7 @@ def main():
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':
-            navigator.headingOffset += expectedHeading - dataPacket.heading
+            navigator.headingOffset += expectedHeading - navigator.currHeading
             navigator.headingOffset %= 360
         
         # if the user input is '9', give detailed audio feedback
