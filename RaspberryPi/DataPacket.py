@@ -40,6 +40,7 @@ class DataPacket:
         self.rightArmRightProximity = ''
         self.distancesList = ['', '', '', '', '', '', '', '']
         self.heading = ''
+        self.checksum = ''
         
         i = 0 # for traversing through `bytestream`
         
@@ -118,10 +119,17 @@ class DataPacket:
         
         # to parse `heading`
         i = i + 2
-        while chr(bytestream[i]) != ';':
+        while chr(bytestream[i]) != ',':
             self.heading += chr(bytestream[i])
             i = i + 1
         self.heading = int(self.heading)
+        
+        # to parse `checksum`
+        i = i + 1
+        while chr(bytestream[i]) != ';':
+            self.checksum += chr(bytestream[i])
+            i = i + 1
+        self.checksum = int(self.checksum)
     
     def __str__(self, indent=0):
         result = ''
@@ -134,11 +142,12 @@ class DataPacket:
         result += str(self.leftArmLeftProximity) + ','
         result += str(self.rightArmRightProximity) + ','
         result += str(self.distancesList).replace(' ', '') + ','
-        result += str(self.heading) + ';'
+        result += str(self.heading) + ','
+        result += str(self.checksum) + ';'
         return result
 
 def test():
-    bytestream = '233,5,100,100,[0,50,0,0,0,0,0,0],45;'
+    bytestream = '233,5,100,100,[0,50,0,0,0,0,0,0],45,233;'
     dataPacket = DataPacket(bytestream.encode('utf-8'))
     
     print(stringHelper.INFO + ' Input Bytestream:\n    ' + bytestream)
@@ -154,6 +163,7 @@ def test():
     print('    rightArmRightProximity = ' + str(dataPacket.rightArmRightProximity) + ' cm')
     print('    distancesList = ' + str(dataPacket.distancesList) + ' cm')
     print('    heading = ' + str(dataPacket.heading) + ' degrees from north')
+    print('    checksum = ' + str(dataPacket.checksum))
 
 if __name__ == '__main__':
     test()
