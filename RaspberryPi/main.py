@@ -86,7 +86,7 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
         
         # to compute and print the current heading and the expected heading
-        print(stringHelper.INFO + '          Heading: ' + str(dataPacket.heading) + ' degrees', end='')
+        print(stringHelper.INFO + ' Heading:          ' + str(dataPacket.heading) + ' degrees')
         expectedHeading = algorithms.computeBearing(
                 linkedMap.nodesDict[route[routeIdxOfPrevNode]].location,
                 linkedMap.nodesDict[route[routeIdxOfNextNode]].location

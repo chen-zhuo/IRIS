@@ -125,7 +125,7 @@ class DataPacket:
     
     def __str__(self, indent=0):
         result = ''
-        result += '#' + str(self.packetId) + ' - '
+        result += '#' + str(self.packetId) + ' -- '
         result += str(self.handProximity) + ','
 #         result += str(self.leftLegFrontProximity) + ','
 #         result += str(self.rightLegFrontProximity) + ','
