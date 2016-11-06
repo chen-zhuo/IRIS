@@ -40,6 +40,7 @@ class DataPacket:
         self.rightArmRightProximity = ''
         self.distancesList = ['', '', '', '', '', '', '', '']
         self.heading = ''
+        self.orientationTag = ''
         self.checksum = ''
         
         i = 0 # for traversing through `bytestream`
@@ -125,6 +126,13 @@ class DataPacket:
             i = i + 1
         self.heading = int(self.heading)
         
+        # to parse `orientationTag`
+        i = i + 1
+        while bytestream[i] != ',':
+            self.orientationTag += bytestream[i]
+            i = i + 1
+        self.orientationTag = int(self.orientationTag)
+        
         # to parse `checksum`
         i = i + 1
         while bytestream[i] != ';':
@@ -144,11 +152,12 @@ class DataPacket:
         result += str(self.rightArmRightProximity) + ','
         result += str(self.distancesList).replace(' ', '') + ','
         result += str(self.heading) + ','
+        result += str(self.orientationTag) + ','
         result += str(self.checksum) + ';'
         return result
 
 def test():
-    bytestream = '233,5,100,100,[0,50,0,0,0,0,0,0],45,233;'
+    bytestream = '233,5,100,100,[0,50,0,0,0,0,0,0],45,8,233;'
     dataPacket = DataPacket(bytestream.encode('utf-8'))
     
     print(stringHelper.INFO + ' Input Bytestream:\n    ' + bytestream)
@@ -164,6 +173,7 @@ def test():
     print('    rightArmRightProximity = ' + str(dataPacket.rightArmRightProximity) + ' cm')
     print('    distancesList = ' + str(dataPacket.distancesList) + ' cm')
     print('    heading = ' + str(dataPacket.heading) + ' degrees from north')
+    print('    orientationTag = ' + str(dataPacket.orientationTag))
     print('    checksum = ' + str(dataPacket.checksum))
 
 if __name__ == '__main__':

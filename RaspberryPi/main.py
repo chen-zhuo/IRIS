@@ -34,9 +34,9 @@ def main():
     else:
         print(stringHelper.AUDIO + ' Welcome to IRIS.')
         audioOutput.playAudio('welcomeToIris')
-        print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
-        audioOutput.playAudio('arpeggio_soundEffect')
-        sleep(10)
+#         print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
+#         audioOutput.playAudio('arpeggio_soundEffect')
+        sleep(4)
         
         srcNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
                 'plsKeyInOriginNodeIdFollowedByTheHashKey'))
@@ -65,6 +65,8 @@ def main():
     
     piMegaCommunicator = PiMegaCommunicator()
     piMegaCommunicator.startUp()
+    
+    calibratedDistancesList = []
     
     while isNavigationInProgress:
         # to poll for new data and update `navigator`
