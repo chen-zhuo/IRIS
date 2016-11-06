@@ -11,7 +11,7 @@ import math
 import stringHelper
 import audioOutput
 
-STEP_LENGTH = 40
+STEP_LENGTH = 60
 
 class Navigator():
     def __init__(self, myMap, route, currLocation):
