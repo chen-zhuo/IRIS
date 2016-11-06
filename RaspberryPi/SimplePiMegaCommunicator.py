@@ -48,6 +48,7 @@ class PiMegaCommunicator():
         distanceWalked_northwest = int(self.waitAndReadLine())
         
         heading = int(self.waitAndReadLine())
+        orientationTag = int(self.waitAndReadLine())
         
         checksum = int(self.waitAndReadLine())
         
@@ -66,7 +67,8 @@ class PiMegaCommunicator():
                            distanceWalked_southwest +\
                            distanceWalked_west +\
                            distanceWalked_northwest +\
-                           heading
+                           heading +\
+                           orientationTag
         if checksum != expectedChecksum:
             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Dropping this \
                   erroneous data packet.')
@@ -86,6 +88,7 @@ class PiMegaCommunicator():
                          str(distanceWalked_west) + ',' +\
                          str(distanceWalked_northwest) + '],' +\
                          str(heading) + ',' +\
+                         str(orientationTag) + ',' +\
                          str(checksum) + ';'
             print(bytestream)
             dataPacket = DataPacket(bytestream)
