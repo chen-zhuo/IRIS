@@ -88,7 +88,7 @@ class Navigator():
               str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) + ')')
         
         # to print the number of steps walked
-        print(stringHelper.INFO + ' Number of Steps:                       (' +
+        print(stringHelper.INFO + ' Number of Steps:                        (' +
               str(int(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) // STEP_LENGTH) +
               ', ' +
               str((self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) // STEP_LENGTH) + ')')
