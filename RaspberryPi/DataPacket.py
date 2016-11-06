@@ -45,11 +45,13 @@ class DataPacket:
         
         i = 0 # for traversing through `bytestream`
         
-#         print(chr(bytestream[i]))
-#         print(bytestream[i])
+        print(chr(bytestream[i]))
+        print(bytestream[i])
         
         # to parse `packetId`
-        while chr(bytestream[i]) != \
+        while chr(
+            bytestream[
+                i]) != \
                 ',':
             self.packetId += chr(bytestream[i])
             i = i + 1
