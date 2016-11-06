@@ -137,7 +137,8 @@ def main():
         # if the user input is '1', snap the current location to the previous node in route
         if userInput == '1':
             navigator.clearedRouteIdx -= 1
-            print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) + ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
+            print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) +
+                  ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
             
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
@@ -178,6 +179,24 @@ def main():
             
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
+            
+            # give the number of stairs expected, if any
+            if navigator.route[navigator.clearedRouteIdx] == 2214:
+                print(stringHelper.AUDIO + ' Number of stairs expected: 12')
+                audioOutput.playAudio('numberOfStairsExpected')
+                audioOutput.playInt(12)
+            elif navigator.route[navigator.clearedRouteIdx] == 2311:
+                print(stringHelper.AUDIO + ' Number of stairs expected: 12')
+                audioOutput.playAudio('numberOfStairsExpected')
+                audioOutput.playInt(12)
+            elif navigator.route[navigator.clearedRouteIdx] == 1230:
+                print(stringHelper.AUDIO + ' Number of stairs expected: 10, 5, 9')
+                audioOutput.playAudio('numberOfStairsExpected')
+                audioOutput.playInt(10)
+                audioOutput.playAudio('then')
+                audioOutput.playInt(5)
+                audioOutput.playAudio('then')
+                audioOutput.playInt(9)
         
         # if the user input is '0', toggle on/off steps counting
         if userInput == '0':
