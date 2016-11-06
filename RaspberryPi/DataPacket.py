@@ -127,8 +127,8 @@ class DataPacket:
         
         # to parse `checksum`
         i = i + 1
-        while chr(bytestream[i]) != ';':
-            self.checksum += chr(bytestream[i])
+        while bytestream[i] != ';':
+            self.checksum += bytestream[i]
             i = i + 1
         self.checksum = int(self.checksum)
     
