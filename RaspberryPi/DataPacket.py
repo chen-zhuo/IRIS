@@ -45,18 +45,12 @@ class DataPacket:
         
         i = 0 # for traversing through `bytestream`
         
-        print(chr(
-            bytestream[
-            int(i)\
-            ]))
+        print(chr(bytestream[i]))
         print(bytestream[i])
         
         # to parse `packetId`
-        while chr(
-            bytestream[
-                i]) != \
-                ',':
-            self.packetId += chr(bytestream[i])
+        while bytestream[i] != ',':
+            self.packetId += bytestream[i]
             i = i + 1
         self.packetId = int(self.packetId)
         
