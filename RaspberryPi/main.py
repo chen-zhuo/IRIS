@@ -10,8 +10,8 @@ import audioOutput
 import keypadInput
 # import math
 from Navigator import Navigator
-from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
-# from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
+# from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
+from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
 # from threading import Thread
 from time import sleep
@@ -91,7 +91,7 @@ def main():
                 linkedMap.nodesDict[route[routeIdxOfPrevNode]].location,
                 linkedMap.nodesDict[route[routeIdxOfNextNode]].location
                 ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
-        print('Expected Heading: ' + str(expectedHeading) + ' degrees')
+        print(stringHelper.INFO + ' Expected Heading: ' + str(expectedHeading) + ' degrees')
         
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";

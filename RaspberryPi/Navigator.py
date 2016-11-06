@@ -81,7 +81,7 @@ class Navigator():
             self.locationOffset[1] = self.currLocation[1] - tempCurrLocation[1]
         
         # to print the current location (absolute coordinates and relative coordinates from starting location)
-        print(stringHelper.INFO + ' Current Location                    : (' +
+        print(stringHelper.INFO + ' Current Location:                      (' +
               str(self.currLocation[0]) + ', ' + str(self.currLocation[1]) + ')')
         print(stringHelper.INFO + ' Location Relative to Starting Location: (' +
               str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) + ', ' +
