@@ -47,7 +47,8 @@ class DataPacket:
         
         print(chr(
             bytestream[
-            int(i)]))
+            int(i)\
+            ]))
         print(bytestream[i])
         
         # to parse `packetId`
