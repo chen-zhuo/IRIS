@@ -87,6 +87,7 @@ class PiMegaCommunicator():
                          str(distanceWalked_northwest) + '],' +\
                          str(heading) + ',' +\
                          str(checksum) + ';'
+            print(bytestream)
             dataPacket = DataPacket(bytestream)
             return dataPacket
     
