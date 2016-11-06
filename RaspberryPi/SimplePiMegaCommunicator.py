@@ -98,6 +98,7 @@ class PiMegaCommunicator():
     def waitAndReadLine(self):
         msgReceived = ''
         while msgReceived == '':
+            print('Receives nothing!')
             msgReceived = self.port.readline().decode('utf-8').replace('\r\n','')
         return msgReceived
 
