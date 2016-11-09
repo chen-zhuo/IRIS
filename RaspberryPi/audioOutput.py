@@ -79,16 +79,31 @@ def _playAudioQueue():
     print(stringHelper.MESSAGE + ' `playAudioQueueThread` closed.')
 
 '''
-Initializes `audioDict` and starts `playAudioQueueThread`.
+Initializes `audioDict` and starts `playAudioQueueThread`. Remember to call `closeAudioThread()` when finished.
 '''
 def initAudio():
     global isAudioInitted, audioQueue, audioDict, audioTextDict
     
     isAudioInitted = True
     
-    audioDict['beep'] = './AudioFiles/beep.mp3'
+    # ======================================== BEGIN AUDIO FILES LIST ========================================
     
+    # welcome sounds and interactive node ID key-in
+    audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
     audioDict['arpeggio_soundEffect'] = './AudioFiles/arpeggio_soundEffect.mp3'
+#     audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
+#     audioDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingStoreyFollowedByTheHashKey.mp3'
+    audioDict['plsKeyInOriginNodeIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginNodeIdFollowedByTheHashKey.mp3'
+#     audioDict['plsKeyInDestinationBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInDestinationBuildingIdFollowedByTheHashKey.mp3'
+#     audioDict['plsKeyInDestinationBuildingStoreyFollowedByTheHashKey'] = './AudioFiles/plsKeyInDestinationBuildingStoreyFollowedByTheHashKey.mp3'
+    audioDict['plsKeyInDestinationNodeIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInDestinationNodeIdFollowedByTheHashKey.mp3'
+    audioDict['youHaveKeyedIn'] = './AudioFiles/youHaveKeyedIn.mp3'
+    audioDict['pressTheHashKeyToConfirmOrAsteriskKeyToReenter'] = './AudioFiles/pressTheHashKeyToConfirmOrAsteriskKeyToReenter.mp3'
+    audioDict['confirmed'] = './AudioFiles/confirmed.mp3'
+    audioDict['navigationStarted'] = './AudioFiles/navigationStarted.mp3'
+    
+    # sound effects and tones
+    audioDict['beep'] = './AudioFiles/beep.mp3'
     audioDict['heading+0_soundEffect'] = './AudioFiles/heading+0_soundEffect.mp3'
     audioDict['heading-45_soundEffect'] = './AudioFiles/heading-45_soundEffect.mp3'
     audioDict['heading+45_soundEffect'] = './AudioFiles/heading+45_soundEffect.mp3'
@@ -99,43 +114,7 @@ def initAudio():
     audioDict['heading+180_soundEffect'] = './AudioFiles/heading+180_soundEffect.mp3'
     audioDict['reachedNewNode_soundEffect'] = './AudioFiles/reachedNewNode_soundEffect.mp3'
     
-    audioDict['from'] = './AudioFiles/from.mp3'
-    audioDict['towards'] = './AudioFiles/towards.mp3'
-    audioDict['then'] = './AudioFiles/then.mp3'
-    audioDict['stepsRemaining'] = './AudioFiles/stepsRemaining.mp3'
-    
-    audioDict['welcomeToIris'] = './AudioFiles/welcomeToIris.mp3'
-    audioDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingIdFollowedByTheHashKey.mp3'
-    audioDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginBuildingStoreyFollowedByTheHashKey.mp3'
-    audioDict['plsKeyInOriginNodeIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInOriginNodeIdFollowedByTheHashKey.mp3'
-    audioDict['plsKeyInDestinationBuildingIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInDestinationBuildingIdFollowedByTheHashKey.mp3'
-    audioDict['plsKeyInDestinationBuildingStoreyFollowedByTheHashKey'] = './AudioFiles/plsKeyInDestinationBuildingStoreyFollowedByTheHashKey.mp3'
-    audioDict['plsKeyInDestinationNodeIdFollowedByTheHashKey'] = './AudioFiles/plsKeyInDestinationNodeIdFollowedByTheHashKey.mp3'
-    audioDict['youHaveKeyedIn'] = './AudioFiles/youHaveKeyedIn.mp3'
-    audioDict['pressTheHashKeyToConfirmOrAsteriskKeyToReenter'] = './AudioFiles/pressTheHashKeyToConfirmOrAsteriskKeyToReenter.mp3'
-    audioDict['confirmed'] = './AudioFiles/confirmed.mp3'
-    
-    audioDict['navigationStarted'] = './AudioFiles/navigationStarted.mp3'
-    audioDict['navigationCompleted'] = './AudioFiles/navigationCompleted.mp3'
-    audioDict['reached'] = './AudioFiles/reached.mp3'
-    audioDict['building'] = './AudioFiles/buildling.mp3'
-    audioDict['storey'] = './AudioFiles/storey.mp3'
-    audioDict['nodeId'] = './AudioFiles/nodeId.mp3'
-    audioDict['com1'] = './AudioFiles/com1.mp3'
-    audioDict['com2'] = './AudioFiles/com2.mp3'
-    audioDict['upwardStaircaseAhead'] = './AudioFiles/upwardStaircaseAhead.mp3' # downward staircase is not examinable
-    audioDict['numberOfStairsExpected'] = './AudioFiles/numberOfStairsExpected.mp3'
-    
-    audioDict['goStraight'] = './AudioFiles/goStraight.mp3'
-    audioDict['turnLeft'] = './AudioFiles/turnLeft.mp3'
-    audioDict['turnRight'] = './AudioFiles/turnRight.mp3'
-    audioDict['adjustHeading'] = './AudioFiles/adjustHeading.mp3'
-    audioDict['negative'] = './AudioFiles/negative.mp3'
-    audioDict['left'] = './AudioFiles/left.mp3'
-    audioDict['right'] = './AudioFiles/right.mp3'
-    audioDict['degrees'] = './AudioFiles/degrees.mp3'
-    audioDict['stepsToNextNode'] = './AudioFiles/stepsToNextNode.mp3'
-    
+    # keypad key names
     audioDict['0'] = './AudioFiles/0.mp3'
     audioDict['1'] = './AudioFiles/1.mp3'
     audioDict['2'] = './AudioFiles/2.mp3'
@@ -149,50 +128,52 @@ def initAudio():
     audioDict['asterisk'] = './AudioFiles/asterisk.mp3'
     audioDict['hash'] = './AudioFiles/hash.mp3'
     
-    audioTextDict['welcomeToIris'] = 'Welcome to IRIS.'
-    audioTextDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = 'Please key in origin building ID, followed by the hash key.'
-    audioTextDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = 'Please key in origin building storey, followed by the hash key.'
+    # when user keys in '1', snap to the previous node
+    audioDict['snappedToPrevNode'] = './AudioFiles/snappedToPrevNode.mp3'
+    
+    # when user keys in '3', snap to the next node
+    audioDict['snappedToNextNode'] = './AudioFiles/snappedToNextNode.mp3'
+    
+    # when user keys in '5', force correct heading
+    audioDict['forcedCorrectHeading'] = './AudioFiles/forcedCorrectHeading.mp3'
+    
+    # when user keys in '9', give detailed audio feedback, e.g. "from 1201 towards 1202 then {go straight ||
+    # turn left || turn right || climb stairs || navigation completed}, steps remaining: 10"
+    audioDict['from'] = './AudioFiles/from.mp3'
+    audioDict['towards'] = './AudioFiles/towards.mp3'
+    audioDict['then'] = './AudioFiles/then.mp3'
+    audioDict['goStraight'] = './AudioFiles/goStraight.mp3'
+    audioDict['turnLeft'] = './AudioFiles/turnLeft.mp3'
+    audioDict['turnRight'] = './AudioFiles/turnRight.mp3'
+    audioDict['climbStairs'] = './AudioFiles/climbStairs.mp3'
+    audioDict['navigationCompleted'] = './AudioFiles/navigationCompleted.mp3'
+    audioDict['stepsRemaining'] = './AudioFiles/stepsRemaining.mp3'
+    
+    # when user keys in '0', pause/resume step counting
+    audioDict['pausingStepCounting'] = './AudioFiles/pausingStepCounting.mp3'
+    audioDict['resumingStepCounting'] = './AudioFiles/resumingStepCounting.mp3'
+    
+    # audio feedback when user reach a node
+    audioDict['reached'] = './AudioFiles/reached.mp3'
+    audioDict['numberOfStairsExpected'] = './AudioFiles/numberOfStairsExpected.mp3'
+    audioDict['plsPress3WhenFinishedClimbing'] = './AudioFiles/plsPress3WhenFinishedClimbing.mp3'
+    
+    # node descriptions
+    audioDict['node1201_description'] = './AudioFiles/node1201_description.mp3'
+    # TODO by @author beiyu
+    
+    # miscellaneous
+    audioDict['negative'] = './AudioFiles/negative.mp3'
+    
+    # ======================================== END AUDIO FILES LIST ========================================
+    
+    # to map `audioName` to its description
+#     audioTextDict['plsKeyInOriginBuildingIdFollowedByTheHashKey'] = 'Please key in origin building ID, followed by the hash key.'
+#     audioTextDict['plsKeyInOriginBuildingStoreyFollowedByTheHashKey'] = 'Please key in origin building storey, followed by the hash key.'
     audioTextDict['plsKeyInOriginNodeIdFollowedByTheHashKey'] = 'Please key in origin node ID, followed by the hash key.'
-    audioTextDict['plsKeyInDestinationBuildingIdFollowedByTheHashKey'] = 'Please key in destination building ID, followed by the hash key.'
-    audioTextDict['plsKeyInDestinationBuildingStoreyFollowedByTheHashKey'] = 'Please key in destination building storey, followed by the hash key.'
+#     audioTextDict['plsKeyInDestinationBuildingIdFollowedByTheHashKey'] = 'Please key in destination building ID, followed by the hash key.'
+#     audioTextDict['plsKeyInDestinationBuildingStoreyFollowedByTheHashKey'] = 'Please key in destination building storey, followed by the hash key.'
     audioTextDict['plsKeyInDestinationNodeIdFollowedByTheHashKey'] = 'Please key in destination node ID, followed by the hash key.'
-    audioTextDict['youHaveKeyedIn'] = 'You have keyed in'
-    audioTextDict['pressTheHashKeyToConfirmOrAsteriskKeyToReenter'] = 'Press the hash key to confirm, or asterisk key to re-enter.'
-    audioTextDict['confirmed'] = 'Confirmed.'
-    
-    audioTextDict['navigationStarted'] = 'Navigation started.'
-    audioTextDict['navigationCompleted'] = 'Navigation completed.'
-    audioTextDict['reached'] = 'Reached'
-    audioTextDict['building'] = 'building'
-    audioTextDict['storey'] = 'storey'
-    audioTextDict['nodeId'] = 'node ID'
-    audioTextDict['com1'] = 'COM1'
-    audioTextDict['com2'] = 'COM2'
-    audioTextDict['upwardStaircaseAhead'] = 'Upward staircase ahead.'
-    audioTextDict['numberOfStairsExpected'] = 'Number of stairs expected'
-    
-    audioTextDict['goStraight'] = 'Go straight.'
-    audioTextDict['turnLeft'] = 'Turn left.'
-    audioTextDict['turnRight'] = 'Turn right.'
-    audioTextDict['adjustHeading'] = 'Adjust heading: '
-    audioTextDict['negative'] = 'negative'
-    audioTextDict['left'] = 'left'
-    audioTextDict['right'] = 'right'
-    audioTextDict['degrees'] = 'degrees'
-    audioTextDict['stepsToNextNode'] = 'steps to next node'
-    
-    audioTextDict['0'] = '0'
-    audioTextDict['1'] = '1'
-    audioTextDict['2'] = '2'
-    audioTextDict['3'] = '3'
-    audioTextDict['4'] = '4'
-    audioTextDict['5'] = '5'
-    audioTextDict['6'] = '6'
-    audioTextDict['7'] = '7'
-    audioTextDict['8'] = '8'
-    audioTextDict['9'] = '9'
-    audioTextDict['asterisk'] = 'asterisk'
-    audioTextDict['hash'] = 'hash'
     
     # to start `playAudioQueueThread`
     audioQueue = []
@@ -212,36 +193,30 @@ def closeAudioThread():
 def _test():
     initAudio()
     
-    print(stringHelper.AUDIO + ' ' + audioTextDict['welcomeToIris'])
+    print(stringHelper.AUDIO + ' Welcome to IRIS.')
     playAudio('welcomeToIris')
     print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
     playAudio('arpeggio_soundEffect')
     sleep(9)
     
-    print(stringHelper.MESSAGE + ' Playing sample heading feedback...')
+    print(stringHelper.MESSAGE + ' Playing audio files simultaneously...')
     sleep(1)
     print(stringHelper.AUDIO + ' Go straight.')
-    playAudioNow('heading+0_soundEffect')
+    playAudioNow('goStraight')
+    print(stringHelper.AUDIO + ' Turn left.')
+    playAudioNow('turnLeft')
+    print(stringHelper.AUDIO + ' Turn right.')
+    playAudioNow('turnRight')
+    sleep(2)
+    
+    print(stringHelper.MESSAGE + ' Playing audio files one after another...')
+    sleep(1)
+    print(stringHelper.AUDIO + ' Go straight.')
     playAudio('goStraight')
-    sleep(3)
-    print(stringHelper.AUDIO + ' Turn left 45 degrees.')
-    playAudioNow('heading-45_soundEffect')
+    print(stringHelper.AUDIO + ' Turn left.')
     playAudio('turnLeft')
-    playInt('45')
-    playAudio('degrees')
-    sleep(5)
-    print(stringHelper.AUDIO + ' Turn right 90 degrees.')
-    playAudioNow('heading+90_soundEffect')
+    print(stringHelper.AUDIO + ' Turn right.')
     playAudio('turnRight')
-    playInt('90')
-    playAudio('degrees')
-    sleep(5)
-    print(stringHelper.AUDIO + ' Turn 180 degrees.')
-    playAudioNow('heading+180_soundEffect')
-    playAudio('turnRight')
-    playInt('180')
-    playAudio('degrees')
-    sleep(5)
     
     closeAudioThread()
 
