@@ -172,7 +172,7 @@ class DataPacket:
         result += str(self.initialHeading) + ','
         result += str(self.numLeftTurns) + ','
         result += str(self.numRightTurns) + ','
-        result += '\x1b[7;31m' + str(self.numStepsWalked) + '\x1b[0m,'
+        result += '\x1b[1;31m' + str(self.numStepsWalked) + '\x1b[0m,'
         
         result += str(self.checksum) + ';'
         return result
