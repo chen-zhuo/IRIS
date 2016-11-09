@@ -168,7 +168,7 @@ class DataPacket:
         return result
 
 def test():
-    bytestream = '233,5,100,100,0,123,124,45,2333;'.encode('utf_8')
+    bytestream = '233,5,100,100,0,123,124,45,2333;'.encode('utf-8')
     dataPacket = DataPacket(bytestream)
     
     print(stringHelper.INFO + ' Input Bytestream:\n    ' + str(bytestream))

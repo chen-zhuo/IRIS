@@ -78,7 +78,7 @@ class PiMegaCommunicator():
                          str(numRightTurns) + ',' + \
                          str(numStepsWalked) + ',' + \
                          str(checksum) + ';'
-            bytestream = bytestream.encode('utf_8')
+            bytestream = bytestream.encode('utf-8')
             print(bytestream)
             dataPacket = DataPacket(bytestream)
             return dataPacket
