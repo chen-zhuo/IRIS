@@ -7,10 +7,12 @@ This file defines the `Navigator` object class.
 import algorithms
 import copy
 import Map
-from main import IS_SNAP_TO_GRAPH_EDGE, STEP_LENGTH
 import math
 import stringHelper
 import audioOutput
+
+IS_SNAP_TO_GRAPH_EDGE = False
+STEP_LENGTH = 60
 
 class Navigator():
     def __init__(self, myMap, route):
