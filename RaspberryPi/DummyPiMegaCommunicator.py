@@ -27,7 +27,7 @@ dataPackets = [DataPacket('0,0,0,0,45,0,0,0,45;'.encode('utf-8')),
                # at #1214, facing "down" (feedback: go straight)
                
                DataPacket('6,0,0,0,45,0,4,28,83;'.encode('utf-8')),
-               # at #1237, facing "down"
+               # at #1237, facing "down" (feedback: go straight)
                
                DataPacket('7,0,0,0,45,0,4,41,182;'.encode('utf-8')),
                # at #1216; destination reached

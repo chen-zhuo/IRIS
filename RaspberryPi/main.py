@@ -106,28 +106,28 @@ def main():
         #     "555" means "turn right 135 degrees";
         #     "1(+8va)" means "turn 180 degrees"
         if expectedHeading - navigator.currHeading == 0:
-            print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
+            print(stringHelper.AUDIO + ' Adjust heading:   0 degree')
             audioOutput.playAudioNow('heading+0_soundEffect')
         elif expectedHeading - navigator.currHeading == -45 or expectedHeading - navigator.currHeading == 315:
-            print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   -45 degrees')
             audioOutput.playAudioNow('heading-45_soundEffect')
         elif expectedHeading - navigator.currHeading == 45 or expectedHeading - navigator.currHeading == -315:
-            print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   +45 degrees')
             audioOutput.playAudioNow('heading+45_soundEffect')
         elif expectedHeading - navigator.currHeading == -90 or expectedHeading - navigator.currHeading == 270:
-            print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   -90 degrees')
             audioOutput.playAudioNow('heading-90_soundEffect')
         elif expectedHeading - navigator.currHeading == 90 or expectedHeading - navigator.currHeading == -270:
-            print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   +90 degrees')
             audioOutput.playAudioNow('heading+90_soundEffect')
         elif expectedHeading - navigator.currHeading == -135 or expectedHeading - navigator.currHeading == 225:
-            print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   -135 degrees')
             audioOutput.playAudioNow('heading-135_soundEffect')
         elif expectedHeading - navigator.currHeading == 135 or expectedHeading - navigator.currHeading == -225:
-            print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   +135 degrees')
             audioOutput.playAudioNow('heading+135_soundEffect')
         elif expectedHeading - navigator.currHeading == 180 or expectedHeading - navigator.currHeading == -180:
-            print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading:   180 degrees')
             audioOutput.playAudioNow('heading+180_soundEffect')
         else:
             print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \
