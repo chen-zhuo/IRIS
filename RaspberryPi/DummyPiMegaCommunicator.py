@@ -8,23 +8,29 @@ from DataPacket import DataPacket
 import stringHelper
 from time import sleep
 
-dataPackets = [DataPacket('0,0,0,0,[0,0,0,0,0,0,0,0],45,8,233;'.encode('utf-8')),
-               # at #1211, facing "right"
-               DataPacket('1,0,0,0,[0,0,0,0,0,0,0,0],135,8,233;'.encode('utf-8')),
-               # between #1211 and #1214, facing "right" + 45 degrees (audio "adjust left 45 degrees")
-               DataPacket('2,0,0,0,[0,0,0,700,0,0,0,0],180,8,233;'.encode('utf-8')),
-               # between #1211 and #1214, facing "right"
-               DataPacket('3,0,0,0,[0,0,0,800,0,0,0,0],135,8,233;'.encode('utf-8')),
-               # near #1214, facing "right" (audio "turn right")
-               DataPacket('4,0,0,0,[0,0,0,1400,0,0,0,0],135,8,233;'.encode('utf-8')),
-               # at #1214, facing "down"
-               DataPacket('5,0,0,0,[0,0,0,1462,0,0,0,0],225,8,233;'.encode('utf-8')),
+dataPackets = [DataPacket('0,0,0,0,45,0,0,0,45;'.encode('utf-8')),
+               # at #1211, facing "up" (feedback: turn right 90 degrees)
+               
+               DataPacket('1,0,0,0,45,0,2,0,48;'.encode('utf-8')),
+               # at #1211, facing "right" (feedback: go straight)
+               
+               DataPacket('2,0,0,0,45,0,2,0,2333;'.encode('utf-8')),
+               # erronous data packet; drop this (feedback: go straight)
+               
+               DataPacket('3,0,0,0,45,0,2,5,58;'.encode('utf-8')),
+               # between #1211 and #1214, facing "right" (feedback: go straight)
+               
+               DataPacket('4,0,0,0,45,0,2,24,75;'.encode('utf-8')),
+               # near #1214, facing "right" (feedback: turn right 90 degrees)
+               
+               DataPacket('5,0,0,0,45,0,4,24,78;'.encode('utf-8')),
+               # at #1214, facing "down" (feedback: go straight)
+               
+               DataPacket('6,0,0,0,45,0,4,28,83;'.encode('utf-8')),
                # at #1237, facing "down"
-               DataPacket('6,0,0,0,[0,0,0,1462,0,244,0,0],225,8,233;'.encode('utf-8')),
-               # between #1237 and #1216, facing "down", slightly deviated from graph edge
-               DataPacket('7,0,0,0,[0,0,0,1662,0,644,0,0],225,8,233;'.encode('utf-8')),
+               
+               DataPacket('7,0,0,0,45,0,4,41,182;'.encode('utf-8')),
                # at #1216; destination reached
-               DataPacket('8,0,0,0,[0,0,0,1462,0,1056,0,0],225,8,233;'.encode('utf-8'))
               ]
 
 class PiMegaCommunicator():
