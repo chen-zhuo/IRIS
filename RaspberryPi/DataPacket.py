@@ -3,17 +3,12 @@ This file contains the definition of `DataPacket` object class. A `DataPacket` i
 bytestream from Arduino Mega. The format of the bytestream should be
 
     <packetId>,<handProximity>,<leftLegFrontProximity>,<rightLegFrontProximity>,<leftLegLeftProximity>,
-    <rightLegRightProximity>,<leftArmLeftProximity>,<rightArmRightProximity>,<distancesList>,<heading>;
+    <rightLegRightProximity>,<leftArmLeftProximity>,<rightArmRightProximity>,<initialHeading>,<numLeftTurns>,
+    <numRightTurns>,<numStepsWalked>,<checksum>;
 
-. In particular, <distancesList> indicates the user's displacement from the starting location to the current location
-in the format of
+. Note that <initialHeading> is in degrees, with respect to geographical north. An example of a data packet is
 
-    [<distanceWalked_north>,<distanceWalked_northeast>,<distanceWalked_east>,<distanceWalked_southeast>,
-    <distanceWalked_south>,<distanceWalked_southwest>,<distanceWalked_west>,<distanceWalked_northwest>]
-
-. Note that <heading> is in degrees, with respect to geographical north. An example of a data packet is
-
-    233,5,-1,-1,50,50,100,100,[0,50,0,0,0,0,0,0],45,0;
+    233,5,-1,-1,50,50,100,100,0,123,124,45,2333;
 
 , which means that this packet has an ID of 233, the current hand proximity is 5cm, front proximities are out of sensor
 range (i.e. no obstacles in front), left and right proximities measured from legs are 50cm, left and right proximities
@@ -38,19 +33,18 @@ class DataPacket:
 #         self.rightLegRightProximity = ''
         self.leftArmLeftProximity = ''
         self.rightArmRightProximity = ''
-        self.distancesList = ['', '', '', '', '', '', '', '']
-        self.heading = ''
-        self.orientationTag = ''
+        self.initialHeading = ''
+        self.numLeftTurns = ''
+        self.numRightTurns = ''
+        self.numStepsWalked = ''
         self.checksum = ''
         
         i = 0 # for traversing through `bytestream`
-        
-#         print(chr(bytestream[i]))
-#         print(bytestream[i])
-        
+        print(bytestream)
         # to parse `packetId`
         while bytestream[i] != ',':
-            self.packetId += bytestream[i]
+            self.packetId +=\
+            bytestream[i]
             i = i + 1
         self.packetId = int(self.packetId)
         
@@ -104,36 +98,50 @@ class DataPacket:
         self.rightArmRightProximity = int(self.rightArmRightProximity)
         
         # to parse `distancesList`
-        i = i + 2
-        while bytestream[i] != ',':
-            self.distancesList[0] += bytestream[i]
-            i = i + 1
-        self.distancesList[0] = int(self.distancesList[0])
-        for j in range(1, 7):
-            i = i + 1
-            while bytestream[i] != ',':
-                self.distancesList[j] += bytestream[i]
-                i = i + 1
-            self.distancesList[j] = int(self.distancesList[j])
-        i = i + 1
-        while bytestream[i] != ']':
-            self.distancesList[7] += bytestream[i]
-            i = i + 1
-        self.distancesList[7] = int(self.distancesList[7])
+#         i = i + 2
+#         while bytestream[i] != ',':
+#             self.distancesList[0] += bytestream[i]
+#             i = i + 1
+#         self.distancesList[0] = int(self.distancesList[0])
+#         for j in range(1, 7):
+#             i = i + 1
+#             while bytestream[i] != ',':
+#                 self.distancesList[j] += bytestream[i]
+#                 i = i + 1
+#             self.distancesList[j] = int(self.distancesList[j])
+#         i = i + 1
+#         while bytestream[i] != ']':
+#             self.distancesList[7] += bytestream[i]
+#             i = i + 1
+#         self.distancesList[7] = int(self.distancesList[7])
         
-        # to parse `heading`
-        i = i + 2
-        while bytestream[i] != ',':
-            self.heading += bytestream[i]
-            i = i + 1
-        self.heading = int(self.heading)
-        
-        # to parse `orientationTag`
+        # to parse `initialHeading`
         i = i + 1
         while bytestream[i] != ',':
-            self.orientationTag += bytestream[i]
+            self.initialHeading += bytestream[i]
             i = i + 1
-        self.orientationTag = int(self.orientationTag)
+        self.initialHeading = int(self.initialHeading)
+        
+        # to parse `numLeftTurns`
+        i = i + 1
+        while bytestream[i] != ',':
+            self.numLeftTurns += bytestream[i]
+            i = i + 1
+        self.numLeftTurns = int(self.numLeftTurns)
+        
+        # to parse `numRightTurns`
+        i = i + 1
+        while bytestream[i] != ',':
+            self.numRightTurns += bytestream[i]
+            i = i + 1
+        self.numRightTurns = int(self.numRightTurns)
+        
+        # to parse `numStepsWalked`
+        i = i + 1
+        while bytestream[i] != ',':
+            self.numStepsWalked += bytestream[i]
+            i = i + 1
+        self.numStepsWalked = int(self.numStepsWalked)
         
         # to parse `checksum`
         i = i + 1
@@ -152,15 +160,17 @@ class DataPacket:
 #         result += str(self.rightLegRightProximity) + ','
         result += str(self.leftArmLeftProximity) + ','
         result += str(self.rightArmRightProximity) + ','
-        result += str(self.distancesList).replace(' ', '') + ','
-        result += str(self.heading) + ','
-        result += str(self.orientationTag) + ','
+        result += str(self.initialHeading) + ','
+        result += str(self.numLeftTurns) + ','
+        result += str(self.numRightTurns) + ','
+        result += str(self.numStepsWalked) + ','
+        
         result += str(self.checksum) + ';'
         return result
 
 def test():
-    bytestream = '233,5,100,100,[0,50,0,0,0,0,0,0],45,8,233;'
-    dataPacket = DataPacket(bytestream.encode('utf-8'))
+    bytestream = '233,5,100,100,0,123,124,45,2333;'
+    dataPacket = DataPacket(bytestream)
     
     print(stringHelper.INFO + ' Input Bytestream:\n    ' + bytestream)
     print(stringHelper.INFO + ' String Representation:\n    ' + str(dataPacket))
@@ -173,9 +183,10 @@ def test():
 #     print('    rightLegRightProximity = ' + str(dataPacket.rightLegRightProximity) + ' cm')
     print('    leftArmLeftProximity = ' + str(dataPacket.leftArmLeftProximity) + ' cm')
     print('    rightArmRightProximity = ' + str(dataPacket.rightArmRightProximity) + ' cm')
-    print('    distancesList = ' + str(dataPacket.distancesList) + ' cm')
-    print('    heading = ' + str(dataPacket.heading) + ' degrees from north')
-    print('    orientationTag = ' + str(dataPacket.orientationTag))
+    print('    initialHeading = ' + str(dataPacket.initialHeading) + ' degrees')
+    print('    numLeftTurns = ' + str(dataPacket.numLeftTurns))
+    print('    numRightTurns = ' + str(dataPacket.numRightTurns))
+    print('    numStepsWalked = ' + str(dataPacket.numStepsWalked))
     print('    checksum = ' + str(dataPacket.checksum))
 
 if __name__ == '__main__':
