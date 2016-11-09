@@ -7,14 +7,13 @@ This file defines the `Navigator` object class.
 import algorithms
 import copy
 import Map
+from main import IS_SNAP_TO_GRAPH_EDGE, STEP_LENGTH
 import math
 import stringHelper
 import audioOutput
 
-STEP_LENGTH = 60
-
 class Navigator():
-    def __init__(self, myMap, route, currLocation):
+    def __init__(self, myMap, route):
         self.myMap = myMap
         self.route = route # a list of node IDs
         self.srcNodeId = route[0]
@@ -24,12 +23,15 @@ class Navigator():
                                                                 myMap.nodesDict[route[1]].location)
         self.nodeReachedThreshold = 100
         
-        self.currLocation = copy.deepcopy(currLocation)
-        self.locationOffset = [0, 0]
+        self.currLocation = copy.deepcopy(self.myMap.nodesDict[self.srcNodeId].location)
         
+        self.initialHeading = 0
         self.currHeading = 0
+        self.prevHeading = 0
         self.expectedHeading = 0
-        self.headingOffset = 0
+        
+        self.numStepsWalked = 0
+        self.prevNumStepsWalked = 0
     
     '''
     Updates the fields of `self`.
@@ -39,46 +41,51 @@ class Navigator():
     @return False if the last node in `route` is cleared; else return True
     '''
     def update(self, dataPacket, isNavigationPaused):
-        global STEP_LENGTH
+        global IS_SNAP_TO_GRAPH_EDGE, STEP_LENGTH
         
-        if not isNavigationPaused:
-            # to calculate the current location based on the distances travelled in 8 directions, as well as the offset
-            self.currLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
-            self.currLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
-            self.currLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
-            self.currLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
-            self.currLocation[1] += dataPacket.distancesList[1]
-            self.currLocation[0] += dataPacket.distancesList[2]/math.sqrt(2)
-            self.currLocation[1] += dataPacket.distancesList[2]/math.sqrt(2)
-            self.currLocation[0] += dataPacket.distancesList[3]
-            self.currLocation[0] += dataPacket.distancesList[4]/math.sqrt(2)
-            self.currLocation[1] -= dataPacket.distancesList[4]/math.sqrt(2)
-            self.currLocation[1] -= dataPacket.distancesList[5]
-            self.currLocation[0] -= dataPacket.distancesList[6]/math.sqrt(2)
-            self.currLocation[1] -= dataPacket.distancesList[6]/math.sqrt(2)
-            self.currLocation[0] -= dataPacket.distancesList[7]
-            self.currLocation[0] += self.locationOffset[0]
-            self.currLocation[1] += self.locationOffset[1]
-        else:
-            tempCurrLocation = [0, 0]
-            tempCurrLocation[0] = self.myMap.nodesDict[self.srcNodeId].location[0]
-            tempCurrLocation[1] = self.myMap.nodesDict[self.srcNodeId].location[1]
-            tempCurrLocation[0] -= dataPacket.distancesList[0]/math.sqrt(2)
-            tempCurrLocation[1] += dataPacket.distancesList[0]/math.sqrt(2)
-            tempCurrLocation[1] += dataPacket.distancesList[1]
-            tempCurrLocation[0] += dataPacket.distancesList[2]/math.sqrt(2)
-            tempCurrLocation[1] += dataPacket.distancesList[2]/math.sqrt(2)
-            tempCurrLocation[0] += dataPacket.distancesList[3]
-            tempCurrLocation[0] += dataPacket.distancesList[4]/math.sqrt(2)
-            tempCurrLocation[1] -= dataPacket.distancesList[4]/math.sqrt(2)
-            tempCurrLocation[1] -= dataPacket.distancesList[5]
-            tempCurrLocation[0] -= dataPacket.distancesList[6]/math.sqrt(2)
-            tempCurrLocation[1] -= dataPacket.distancesList[6]/math.sqrt(2)
-            tempCurrLocation[0] -= dataPacket.distancesList[7]
-            tempCurrLocation[0] += self.locationOffset[0]
-            tempCurrLocation[1] += self.locationOffset[1]
-            self.locationOffset[0] = self.currLocation[0] - tempCurrLocation[0]
-            self.locationOffset[1] = self.currLocation[1] - tempCurrLocation[1]
+        # to calculate `currHeading`
+        self.initialHeading = dataPacket.initialHeading
+        self.currHeading = (self.initialHeading + (dataPacket.numRightTurns - dataPacket.numLeftTurns) * 45) % 360
+        
+        # to calculate `currLocation`
+        self.numStepsWalked = dataPacket.numStepsWalked
+        deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
+        deltaLocation = [0, 0]
+        if self.currHeading == 45:
+            deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked
+        elif self.heading == 90:
+            deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+        elif self.currHeading == 135:
+            deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked
+        elif self.heading == 180:
+            deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+        elif self.currHeading == 225:
+            deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked
+        elif self.heading == 270:
+            deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+        elif self.currHeading == 315:
+            deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked
+        elif self.heading == 0:
+            deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+        self.currLocation[0] += deltaLocation[0]
+        self.currLocation[1] += deltaLocation[1]
+        
+        # to calculate `expectedHeading`
+        self.expectedHeading = algorithms.computeBearing(self.currLocation,
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
+        
+        # if `IS_SNAP_TO_GRAPH_EDGE` is True, do offset accordingly
+        if IS_SNAP_TO_GRAPH_EDGE:
+            if self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[0] == \
+                    self.myMap.nodesDict[self.route[self.clearedRouteIdx + 1]].location[0]:
+                self.currLocation[0] = self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[0]
+            elif self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[1] == \
+                    self.myMap.nodesDict[self.route[self.clearedRouteIdx + 1]].location[1]:
+                self.currLocation[1] = self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[1]
         
         # to print the current location (absolute coordinates and relative coordinates from starting location)
         print(stringHelper.INFO + ' Current Location:                       (' +
@@ -88,18 +95,11 @@ class Navigator():
               str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) + ')')
         
         # to print the number of steps walked
-        print(stringHelper.INFO + ' Number of Steps:                        (' +
-              str(int(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) // STEP_LENGTH) +
-              ', ' +
-              str((self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) // STEP_LENGTH) + ')')
+        print(stringHelper.INFO + ' Step Count: ' + str(self.numStepsWalked))
         
+        # to calculate `distanceUntilNextNode`
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
-        
-        self.expectedHeading = algorithms.computeBearing(self.currLocation,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
-        
-        self.currHeading = (dataPacket.heading + self.headingOffset) % 360
         
         # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
@@ -115,6 +115,10 @@ class Navigator():
             print(stringHelper.AUDIO + ' Navigation completed.')
             audioOutput.playAudio('navigationCompleted')
             return False
+        
+        # to prepare 'previous' values before this function is called again
+        self.prevNumStepsWalked = self.numStepsWalked
+        self.prevHeading = self.currHeading
         
         return True # `isNavigationInProgress` is True
     

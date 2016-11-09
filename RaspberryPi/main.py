@@ -9,28 +9,32 @@ import algorithms
 import audioOutput
 import keypadInput
 # import math
-from Navigator import Navigator, STEP_LENGTH
+from Navigator import Navigator
 from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
 # from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
 # from threading import Thread
 from time import sleep
 
-isFastDebugMode = True
-hardCodedSrcNodeId = 1211
-hardCodedDestNodeId = 1216
+IS_FAST_DEBUG_MODE = True
+HARDCODED_SRC_NODE_ID = 1211
+HARDCODED_DEST_NODE_ID = 1216
+
+IS_SNAP_TO_GRAPH_EDGE = False
+
+STEP_LENGTH = 60
 
 def main():
-    global isFastDebugMode, hardCodedSrcNodeId, hardCodedDestNodeId
+    global IS_FAST_DEBUG_MODE, HARDCODED_SRC_NODE_ID, HARDCODED_DEST_NODE_ID
     
     algorithms.printWelcomeMsg()
     keypadInput.initKeypad()
     audioOutput.initAudio()
     
     # to get `srcNodeId` and `destNodeId` from user
-    if isFastDebugMode:
-        srcNodeId = hardCodedSrcNodeId
-        destNodeId = hardCodedDestNodeId
+    if IS_FAST_DEBUG_MODE:
+        srcNodeId = HARDCODED_SRC_NODE_ID
+        destNodeId = HARDCODED_DEST_NODE_ID
     else:
         print(stringHelper.AUDIO + ' Welcome to IRIS.')
         audioOutput.playAudio('welcomeToIris')
