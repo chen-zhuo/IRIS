@@ -60,12 +60,12 @@ class Navigator():
             deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
         elif self.currHeading == 135:
             deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked
-        elif self.heading == 180:
+        elif self.currHeading == 180:
             deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
             deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
         elif self.currHeading == 225:
             deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked
-        elif self.heading == 270:
+        elif self.currHeading == 270:
             deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
             deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
         elif self.currHeading == 315:
