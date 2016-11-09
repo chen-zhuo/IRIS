@@ -95,7 +95,6 @@ def main():
                 linkedMap.nodesDict[route[routeIdxOfNextNode]].location
                 ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
         print(stringHelper.INFO + ' Expected Heading: ' + str(expectedHeading) + ' degrees')
-        print(stringHelper.INFO + ' Heading Offset:  ' + str(navigator.headingOffset) + ' degrees')
         
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";
