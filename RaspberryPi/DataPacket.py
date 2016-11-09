@@ -2,13 +2,23 @@
 This file contains the definition of `DataPacket` object class. A `DataPacket` is instantiated from the transmitted
 bytestream from Arduino Mega. The format of the bytestream should be
 
-    <packetId>,<handProximity>,<leftLegFrontProximity>,<rightLegFrontProximity>,<leftLegLeftProximity>,
-    <rightLegRightProximity>,<leftArmLeftProximity>,<rightArmRightProximity>,<initialHeading>,<numLeftTurns>,
-    <numRightTurns>,<numStepsWalked>,<checksum>;
+    <packetId>,
+    <handProximity>,
+#     <leftLegFrontProximity>,
+#     <rightLegFrontProximity>,
+#     <leftLegLeftProximity>,
+#     <rightLegRightProximity>,
+    <leftArmLeftProximity>,
+    <rightArmRightProximity>,
+    <initialHeading>,
+    <numLeftTurns>,
+    <numRightTurns>,
+    <numStepsWalked>,
+    <checksum>;
 
 . Note that <initialHeading> is in degrees, with respect to geographical north. An example of a data packet is
 
-    233,5,-1,-1,50,50,100,100,0,123,124,45,2333;
+    233,5,50,50,0,123,125,234,820;
 
 , which means that this packet has an ID of 233, the current hand proximity is 5cm, front proximities are out of sensor
 range (i.e. no obstacles in front), left and right proximities measured from legs are 50cm, left and right proximities
@@ -40,7 +50,7 @@ class DataPacket:
         self.checksum = ''
         
         i = 0 # for traversing through `bytestream`
-        print(bytestream)
+        
         # to parse `packetId`
         while chr(bytestream[i]) != ',':
             self.packetId += chr(bytestream[i])
@@ -168,7 +178,7 @@ class DataPacket:
         return result
 
 def test():
-    bytestream = '233,5,100,100,0,123,124,45,2333;'.encode('utf-8')
+    bytestream = '233,5,50,50,0,123,125,234,820;'.encode('utf-8')
     dataPacket = DataPacket(bytestream)
     
     print(stringHelper.INFO + ' Input Bytestream:\n    ' + str(bytestream))
