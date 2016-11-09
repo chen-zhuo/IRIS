@@ -39,58 +39,46 @@ class PiMegaCommunicator():
         leftArmLeftProximity = int(self.waitAndReadLine())
         rightArmRightProximity = int(self.waitAndReadLine())
         
-        distanceWalked_north = int(self.waitAndReadLine())
-        distanceWalked_northeast = int(self.waitAndReadLine())
-        distanceWalked_east = int(self.waitAndReadLine())
-        distanceWalked_southeast = int(self.waitAndReadLine())
-        distanceWalked_south = int(self.waitAndReadLine())
-        distanceWalked_southwest = int(self.waitAndReadLine())
-        distanceWalked_west = int(self.waitAndReadLine())
-        distanceWalked_northwest = int(self.waitAndReadLine())
-        
-        heading = int(self.waitAndReadLine())
-        orientationTag = int(self.waitAndReadLine())
+        leftArmLeftProximity = int(self.waitAndReadLine())
+        rightArmRightProximity = int(self.waitAndReadLine())
+        initialHeading = int(self.waitAndReadLine())
+        numLeftTurns = int(self.waitAndReadLine())
+        numRightTurns = int(self.waitAndReadLine())
+        numStepsWalked = int(self.waitAndReadLine())
         
         checksum = int(self.waitAndReadLine())
         
         # ============================== END DATA ==============================
         
         # to verify checksum
-        expectedChecksum = packetId +\
-                           handProximity +\
-                           leftArmLeftProximity +\
-                           rightArmRightProximity +\
-                           distanceWalked_north +\
-                           distanceWalked_northeast +\
-                           distanceWalked_east +\
-                           distanceWalked_southeast +\
-                           distanceWalked_south +\
-                           distanceWalked_southwest +\
-                           distanceWalked_west +\
-                           distanceWalked_northwest +\
-                           heading +\
-                           orientationTag
+        expectedChecksum = ''
+        expectedChecksum += packetId + \
+                            handProximity + \
+                            leftArmLeftProximity + \
+                            rightArmRightProximity + \
+                            initialHeading + \
+                            numLeftTurns + \
+                            numRightTurns + \
+                            numStepsWalked + \
+                            checksum
         if checksum != expectedChecksum:
             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Dropping this \
                   erroneous data packet.')
             return None
         else:
             # to compile the data received into a single `DataPacket` object
-            bytestream = str(packetId) + ',' +\
-                         str(handProximity) + ',' +\
-                         str(leftArmLeftProximity) + ',' +\
-                         str(rightArmRightProximity) + ',[' +\
-                         str(distanceWalked_north) + ',' +\
-                         str(distanceWalked_northeast) + ',' +\
-                         str(distanceWalked_east) + ',' +\
-                         str(distanceWalked_southeast) + ',' +\
-                         str(distanceWalked_south) + ',' +\
-                         str(distanceWalked_southwest) + ',' +\
-                         str(distanceWalked_west) + ',' +\
-                         str(distanceWalked_northwest) + '],' +\
-                         str(heading) + ',' +\
-                         str(orientationTag) + ',' +\
+            bytestream = str(packetId) + ',' + \
+                         str(handProximity) + ',' + \
+                         str(leftArmLeftProximity) + ',' + \
+                         str(rightArmRightProximity) + ',' + \
+                         str(leftArmLeftProximity) + ',' + \
+                         str(rightArmRightProximity) + ',' + \
+                         str(initialHeading) + ',' + \
+                         str(numLeftTurns) + ',' + \
+                         str(numRightTurns) + ',' + \
+                         str(numStepsWalked) + ',' + \
                          str(checksum) + ';'
+            bytestream = bytestream.encode('utf_8')
             print(bytestream)
             dataPacket = DataPacket(bytestream)
             return dataPacket

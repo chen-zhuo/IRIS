@@ -27,7 +27,7 @@ def main():
     keypadInput.initKeypad()
     audioOutput.initAudio()
     
-    # to get `srcNodeId` and `destNodeId`
+    # to get `srcNodeId` and `destNodeId` from user
     if isFastDebugMode:
         srcNodeId = hardCodedSrcNodeId
         destNodeId = hardCodedDestNodeId
@@ -55,6 +55,9 @@ def main():
     
     # ======================================== BEGIN NAVIGATION ========================================
     
+    print(stringHelper.AUDIO + ' Navigation started.')
+    audioOutput.playAudio('navigationStarted')
+    
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
     currLocation = linkedMap.nodesDict[srcNodeId].location
@@ -65,8 +68,6 @@ def main():
     
     piMegaCommunicator = PiMegaCommunicator()
     piMegaCommunicator.startUp()
-    
-    calibratedDistancesList = []
     
     while isNavigationInProgress:
         # to poll for new data and update `navigator`
