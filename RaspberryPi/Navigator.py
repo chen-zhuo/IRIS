@@ -89,10 +89,10 @@ class Navigator():
                     self.myMap.nodesDict[self.route[self.clearedRouteIdx + 1]].location[1]:
                 self.currLocation[1] = self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[1]
         
-        # to print the current location (absolute coordinates and relative coordinates from starting location)
+        print(stringHelper.INFO + ' Delta Location:   (' +
+              '\x1b[1;31m' + str(deltaLocation[0]) + ', ' + str(deltaLocation[1]) + '\x1b[0m,)')
         print(stringHelper.INFO + ' Current Location: (' +
               str(self.currLocation[0]) + ', ' + str(self.currLocation[1]) + ')')
-        print(stringHelper.INFO + ' Delta Location:   (' + str(deltaLocation[0]) + ', ' + str(deltaLocation[1]) + ')')
         
         # to calculate `distanceUntilNextNode`
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
