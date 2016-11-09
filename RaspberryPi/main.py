@@ -64,7 +64,7 @@ def main():
     routeIdxOfPrevNode = 0
     routeIdxOfNextNode = 1
     
-    navigator = Navigator(linkedMap, route, currLocation)
+    navigator = Navigator(linkedMap, route)
     
     piMegaCommunicator = PiMegaCommunicator()
     piMegaCommunicator.startUp()
