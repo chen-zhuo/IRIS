@@ -11,7 +11,7 @@ import math
 import stringHelper
 import audioOutput
 
-IS_SNAP_TO_GRAPH_EDGE = False
+IS_SNAP_TO_GRAPH_EDGE = True
 STEP_LENGTH = 60
 
 class Navigator():
@@ -90,11 +90,9 @@ class Navigator():
                 self.currLocation[1] = self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[1]
         
         # to print the current location (absolute coordinates and relative coordinates from starting location)
-        print(stringHelper.INFO + ' Current Location:                       (' +
+        print(stringHelper.INFO + ' Current Location: (' +
               str(self.currLocation[0]) + ', ' + str(self.currLocation[1]) + ')')
-        print(stringHelper.INFO + ' Location Relative to Starting Location: (' +
-              str(self.currLocation[0] - self.myMap.nodesDict[self.srcNodeId].location[0]) + ', ' +
-              str(self.currLocation[1] - self.myMap.nodesDict[self.srcNodeId].location[1]) + ')')
+        print(stringHelper.INFO + ' Delta Location:   (' + str(deltaLocation[0]) + ', ' + str(deltaLocation[1]) + ')')
         
         # to calculate `distanceUntilNextNode`
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
