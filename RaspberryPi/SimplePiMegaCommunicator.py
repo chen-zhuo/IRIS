@@ -38,9 +38,6 @@ class PiMegaCommunicator():
 #         rightLegRightProximity = int(self.waitAndReadLine())
         leftArmLeftProximity = int(self.waitAndReadLine())
         rightArmRightProximity = int(self.waitAndReadLine())
-        
-        leftArmLeftProximity = int(self.waitAndReadLine())
-        rightArmRightProximity = int(self.waitAndReadLine())
         initialHeading = int(self.waitAndReadLine())
         numLeftTurns = int(self.waitAndReadLine())
         numRightTurns = int(self.waitAndReadLine())
@@ -71,8 +68,6 @@ class PiMegaCommunicator():
                          str(handProximity) + ',' + \
                          str(leftArmLeftProximity) + ',' + \
                          str(rightArmRightProximity) + ',' + \
-                         str(leftArmLeftProximity) + ',' + \
-                         str(rightArmRightProximity) + ',' + \
                          str(initialHeading) + ',' + \
                          str(numLeftTurns) + ',' + \
                          str(numRightTurns) + ',' + \
@@ -87,7 +82,7 @@ class PiMegaCommunicator():
         msgReceived = ''
         while msgReceived == '':
             print('Receives nothing!')
-            msgReceived = self.port.readline().decode('utf-8').replace('\r\n','')
+            msgReceived = self.port.readline().decode('utf-8').replace('\r\n', '')
         return msgReceived
 
 def _test():
