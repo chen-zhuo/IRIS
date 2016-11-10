@@ -76,6 +76,15 @@ class Navigator():
         self.currLocation[0] += deltaLocation[0]
         self.currLocation[1] += deltaLocation[1]
         
+        # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
+        if algorithms.computeDistance(self.currLocation,
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < self.nodeReachedThreshold:
+            self.clearedRouteIdx = self.clearedRouteIdx + 1
+            print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
+            audioOutput.playAudio('reachedNewNode_soundEffect')
+            audioOutput.playAudio('reached')
+            audioOutput.playInt(self.route[self.clearedRouteIdx])
+        
         # to calculate `expectedHeading`
         self.expectedHeading = algorithms.computeBearing(
                 self.myMap.getNode(self.route[self.clearedRouteIdx]).location,
@@ -99,15 +108,6 @@ class Navigator():
         # to calculate `distanceUntilNextNode`
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
-        
-        # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
-        if algorithms.computeDistance(self.currLocation,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < self.nodeReachedThreshold:
-            self.clearedRouteIdx = self.clearedRouteIdx + 1
-            print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
-            audioOutput.playAudio('reachedNewNode_soundEffect')
-            audioOutput.playAudio('reached')
-            audioOutput.playInt(self.route[self.clearedRouteIdx])
         
         # if the last node is cleared then return False
         if self.clearedRouteIdx == len(self.route) - 1:
