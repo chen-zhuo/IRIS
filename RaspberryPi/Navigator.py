@@ -29,7 +29,7 @@ class Navigator():
         
         self.initialHeading = 0
         self.currHeading = 0
-        self.prevHeading = 0
+#         self.prevHeading = 0
         self.expectedHeading = 0
         
         self.numStepsWalked = 0
@@ -117,7 +117,7 @@ class Navigator():
         
         # to prepare 'previous' values before this function is called again
         self.prevNumStepsWalked = self.numStepsWalked
-        self.prevHeading = self.currHeading
+#         self.prevHeading = self.currHeading
         
         return True # `isNavigationInProgress` is True
     

@@ -10,13 +10,13 @@ import audioOutput
 import keypadInput
 # import math
 from Navigator import Navigator, STEP_LENGTH
-from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
-# from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
+# from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
+from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
 # from threading import Thread
 from time import sleep
 
-IS_FAST_DEBUG_MODE = True
+IS_FAST_DEBUG_MODE = False
 HARDCODED_SRC_NODE_ID = 1211
 HARDCODED_DEST_NODE_ID = 1216
 
@@ -103,28 +103,36 @@ def main():
         #     "111" means "turn left 135 degrees";
         #     "555" means "turn right 135 degrees";
         #     "1(+8va)" means "turn 180 degrees"
-        if navigator.expectedHeading - navigator.currHeading == 0:
+        if (navigator.expectedHeading - navigator.currHeading) % 360 <= 22.5 or
+                (navigator.expectedHeading - navigator.currHeading) % 360 > 337.5:
             print(stringHelper.AUDIO + ' Adjust heading:   0 degrees')
             audioOutput.playAudioNow('heading+0_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 315:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 22.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 67.5:
             print(stringHelper.AUDIO + ' Adjust heading:   -45 degrees')
             audioOutput.playAudioNow('heading-45_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 45:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 292.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 337.5:
             print(stringHelper.AUDIO + ' Adjust heading:   +45 degrees')
             audioOutput.playAudioNow('heading+45_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 270:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 67.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 112.5:
             print(stringHelper.AUDIO + ' Adjust heading:   -90 degrees')
             audioOutput.playAudioNow('heading-90_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 90:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 247.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 292.5:
             print(stringHelper.AUDIO + ' Adjust heading:   +90 degrees')
             audioOutput.playAudioNow('heading+90_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 225:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 112.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 157.5:
             print(stringHelper.AUDIO + ' Adjust heading:   -135 degrees')
             audioOutput.playAudioNow('heading-135_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 135:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 202.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 247.5:
             print(stringHelper.AUDIO + ' Adjust heading:   +135 degrees')
             audioOutput.playAudioNow('heading+135_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 == 180:
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 157.5 and
+                navigator.expectedHeading - navigator.currHeading) % 360 <= 202.5:
             print(stringHelper.AUDIO + ' Adjust heading:   180 degrees')
             audioOutput.playAudioNow('heading+180_soundEffect')
         else:
@@ -144,6 +152,7 @@ def main():
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
+            audioOutput.playAudio('node' + str(navigator.route[navigator.clearedRouteIdx]) + '_description')
         
         # if the user input is '3', snap the current location to the next node in route
         if userInput == '3':
@@ -156,8 +165,7 @@ def main():
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':
-            navigator.headingOffset += navigator.expectedHeading - navigator.currHeading
-            navigator.headingOffset %= 360
+            navigator.currHeading = navigator.expectedHeading
         
         # if the user input is '9', give detailed audio feedback
         if userInput == '9':
