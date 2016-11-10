@@ -9,7 +9,7 @@ import algorithms
 import audioOutput
 import keypadInput
 # import math
-from Navigator import Navigator
+from Navigator import Navigator, STEP_LENGTH
 from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
 # from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
@@ -94,7 +94,7 @@ def main():
                 linkedMap.nodesDict[route[routeIdxOfPrevNode]].location,
                 linkedMap.nodesDict[route[routeIdxOfNextNode]].location
                 ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
-        print(stringHelper.INFO + ' Expected Heading: ' + str(expectedHeading) + '\u00b0')
+        print(stringHelper.INFO + ' Expected Heading: ' + str(navigator.expectedHeading) + '\u00b0')
         
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";
@@ -145,11 +145,7 @@ def main():
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
-            audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
-            
-            navigator.locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
-            navigator.locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
         
         # if the user input is '3', snap the current location to the next node in route
         if userInput == '3':
@@ -158,10 +154,7 @@ def main():
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
-            audioOutput.playAudio('nodeId')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
-            navigator.locationOffset[0] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[0] - currLocation[0]
-            navigator.locationOffset[1] += linkedMap.nodesDict[navigator.route[navigator.clearedRouteIdx]].location[1] - currLocation[1]
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':
