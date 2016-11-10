@@ -58,15 +58,15 @@ class PiMegaCommunicator():
                             numRightTurns + \
                             numStepsWalked
         
-        print('    ' + packetId)
-        print('    ' + handProximity)
-        print('    ' + leftArmLeftProximity)
-        print('    ' + rightArmRightProximity)
-        print('    ' + initialHeading)
-        print('    ' + numLeftTurns)
-        print('    ' + numRightTurns)
-        print('    ' + numStepsWalked)
-        print('    ' + checksum)
+        print('    ' + str(packetId))
+        print('    ' + str(handProximity))
+        print('    ' + str(leftArmLeftProximity))
+        print('    ' + str(rightArmRightProximity))
+        print('    ' + str(initialHeading))
+        print('    ' + str(numLeftTurns))
+        print('    ' + str(numRightTurns))
+        print('    ' + str(numStepsWalked))
+        print('    ' + str(checksum))
         
         if checksum != expectedChecksum:
             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Expected: ' +
