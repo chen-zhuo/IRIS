@@ -107,28 +107,28 @@ def main():
                 (navigator.expectedHeading - navigator.currHeading) % 360 > 337.5:
             print(stringHelper.AUDIO + ' Adjust heading:   0 degrees')
             audioOutput.playAudioNow('heading+0_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 22.5 and \
-                (navigator.expectedHeading - navigator.currHeading) % 360 <= 67.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   -45 degrees')
-            audioOutput.playAudioNow('heading-45_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 292.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 337.5:
+            print(stringHelper.AUDIO + ' Adjust heading:   -45 degrees')
+            audioOutput.playAudioNow('heading-45_soundEffect')
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 22.5 and \
+                (navigator.expectedHeading - navigator.currHeading) % 360 <= 67.5:
             print(stringHelper.AUDIO + ' Adjust heading:   +45 degrees')
             audioOutput.playAudioNow('heading+45_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 67.5 and \
-                (navigator.expectedHeading - navigator.currHeading) % 360 <= 112.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   -90 degrees')
-            audioOutput.playAudioNow('heading-90_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 247.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 292.5:
+            print(stringHelper.AUDIO + ' Adjust heading:   -90 degrees')
+            audioOutput.playAudioNow('heading-90_soundEffect')
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 67.5 and \
+                (navigator.expectedHeading - navigator.currHeading) % 360 <= 112.5:
             print(stringHelper.AUDIO + ' Adjust heading:   +90 degrees')
             audioOutput.playAudioNow('heading+90_soundEffect')
-        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 112.5 and \
-                (navigator.expectedHeading - navigator.currHeading) % 360 <= 157.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   -135 degrees')
-            audioOutput.playAudioNow('heading-135_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 202.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 247.5:
+            print(stringHelper.AUDIO + ' Adjust heading:   -135 degrees')
+            audioOutput.playAudioNow('heading-135_soundEffect')
+        elif (navigator.expectedHeading - navigator.currHeading) % 360 > 112.5 and \
+                (navigator.expectedHeading - navigator.currHeading) % 360 <= 157.5:
             print(stringHelper.AUDIO + ' Adjust heading:   +135 degrees')
             audioOutput.playAudioNow('heading+135_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 157.5 and \
