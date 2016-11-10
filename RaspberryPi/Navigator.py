@@ -85,6 +85,12 @@ class Navigator():
             audioOutput.playAudio('reached')
             audioOutput.playInt(self.route[self.clearedRouteIdx])
         
+        # if the last node is cleared then return False
+        if self.clearedRouteIdx == len(self.route) - 1:
+            print(stringHelper.AUDIO + ' Navigation completed.')
+            audioOutput.playAudio('navigationCompleted')
+            return False
+        
         # to calculate `expectedHeading`
         self.expectedHeading = algorithms.computeBearing(
                 self.myMap.getNode(self.route[self.clearedRouteIdx]).location,
@@ -108,12 +114,6 @@ class Navigator():
         # to calculate `distanceUntilNextNode`
         self.distanceUntilNextNode = algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location)
-        
-        # if the last node is cleared then return False
-        if self.clearedRouteIdx == len(self.route) - 1:
-            print(stringHelper.AUDIO + ' Navigation completed.')
-            audioOutput.playAudio('navigationCompleted')
-            return False
         
         # to prepare 'previous' values before this function is called again
         self.prevNumStepsWalked = self.numStepsWalked
