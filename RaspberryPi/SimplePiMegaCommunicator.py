@@ -57,6 +57,17 @@ class PiMegaCommunicator():
                             numLeftTurns + \
                             numRightTurns + \
                             numStepsWalked
+        
+        print('    ' + packetId)
+        print('    ' + handProximity)
+        print('    ' + leftArmLeftProximity)
+        print('    ' + rightArmRightProximity)
+        print('    ' + initialHeading)
+        print('    ' + numLeftTurns)
+        print('    ' + numRightTurns)
+        print('    ' + numStepsWalked)
+        print('    ' + checksum)
+        
         if checksum != expectedChecksum:
             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Expected: ' +
                   str(expectedChecksum) + '. Actual: ' + str(checksum) + '. Dropping this erroneous data packet.')
