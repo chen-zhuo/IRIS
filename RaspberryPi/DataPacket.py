@@ -161,7 +161,7 @@ class DataPacket:
     
     def __str__(self, indent=0):
         result = ''
-        result += '\x1b[7m#' + str(self.packetId) + '\x1b[0m,'
+        result += '\x1b[7m #' + str(self.packetId) + '\x1b[0m ,'
         result += str(self.handProximity) + ','
 #         result += str(self.leftLegFrontProximity) + ','
 #         result += str(self.rightLegFrontProximity) + ','
