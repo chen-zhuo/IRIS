@@ -73,6 +73,8 @@ def main():
         # to poll for new data and update `navigator`
         print('\n========================= NEW DATA POLL =========================\n')
         dataPacket = piMegaCommunicator.pollData()
+        if dataPacket == None:
+            print('Received None packet!!!!!!!!!!!!!!!!!!')
         print(stringHelper.INFO + ' Data Packet: ' + str(dataPacket))
         isNavigationInProgress = navigator.update(dataPacket, isNavigationPaused)
         if not isNavigationInProgress:
