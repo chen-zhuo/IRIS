@@ -58,40 +58,31 @@ class PiMegaCommunicator():
                             numRightTurns + \
                             numStepsWalked
         
-        print('    ' + str(packetId))
-        print('    ' + str(handProximity))
-        print('    ' + str(leftArmLeftProximity))
-        print('    ' + str(rightArmRightProximity))
-        print('    ' + str(initialHeading))
-        print('    ' + str(numLeftTurns))
-        print('    ' + str(numRightTurns))
-        print('    ' + str(numStepsWalked))
-        print('    ' + str(checksum))
+        # to compile the data received into a single `DataPacket` object
+        bytestream = str(packetId) + ',' + \
+                     str(handProximity) + ',' + \
+                     str(leftArmLeftProximity) + ',' + \
+                     str(rightArmRightProximity) + ',' + \
+                     str(initialHeading) + ',' + \
+                     str(numLeftTurns) + ',' + \
+                     str(numRightTurns) + ',' + \
+                     str(numStepsWalked) + ',' + \
+                     str(checksum) + ';'
+        bytestream = bytestream.encode('utf-8')
+#         print(stringHelper.MESSAGE + 'Bytestream: ' + str(bytestream))
         
         if checksum != expectedChecksum:
             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Expected: ' +
                   str(expectedChecksum) + '. Actual: ' + str(checksum) + '. Dropping this erroneous data packet.')
             return None
         else:
-            # to compile the data received into a single `DataPacket` object
-            bytestream = str(packetId) + ',' + \
-                         str(handProximity) + ',' + \
-                         str(leftArmLeftProximity) + ',' + \
-                         str(rightArmRightProximity) + ',' + \
-                         str(initialHeading) + ',' + \
-                         str(numLeftTurns) + ',' + \
-                         str(numRightTurns) + ',' + \
-                         str(numStepsWalked) + ',' + \
-                         str(checksum) + ';'
-            bytestream = bytestream.encode('utf-8')
-            print(bytestream)
             dataPacket = DataPacket(bytestream)
             return dataPacket
     
     def waitAndReadLine(self):
         msgReceived = ''
         while msgReceived == '':
-            print('Receives nothing!')
+#             print(stringHelper.WARNING + ' at SimplePiMegaCommunicator.waitAndReadLine(): Received empty string!')
             msgReceived = self.port.readline().decode('utf-8').replace('\r\n', '')
         return msgReceived
 
