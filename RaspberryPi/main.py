@@ -109,25 +109,25 @@ def main():
             print(stringHelper.AUDIO + ' Adjust heading:   0\u00b0')
             audioOutput.playAudioNow('heading+0_soundEffect')
         elif expectedHeading - navigator.currHeading == -45 or expectedHeading - navigator.currHeading == 315:
-            print(stringHelper.AUDIO + ' Adjust heading:   -45\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   -45\u00b0')
             audioOutput.playAudioNow('heading-45_soundEffect')
         elif expectedHeading - navigator.currHeading == 45 or expectedHeading - navigator.currHeading == -315:
-            print(stringHelper.AUDIO + ' Adjust heading:   +45\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   +45\u00b0')
             audioOutput.playAudioNow('heading+45_soundEffect')
         elif expectedHeading - navigator.currHeading == -90 or expectedHeading - navigator.currHeading == 270:
-            print(stringHelper.AUDIO + ' Adjust heading:   -90\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   -90\u00b0')
             audioOutput.playAudioNow('heading-90_soundEffect')
         elif expectedHeading - navigator.currHeading == 90 or expectedHeading - navigator.currHeading == -270:
-            print(stringHelper.AUDIO + ' Adjust heading:   +90\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   +90\u00b0')
             audioOutput.playAudioNow('heading+90_soundEffect')
         elif expectedHeading - navigator.currHeading == -135 or expectedHeading - navigator.currHeading == 225:
-            print(stringHelper.AUDIO + ' Adjust heading:   -135\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   -135\u00b0')
             audioOutput.playAudioNow('heading-135_soundEffect')
         elif expectedHeading - navigator.currHeading == 135 or expectedHeading - navigator.currHeading == -225:
-            print(stringHelper.AUDIO + ' Adjust heading:   +135\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   +135\u00b0')
             audioOutput.playAudioNow('heading+135_soundEffect')
         elif expectedHeading - navigator.currHeading == 180 or expectedHeading - navigator.currHeading == -180:
-            print(stringHelper.AUDIO + ' Adjust heading:   180\u00b0s')
+            print(stringHelper.AUDIO + ' Adjust heading:   180\u00b0')
             audioOutput.playAudioNow('heading+180_soundEffect')
         else:
             print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \
