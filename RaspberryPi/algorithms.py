@@ -55,7 +55,7 @@ def downloadAndParseMap(buildingId, buildingStorey):
         with open(fileNameWithPath) as jsonFile:
             rawMap = json.load(jsonFile)
     except IOError:
-        print(stringHelper.WARNING + ' at algorithms.downloadAndParseMap(): Failed to download map; using caches' +
+        print(stringHelper.WARNING + ' at algorithms.downloadAndParseMap(): Failed to download map; using caches ' +
               'instead.')
         fileNameWithPath = './Downloads/Caches/' + fileName
         with open(fileNameWithPath) as jsonFile:
