@@ -97,6 +97,12 @@ def main():
         print(stringHelper.INFO + ' Expected Heading: ' + str(expectedHeading) + '\u00b0')
         print(stringHelper.INFO + ' Expected Heading2: ' + str(navigator.expectedHeading) + '\u00b0')
         
+        expectedHeading3 = algorithms.computeBearing(
+                linkedMap.getNode(route[navigator.clearedRouteIdx]).location,
+                linkedMap.getNode(route[navigator.clearedRouteIdx + 1]).location
+                ) + 45
+        print(stringHelper.INFO + ' Expected Heading3: ' + str(expectedHeading3) + '\u00b0')
+        
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";
         #     "1" means "turn left 45 degrees";
