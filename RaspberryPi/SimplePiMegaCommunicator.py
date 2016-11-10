@@ -59,7 +59,7 @@ class PiMegaCommunicator():
                             numStepsWalked
         if checksum != expectedChecksum:
             print(stringHelper.WARNING + ' at PiMegaCommunicator.pollData(): Checksum does not match. Expected: ' +
-                  str(expectedChecksum) + '. Actual: ' + checksum + '. Dropping this erroneous data packet.')
+                  str(expectedChecksum) + '. Actual: ' + str(checksum) + '. Dropping this erroneous data packet.')
             return None
         else:
             # to compile the data received into a single `DataPacket` object
