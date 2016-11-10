@@ -79,8 +79,8 @@ class Navigator():
         # to calculate `expectedHeading`
         self.expectedHeading = algorithms.computeBearing(
                 self.myMap.getNode(self.route[self.clearedRouteIdx]).location,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) \
-                + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location
+                ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
         
         # if `IS_SNAP_TO_GRAPH_EDGE` is True, do offset accordingly
         if IS_SNAP_TO_GRAPH_EDGE:
