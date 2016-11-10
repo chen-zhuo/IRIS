@@ -162,6 +162,7 @@ def main():
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
+            audioOutput.playAudio('node' + str(navigator.route[navigator.clearedRouteIdx]) + '_description')
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':

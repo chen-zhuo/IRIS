@@ -84,6 +84,7 @@ class Navigator():
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playInt(self.route[self.clearedRouteIdx])
+            audioOutput.playAudio('node' + str(self.route[self.clearedRouteIdx]) + '_description')
         
         # if the last node is cleared then return False
         if self.clearedRouteIdx == len(self.route) - 1:
