@@ -16,7 +16,7 @@ import stringHelper
 # from threading import Thread
 from time import sleep
 
-IS_FAST_DEBUG_MODE = False
+IS_FAST_DEBUG_MODE = True
 HARDCODED_SRC_NODE_ID = 1211
 HARDCODED_DEST_NODE_ID = 1216
 
