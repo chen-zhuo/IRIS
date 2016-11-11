@@ -75,7 +75,7 @@ def main():
         dataPacket = piMegaCommunicator.pollData()
         if dataPacket == None:
             print('Received None packet!!!!!!!!!!!!!!!!!!')
-        print(stringHelper.INFO + ' Data Packet: ' + str(dataPacket))
+        print(stringHelper.INFO + ' ' + stringHelper.highlight(' Data Packet: ') + str(dataPacket))
         isNavigationInProgress = navigator.update(dataPacket, isNavigationPaused)
         if not isNavigationInProgress:
             break
@@ -91,8 +91,9 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
         
         # to print the current heading and the expected heading
-        print(stringHelper.INFO + ' Heading:          ' + str(navigator.currHeading) + ' degrees')
-        print(stringHelper.INFO + ' Expected Heading: ' + str(navigator.expectedHeading) + ' degrees')
+        print(stringHelper.INFO + ' ' + stringHelper.highlight(' Heading Info: ') + ' ', end='')
+        print(str(navigator.currHeading) + ' ', end='')
+        print('(' + str(navigator.expectedHeading) + '), ', end='')
         
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";
