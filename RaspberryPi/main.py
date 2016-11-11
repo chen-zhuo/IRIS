@@ -36,7 +36,11 @@ def main():
         audioOutput.playAudio('welcomeToIris')
 #         print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
 #         audioOutput.playAudio('arpeggio_soundEffect')
-        sleep(2)
+        audioOutput.playAudio('heading-45_soundEffect')
+        audioOutput.playAudio('heading+0_soundEffect')
+        audioOutput.playAudio('heading+45_soundEffect')
+        audioOutput.playAudio('heading+180_soundEffect')
+        sleep(4)
         
         srcNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
                 'plsKeyInOriginNodeIdFollowedByTheHashKey'))
