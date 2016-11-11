@@ -54,7 +54,8 @@ class Navigator():
         
         # to update `currLocation`
         if isNavigationPaused == True:
-            self.numStepsWalkedOffset += self.numStepsWalked - self.prevNumStepsWalked
+            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
+            self.numStepsWalkedOffset -= deltaNumStepsWalked
         else:
             print('Updating `currLocation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             print('currHeading = ' + str(self.currHeading))
@@ -136,6 +137,24 @@ class Navigator():
                     self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location
                     ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
         
+        # to make `expectedHeading` in multiples of 45 degrees
+        if self.expectedHeading > 22.5 and self.expectedHeading <= 67.5:
+            self.expectedHeading = 45
+        elif self.expectedHeading > 67.5 and self.expectedHeading <= 112.5:
+            self.expectedHeading = 90
+        elif self.expectedHeading > 112.5 and self.expectedHeading <= 157.5:
+            self.expectedHeading = 135
+        elif self.expectedHeading > 157.5 and self.expectedHeading <= 202.5:
+            self.expectedHeading = 180
+        elif self.expectedHeading > 202.5 and self.expectedHeading <= 247.5:
+            self.expectedHeading = 225
+        elif self.expectedHeading > 247.5 and self.expectedHeading <= 292.5:
+            self.expectedHeading = 270
+        elif self.expectedHeading > 292.5 and self.expectedHeading <= 337.5:
+            self.expectedHeading = 315
+        elif self.expectedHeading > 337.5 or self.expectedHeading <= 22.5:
+            self.expectedHeading = 0
+        
         # if `IS_SNAP_TO_GRAPH_EDGE` is True, do offset accordingly
         if IS_SNAP_TO_GRAPH_EDGE:
             if self.myMap.nodesDict[self.route[self.clearedRouteIdx]].location[0] == \
@@ -172,28 +191,36 @@ class Navigator():
         - "1(+8va)" means "turn 180 degrees"
     '''
     def playHeadingAdjustmentAudioFeedback(self):
-        if self.expectedHeading - self.currHeading == 0:
+#         if self.expectedHeading - self.currHeading == 0:
+        if self.expectedHeading - self.currHeading > 337.5 or self.expectedHeading - self.currHeading <= 22.5:
             print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
             audioOutput.playAudioNow('heading+0_soundEffect')
-        elif self.expectedHeading - self.currHeading == -45 or self.expectedHeading - self.currHeading == 315:
+#         elif self.expectedHeading - self.currHeading == -45 or self.expectedHeading - self.currHeading == 315:
+        elif self.expectedHeading - self.currHeading > 292.5 and self.expectedHeading - self.currHeading <= 337.5:
             print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
             audioOutput.playAudioNow('heading-45_soundEffect')
-        elif self.expectedHeading - self.currHeading == 45 or self.expectedHeading - self.currHeading == -315:
+#         elif self.expectedHeading - self.currHeading == 45 or self.expectedHeading - self.currHeading == -315:
+        elif self.expectedHeading - self.currHeading > 22.5 and self.expectedHeading - self.currHeading <= 67.5:
             print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
             audioOutput.playAudioNow('heading+45_soundEffect')
-        elif self.expectedHeading - self.currHeading == -90 or self.expectedHeading - self.currHeading == 270:
+#         elif self.expectedHeading - self.currHeading == -90 or self.expectedHeading - self.currHeading == 270:
+        elif self.expectedHeading - self.currHeading > 247.5 and self.expectedHeading - self.currHeading <= 292.5:
             print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
             audioOutput.playAudioNow('heading-90_soundEffect')
-        elif self.expectedHeading - self.currHeading == 90 or self.expectedHeading - self.currHeading == -270:
+#         elif self.expectedHeading - self.currHeading == 90 or self.expectedHeading - self.currHeading == -270:
+        elif self.expectedHeading - self.currHeading > 67.5 and self.expectedHeading - self.currHeading <= 112.5:
             print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
             audioOutput.playAudioNow('heading+90_soundEffect')
-        elif self.expectedHeading - self.currHeading == -135 or self.expectedHeading - self.currHeading == 225:
+#         elif self.expectedHeading - self.currHeading == -135 or self.expectedHeading - self.currHeading == 225:
+        elif self.expectedHeading - self.currHeading > 202.5 and self.expectedHeading - self.currHeading <= 247.5:
             print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
             audioOutput.playAudioNow('heading-135_soundEffect')
-        elif self.expectedHeading - self.currHeading == 135 or self.expectedHeading - self.currHeading == -225:
+#         elif self.expectedHeading - self.currHeading == 135 or self.expectedHeading - self.currHeading == -225:
+        elif self.expectedHeading - self.currHeading > 112.5 and self.expectedHeading - self.currHeading <= 157.5:
             print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
             audioOutput.playAudioNow('heading+135_soundEffect')
-        elif self.expectedHeading - self.currHeading == 180 or self.expectedHeading - self.currHeading == -180:
+#         elif self.expectedHeading - self.currHeading == 180 or self.expectedHeading - self.currHeading == -180:
+        elif self.expectedHeading - self.currHeading > 157.5 and self.expectedHeading - self.currHeading <= 202.5:
             print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
             audioOutput.playAudioNow('heading+180_soundEffect')
         else:
