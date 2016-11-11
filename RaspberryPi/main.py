@@ -152,6 +152,7 @@ def main():
         
         # get the user input (if any)
         userInput = keypadInput.getKeypadInput()
+        print('userInput = ' + str(userInput))
         
         # if the user input is '1', snap the current location to the previous node in route
         if userInput == '1':
