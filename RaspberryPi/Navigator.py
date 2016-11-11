@@ -11,7 +11,7 @@ import math
 import stringHelper
 import audioOutput
 
-IS_SNAP_TO_GRAPH_EDGE = True
+IS_SNAP_TO_GRAPH_EDGE = False
 STEP_LENGTH = 58
 NODE_REACHED_THRESHOLD = 100
 

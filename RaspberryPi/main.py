@@ -65,6 +65,13 @@ def main():
     
     navigator = Navigator(linkedMap, route)
     
+    # ============================== BEGIN INITIAL HEADING OFFSET ==============================
+    
+    if (srcNodeId >= 2306 and srcNodeId <= 2312):
+        navigator.headingOffset = -45
+    
+    # ============================== BEGIN INITIAL HEADING OFFSET ==============================
+    
     piMegaCommunicator = PiMegaCommunicator()
     piMegaCommunicator.startUp()
     
@@ -187,6 +194,7 @@ def main():
             
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(int(stepsRemainingToNextNode))
+            print('tepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
             
             # give 'door expected' feedback if necessary
             if navigator.route[navigator.clearedRouteIdx + 1] == 1210:
