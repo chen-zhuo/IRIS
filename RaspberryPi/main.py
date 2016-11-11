@@ -204,11 +204,6 @@ def main():
         
         # if the user input is '9', give detailed audio feedback
         if userInput == '9':
-            audioOutput.playAudio('from')
-            audioOutput.playInt(route[routeIdxOfPrevNode])
-            audioOutput.playAudio('towards')
-            audioOutput.playInt(route[routeIdxOfNextNode])
-            
             straightLineDistanceToNextNode = algorithms.computeDistance(navigator.currLocation,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
             stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
@@ -216,6 +211,11 @@ def main():
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(int(stepsRemainingToNextNode))
             print('stepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
+            
+            audioOutput.playAudio('from')
+            audioOutput.playInt(route[routeIdxOfPrevNode])
+            audioOutput.playAudio('towards')
+            audioOutput.playInt(route[routeIdxOfNextNode])
             
             # give 'door expected' feedback if necessary
             if navigator.route[navigator.clearedRouteIdx + 1] == 1210:
