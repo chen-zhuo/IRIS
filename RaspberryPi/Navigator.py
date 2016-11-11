@@ -35,7 +35,7 @@ class Navigator():
         
         self.numStepsWalked = 0
         self.prevNumStepsWalked = 0
-        self.numStepsWalkedOffset = 0
+#         self.numStepsWalkedOffset = 0
     
     '''
     Updates the fields of `self`.
@@ -62,6 +62,7 @@ class Navigator():
             print('currHeading = ' + str(self.currHeading))
             self.numStepsWalked = dataPacket.numStepsWalked
             deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
+            print('deltaNumStepsWalked = ' + str(deltaNumStepsWalked))
             deltaLocation = [0, 0]
             if self.currHeading > 22.5 and self.currHeading <= 67.5:
                 deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked
