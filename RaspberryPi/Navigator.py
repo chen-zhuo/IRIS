@@ -13,6 +13,7 @@ import audioOutput
 
 IS_SNAP_TO_GRAPH_EDGE = True
 STEP_LENGTH = 60
+NODE_REACHED_THRESHOLD = 50
 
 class Navigator():
     def __init__(self, myMap, route):
@@ -23,7 +24,6 @@ class Navigator():
         self.clearedRouteIdx = 0 # if `clearedRouteIdx == 3`, then the user has cleared the node ID `route[3]`
         self.distanceUntilNextNode = algorithms.computeDistance(myMap.nodesDict[route[0]].location,
                                                                 myMap.nodesDict[route[1]].location)
-        self.nodeReachedThreshold = 100
         
         self.currLocation = copy.deepcopy(self.myMap.nodesDict[self.srcNodeId].location)
         
@@ -43,7 +43,7 @@ class Navigator():
     @return False if the last node in `route` is cleared; else return True
     '''
     def update(self, dataPacket, isNavigationPaused):
-        global IS_SNAP_TO_GRAPH_EDGE, STEP_LENGTH
+        global IS_SNAP_TO_GRAPH_EDGE, STEP_LENGTH, NODE_REACHED_THRESHOLD
         
         # to calculate `currHeading`
         self.initialHeading = dataPacket.initialHeading
@@ -76,9 +76,9 @@ class Navigator():
         self.currLocation[0] += deltaLocation[0]
         self.currLocation[1] += deltaLocation[1]
         
-        # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
+        # if current location is within `NODE_REACHED_THRESHOLD` of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < self.nodeReachedThreshold:
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < NODE_REACHED_THRESHOLD:
             # if just entered a new map, update location coordinates
             if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1231 and \
                     self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 2201:
