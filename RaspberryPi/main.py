@@ -255,6 +255,7 @@ def main():
                 audioOutput.playAudio('pausingStepCounting')
             else:
                 audioOutput.playAudio('resumingStepCounting')
+                navigator.prevNumStepsWalked = navigator.numStepsWalked
         
         sleep(1.5)
         
