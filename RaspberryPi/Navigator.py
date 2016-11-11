@@ -84,13 +84,15 @@ class Navigator():
         # if current location is within `NODE_REACHED_THRESHOLD` of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < NODE_REACHED_THRESHOLD:
-            # if just entered a new map, update location coordinates
+            # inter-building
             if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1231 and \
                     self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 2201:
+                print('Teleporting from COM1 to COM2!!!!!!!!!!!!!!')
                 self.currLocation[0] = 61
                 self.currLocation[1] = 4024
             elif self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 2201 and \
                     self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 1231:
+                print('Teleporting from COM2 to COM1!!!!!!!!!!!!!!')
                 self.currLocation[0] = 11815
                 self.currLocation[1] = 406
             
