@@ -16,7 +16,7 @@ import stringHelper
 # from threading import Thread
 from time import sleep
 
-IS_FAST_DEBUG_MODE = False
+IS_FAST_DEBUG_MODE = True
 HARDCODED_SRC_NODE_ID = 1211
 HARDCODED_DEST_NODE_ID = 1216
 
@@ -86,7 +86,7 @@ def main():
         # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        print(stringHelper.INFO + ' ' + stringHelper.highlight('Previous and Next Node Info:') + ' ', end='')
+        print(stringHelper.INFO + ' ' + stringHelper.highlight('Prev/Next Node Info:') + ' ', end='')
         print('#' + str(route[routeIdxOfPrevNode]) + ' -> #' +
               str(route[routeIdxOfNextNode]) + ' === (' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
