@@ -145,6 +145,7 @@ def initAudio():
     audioDict['goStraight'] = './AudioFiles/goStraight.mp3'
     audioDict['turnLeft'] = './AudioFiles/turnLeft.mp3'
     audioDict['turnRight'] = './AudioFiles/turnRight.mp3'
+    audioDict['doorExpected'] = './AudioFiles/doorExpected.mp3'
     audioDict['climbStairs'] = './AudioFiles/climbStairs.mp3'
     audioDict['navigationCompleted'] = './AudioFiles/navigationCompleted.mp3'
     audioDict['stepsRemaining'] = './AudioFiles/stepsRemaining.mp3'
@@ -155,6 +156,7 @@ def initAudio():
     
     # audio feedback when user reach a node
     audioDict['reached'] = './AudioFiles/reached.mp3'
+    audioDict['doorExpected'] = './AudioFiles/doorExpected.mp3'
     audioDict['numberOfStairsExpected'] = './AudioFiles/numberOfStairsExpected.mp3'
     audioDict['plsPress3WhenFinishedClimbing'] = './AudioFiles/plsPress3WhenFinishedClimbing.mp3'
     

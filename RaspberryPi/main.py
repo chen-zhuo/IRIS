@@ -187,6 +187,15 @@ def main():
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(str(int(stepsRemainingToNextNode)))
             
+            # give 'door expected' feedback if necessary
+            if navigator.route[navigator.clearedRouteIdx + 1] == 1210:
+                print(stringHelper.AUDIO + ' Door expected.')
+                audioOutput.playAudio('doorExpected')
+            if navigator.route[navigator.clearedRouteIdx + 1] == 1226:
+                print(stringHelper.AUDIO + ' 2 doors expected.')
+                audioOutput.playInt(2)
+                audioOutput.playAudio('doorExpected')
+            
             # give the number of stairs expected, if any
             if navigator.route[navigator.clearedRouteIdx] == 2214:
                 print(stringHelper.AUDIO + ' Number of stairs expected: 12')
