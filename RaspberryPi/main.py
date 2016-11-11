@@ -231,6 +231,10 @@ def main():
         # if the user input is '0', toggle on/off steps counting
         if userInput == '0':
             isNavigationPaused = not isNavigationPaused
+            if isNavigationPaused:
+                audioOutput.playAudio('pausingStepCounting')
+            else:
+                audioOutput.playAudio('resumingStepCounting')
         
         sleep(1.5)
         
