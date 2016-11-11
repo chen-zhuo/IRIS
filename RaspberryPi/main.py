@@ -60,7 +60,6 @@ def main():
     
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
-    currLocation = linkedMap.nodesDict[srcNodeId].location
     routeIdxOfPrevNode = 0
     routeIdxOfNextNode = 1
     
@@ -182,7 +181,7 @@ def main():
             audioOutput.playAudio('towards')
             audioOutput.playInt(route[routeIdxOfNextNode])
             
-            straightLineDistanceToNextNode = algorithms.computeDistance(currLocation,
+            straightLineDistanceToNextNode = algorithms.computeDistance(navigator.currLocation,
                                                                         linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
             stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
             
