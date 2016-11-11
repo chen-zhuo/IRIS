@@ -178,6 +178,7 @@ def main():
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':
+            audioOutput.playAudio('forcedCorrectHeading')
             navigator.headingOffset += navigator.expectedHeading - navigator.currHeading
             navigator.headingOffset = navigator.headingOffset % 360
             print(stringHelper.INFO + ' navigator.headingOffset = ' + str(navigator.headingOffset))
