@@ -79,6 +79,16 @@ class Navigator():
         # if current location is within nodeReachedThreshold of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < self.nodeReachedThreshold:
+            # if just entered a new map, update location coordinates
+            if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1231 and \
+                    self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 2201:
+                self.currLocation[0] = 61
+                self.currLocation[1] = 4024
+            elif self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 2201 and \
+                    self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 1231:
+                self.currLocation[0] = 11815
+                self.currLocation[1] = 406
+            
             self.clearedRouteIdx = self.clearedRouteIdx + 1
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
