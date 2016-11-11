@@ -150,9 +150,9 @@ def main():
         # if the user input is '1', snap the current location to the previous node in route
         if userInput == '1':
             navigator.clearedRouteIdx -= 1
+            
             print('clearedRouteIdx = ' + str(navigator.clearedRouteIdx) +
                   ', prevNodeId = ' + str(navigator.route[navigator.clearedRouteIdx]))
-            
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
@@ -169,7 +169,8 @@ def main():
                 break
             
             navigator.clearedRouteIdx += 1
-        
+            navigator.currLocation[0] = linkedMap.getNode(navigator.route[navigator.clearedRouteIdx]).location[0]
+            navigator.currLocation[1] = linkedMap.getNode(navigator.route[navigator.clearedRouteIdx]).location[1]
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
