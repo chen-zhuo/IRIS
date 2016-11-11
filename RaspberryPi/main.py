@@ -160,6 +160,15 @@ def main():
             audioOutput.playAudio('node' + str(navigator.route[navigator.clearedRouteIdx]) + '_description')
             navigator.currLocation[0] = linkedMap.getNode(navigator.route[navigator.clearedRouteIdx]).location[0]
             navigator.currLocation[1] = linkedMap.getNode(navigator.route[navigator.clearedRouteIdx]).location[1]
+            
+            # to give stepsRemainingToNextNode audio feedback
+            straightLineDistanceToNextNode = algorithms.computeDistance(navigator.currLocation,
+                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
+            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
+            
+            audioOutput.playAudio('stepsRemaining')
+            audioOutput.playInt(int(stepsRemainingToNextNode))
+            print('stepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
         
         # if the user input is '3', snap the current location to the next node in route
         if userInput == '3':
@@ -176,6 +185,15 @@ def main():
             audioOutput.playAudio('reached')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
             audioOutput.playAudio('node' + str(navigator.route[navigator.clearedRouteIdx]) + '_description')
+            
+            # to give stepsRemainingToNextNode audio feedback
+            straightLineDistanceToNextNode = algorithms.computeDistance(navigator.currLocation,
+                                                                        linkedMap.nodesDict[route[routeIdxOfNextNode]].location)
+            stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
+            
+            audioOutput.playAudio('stepsRemaining')
+            audioOutput.playInt(int(stepsRemainingToNextNode))
+            print('stepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':
@@ -197,7 +215,7 @@ def main():
             
             audioOutput.playAudio('stepsRemaining')
             audioOutput.playInt(int(stepsRemainingToNextNode))
-            print('tepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
+            print('stepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
             
             # give 'door expected' feedback if necessary
             if navigator.route[navigator.clearedRouteIdx + 1] == 1210:

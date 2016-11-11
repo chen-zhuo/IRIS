@@ -112,6 +112,15 @@ class Navigator():
                     self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1230:
                 print(stringHelper.AUDIO + ' Climb stairs.')
                 audioOutput.playAudio('climbStairs')
+            
+            # to give stepsRemainingToNextNode audio feedback
+            if self.clearedRouteIdx != len(self.route) - 1:
+                straightLineDistanceToNextNode = algorithms.computeDistance(self.currLocation,
+                        self.myMap.nodesDict[self.route[self.clearedRouteIdx + 1]].location)
+                stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
+                audioOutput.playAudio('stepsRemaining')
+                audioOutput.playInt(int(stepsRemainingToNextNode))
+                print('stepsRemainingToNextNode = ' + str(stepsRemainingToNextNode))
         
         # if the last node is cleared then return False
         if self.clearedRouteIdx == len(self.route) - 1:
