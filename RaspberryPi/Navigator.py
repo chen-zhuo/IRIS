@@ -53,30 +53,32 @@ class Navigator():
         self.currHeading = (self.currHeading + self.headingOffset) % 360
         
         # to update `currLocation`
-        if isNavigationPaused == False:
+        if isNavigationPaused == True:
+            self.numStepsWalkedOffset += self.numStepsWalked - self.prevNumStepsWalked
+        else:
             print('Updating `currLocation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             print('currHeading = ' + str(self.currHeading))
             self.numStepsWalked = dataPacket.numStepsWalked
-            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
+            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked + self.numStepsWalkedOffset
             deltaLocation = [0, 0]
-            if self.currHeading == 45:
+            if self.currHeading > 22.5 and self.currHeading <= 67.5:
                 deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked
-            elif self.currHeading == 90:
+            elif self.currHeading > 67.5 and self.currHeading <= 112.5:
                 deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
                 deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            elif self.currHeading == 135:
+            elif self.currHeading > 112.5 and self.currHeading <= 157.5:
                 deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked
-            elif self.currHeading == 180:
+            elif self.currHeading > 157.5 and self.currHeading <= 202.5:
                 deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
                 deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            elif self.currHeading == 225:
+            elif self.currHeading > 202.5 and self.currHeading <= 247.5:
                 deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked
-            elif self.currHeading == 270:
+            elif self.currHeading > 247.5 and self.currHeading <= 292.5:
                 deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
                 deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            elif self.currHeading == 315:
+            elif self.currHeading > 292.5 and self.currHeading <= 337.5:
                 deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked
-            elif self.currHeading == 0:
+            elif self.currHeading > 337.5 or self.currHeading <= 22.5:
                 deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
                 deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
             self.currLocation[0] += deltaLocation[0]
