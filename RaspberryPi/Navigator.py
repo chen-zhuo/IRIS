@@ -12,7 +12,7 @@ import stringHelper
 import audioOutput
 
 IS_SNAP_TO_GRAPH_EDGE = True
-STEP_LENGTH = 60
+STEP_LENGTH = 54
 NODE_REACHED_THRESHOLD = 50
 
 class Navigator():
@@ -34,6 +34,7 @@ class Navigator():
         
         self.numStepsWalked = 0
         self.prevNumStepsWalked = 0
+        self.numStepsWalkedOffset = 0
     
     '''
     Updates the fields of `self`.
@@ -50,31 +51,32 @@ class Navigator():
         self.currHeading = (self.initialHeading + (dataPacket.numRightTurns - dataPacket.numLeftTurns) * 45) % 360
         
         # to calculate `currLocation`
-        self.numStepsWalked = dataPacket.numStepsWalked
-        deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
-        deltaLocation = [0, 0]
-        if self.currHeading == 45:
-            deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked
-        elif self.currHeading == 90:
-            deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-        elif self.currHeading == 135:
-            deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked
-        elif self.currHeading == 180:
-            deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-        elif self.currHeading == 225:
-            deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked
-        elif self.currHeading == 270:
-            deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-        elif self.currHeading == 315:
-            deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked
-        elif self.currHeading == 0:
-            deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-            deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
-        self.currLocation[0] += deltaLocation[0]
-        self.currLocation[1] += deltaLocation[1]
+        if not isNavigationPaused:
+            self.numStepsWalked = dataPacket.numStepsWalked
+            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
+            deltaLocation = [0, 0]
+            if self.currHeading == 45:
+                deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked
+            elif self.currHeading == 90:
+                deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+                deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            elif self.currHeading == 135:
+                deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked
+            elif self.currHeading == 180:
+                deltaLocation[0] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+                deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            elif self.currHeading == 225:
+                deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked
+            elif self.currHeading == 270:
+                deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+                deltaLocation[1] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            elif self.currHeading == 315:
+                deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked
+            elif self.currHeading == 0:
+                deltaLocation[0] -= STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+                deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked / math.sqrt(2)
+            self.currLocation[0] += deltaLocation[0]
+            self.currLocation[1] += deltaLocation[1]
         
         # if current location is within `NODE_REACHED_THRESHOLD` of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
