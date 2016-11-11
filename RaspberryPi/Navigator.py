@@ -52,7 +52,7 @@ class Navigator():
         self.currHeading = (self.initialHeading + (dataPacket.numRightTurns - dataPacket.numLeftTurns) * 45) % 360
         self.currHeading = (self.currHeading + self.headingOffset) % 360
         
-        # to calculate `currLocation`
+        # to update `currLocation`
         if isNavigationPaused == False:
             print('Updating `currLocation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             self.numStepsWalked = dataPacket.numStepsWalked
@@ -81,21 +81,21 @@ class Navigator():
             self.currLocation[0] += deltaLocation[0]
             self.currLocation[1] += deltaLocation[1]
         
+        # if inter-building, do teleportation
+        if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1231 and \
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 2201:
+            print('Teleporting from COM1 to COM2!!!!!!!!!!!!!!')
+            self.currLocation[0] = 61
+            self.currLocation[1] = 4024
+        elif self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 2201 and \
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 1231:
+            print('Teleporting from COM2 to COM1!!!!!!!!!!!!!!')
+            self.currLocation[0] = 11815
+            self.currLocation[1] = 406
+        
         # if current location is within `NODE_REACHED_THRESHOLD` of the next node in `route`, then update `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < NODE_REACHED_THRESHOLD:
-            # inter-building
-            if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1231 and \
-                    self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 2201:
-                print('Teleporting from COM1 to COM2!!!!!!!!!!!!!!')
-                self.currLocation[0] = 61
-                self.currLocation[1] = 4024
-            elif self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 2201 and \
-                    self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 1231:
-                print('Teleporting from COM2 to COM1!!!!!!!!!!!!!!')
-                self.currLocation[0] = 11815
-                self.currLocation[1] = 406
-            
             self.clearedRouteIdx = self.clearedRouteIdx + 1
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
