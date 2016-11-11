@@ -53,7 +53,8 @@ class Navigator():
         self.currHeading = (self.currHeading + self.headingOffset) % 360
         
         # to calculate `currLocation`
-        if not isNavigationPaused:
+        if isNavigationPaused == False:
+            print('Updating `currLocation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             self.numStepsWalked = dataPacket.numStepsWalked
             deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
             deltaLocation = [0, 0]
