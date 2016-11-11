@@ -204,7 +204,7 @@ def main():
         if userInput == '0':
             isNavigationPaused = not isNavigationPaused
         
-        sleep(2)
+        sleep(1.5)
         
         # ======================================== END NAVIGATION ========================================
         
