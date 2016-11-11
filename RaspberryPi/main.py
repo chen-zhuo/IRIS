@@ -73,8 +73,11 @@ def main():
         # to poll for new data and update `navigator`
         print('\n========================= NEW DATA POLL =========================\n')
         dataPacket = piMegaCommunicator.pollData()
+        
         if dataPacket == None:
-            print('Received None packet!!!!!!!!!!!!!!!!!!')
+            sleep(1.5)
+            continue
+        
         print(stringHelper.INFO + ' ' + stringHelper.highlight(' Data Packet: ') + str(dataPacket))
         isNavigationInProgress = navigator.update(dataPacket, isNavigationPaused)
         if not isNavigationInProgress:
@@ -83,7 +86,8 @@ def main():
         # to get and print the the previous node and the next node
         routeIdxOfNextNode = navigator.clearedRouteIdx + 1
         routeIdxOfPrevNode = navigator.clearedRouteIdx
-        print(stringHelper.INFO + ' #' + str(route[routeIdxOfPrevNode]) + ' -> #' +
+        print(stringHelper.INFO + ' ' + stringHelper.highlight('Previous and Next Node Info:') + ' ', end='')
+        print('#' + str(route[routeIdxOfPrevNode]) + ' -> #' +
               str(route[routeIdxOfNextNode]) + ' === (' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[0]) + ', ' +
               str(linkedMap.nodesDict[route[routeIdxOfPrevNode]].location[1]) + ') -> (' +
@@ -93,7 +97,7 @@ def main():
         # to print the current heading and the expected heading
         print(stringHelper.INFO + ' ' + stringHelper.highlight(' Heading Info: ') + ' ', end='')
         print(str(navigator.currHeading) + ' ', end='')
-        print('(' + str(navigator.expectedHeading) + '), ', end='')
+        print('(expected: ' + str(navigator.expectedHeading) + '), ', end='')
         
         # to give beep sounds as the turning instruction; with C major scale (1 = C4),
         #     "3" means "go straight";
@@ -106,35 +110,35 @@ def main():
         #     "1(+8va)" means "turn 180 degrees"
         if (navigator.expectedHeading - navigator.currHeading) % 360 <= 22.5 or \
                 (navigator.expectedHeading - navigator.currHeading) % 360 > 337.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   0 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: 0 degree')
             audioOutput.playAudioNow('heading+0_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 292.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 337.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   -45 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: -45 degrees')
             audioOutput.playAudioNow('heading-45_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 22.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 67.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   +45 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: +45 degrees')
             audioOutput.playAudioNow('heading+45_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 247.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 292.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   -90 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: -90 degrees')
             audioOutput.playAudioNow('heading-90_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 67.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 112.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   +90 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: +90 degrees')
             audioOutput.playAudioNow('heading+90_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 202.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 247.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   -135 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: -135 degrees')
             audioOutput.playAudioNow('heading-135_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 112.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 157.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   +135 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: +135 degrees')
             audioOutput.playAudioNow('heading+135_soundEffect')
         elif (navigator.expectedHeading - navigator.currHeading) % 360 > 157.5 and \
                 (navigator.expectedHeading - navigator.currHeading) % 360 <= 202.5:
-            print(stringHelper.AUDIO + ' Adjust heading:   180 degrees')
+            print(stringHelper.AUDIO + ' Adjust heading: 180 degrees')
             audioOutput.playAudioNow('heading+180_soundEffect')
         else:
             print(stringHelper.ERROR + ' at main(): Unhandled case of heading adjustment; expectedHeading - \

@@ -11,9 +11,9 @@ AUDIO   = '\x1b[1;32;44m' + '  AUDIO  ' + '\x1b[0m'
 INFO    = '\x1b[1;30;46m' + '  INFO   ' + '\x1b[0m'
 
 def highlight(string):
-    result = '\x1b[1;30;46m'
+    result = '\x1b[7m '
     result += str(string)
-    result += '\x1b[0m'
+    result += ' \x1b[0m'
     return result
 
 def test():
