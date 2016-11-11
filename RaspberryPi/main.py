@@ -163,6 +163,11 @@ def main():
         
         # if the user input is '3', snap the current location to the next node in route
         if userInput == '3':
+            if navigator.clearedRouteIdx + 1 == len(route) - 1:
+                print(stringHelper.AUDIO + ' Navigation completed.')
+                audioOutput.playAudio('navigationCompleted')
+                break
+            
             navigator.clearedRouteIdx += 1
         
             print(stringHelper.AUDIO + ' Reached node Id: #' + str(navigator.route[navigator.clearedRouteIdx]))
