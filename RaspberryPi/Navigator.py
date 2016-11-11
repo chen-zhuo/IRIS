@@ -102,7 +102,7 @@ class Navigator():
         if algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < NODE_REACHED_THRESHOLD:
             self.clearedRouteIdx = self.clearedRouteIdx + 1
-            print(stringHelper.AUDIO + ' Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
+            print(stringHelper.AUDIO + ' lalala Reached node Id: #' + str(self.route[self.clearedRouteIdx]))
             audioOutput.playAudio('reachedNewNode_soundEffect')
             audioOutput.playAudio('reached')
             audioOutput.playInt(self.route[self.clearedRouteIdx])
