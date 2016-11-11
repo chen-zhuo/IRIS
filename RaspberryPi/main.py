@@ -158,6 +158,8 @@ def main():
             audioOutput.playAudio('reached')
             audioOutput.playInt(navigator.route[navigator.clearedRouteIdx])
             audioOutput.playAudio('node' + str(navigator.route[navigator.clearedRouteIdx]) + '_description')
+            navigator.currLocation[0] = linkedMap.getNode(navigator.route[navigator.clearedRouteIdx]).location[0]
+            navigator.currLocation[1] = linkedMap.getNode(navigator.route[navigator.clearedRouteIdx]).location[1]
         
         # if the user input is '3', snap the current location to the next node in route
         if userInput == '3':
