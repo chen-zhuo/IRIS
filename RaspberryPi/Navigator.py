@@ -54,13 +54,14 @@ class Navigator():
         
         # to update `currLocation`
         if isNavigationPaused == True:
-            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
-            self.numStepsWalkedOffset -= deltaNumStepsWalked
+#             deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
+#             self.numStepsWalkedOffset -= deltaNumStepsWalked
+            pass
         else:
             print('Updating `currLocation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             print('currHeading = ' + str(self.currHeading))
             self.numStepsWalked = dataPacket.numStepsWalked
-            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked + self.numStepsWalkedOffset
+            deltaNumStepsWalked = self.numStepsWalked - self.prevNumStepsWalked
             deltaLocation = [0, 0]
             if self.currHeading > 22.5 and self.currHeading <= 67.5:
                 deltaLocation[1] += STEP_LENGTH * deltaNumStepsWalked
