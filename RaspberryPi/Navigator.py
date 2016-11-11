@@ -13,7 +13,7 @@ import audioOutput
 
 IS_SNAP_TO_GRAPH_EDGE = True
 STEP_LENGTH = 54
-NODE_REACHED_THRESHOLD = 50
+NODE_REACHED_THRESHOLD = 100
 
 class Navigator():
     def __init__(self, myMap, route):
