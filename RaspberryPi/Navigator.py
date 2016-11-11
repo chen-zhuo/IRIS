@@ -93,7 +93,7 @@ class Navigator():
             self.currLocation[0] = 11815
             self.currLocation[1] = 406
         
-        # if current location is within `NODE_REACHED_THRESHOLD` of the next node in `route`, then update `clearedRouteIdx`
+        # if current location is within `NODE_REACHED_THRESHOLD` of the next node in `route`, then increment `clearedRouteIdx`
         if algorithms.computeDistance(self.currLocation,
                 self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location) < NODE_REACHED_THRESHOLD:
             self.clearedRouteIdx = self.clearedRouteIdx + 1
@@ -102,6 +102,11 @@ class Navigator():
             audioOutput.playAudio('reached')
             audioOutput.playInt(self.route[self.clearedRouteIdx])
             audioOutput.playAudio('node' + str(self.route[self.clearedRouteIdx]) + '_description')
+            
+            if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 2214 or \
+                    self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1230:
+                print(stringHelper.AUDIO + ' Climb stairs.')
+                audioOutput.playAudio('climbStairs')
         
         # if the last node is cleared then return False
         if self.clearedRouteIdx == len(self.route) - 1:
