@@ -78,7 +78,7 @@ def main():
             sleep(1.5)
             continue
         
-        print(stringHelper.INFO + ' ' + stringHelper.highlight('     Data Packet:     ') + ' ' + str(dataPacket))
+        print(stringHelper.INFO + ' ' + stringHelper.highlight('   Data Packet:   ') + ' ' + str(dataPacket))
         isNavigationInProgress = navigator.update(dataPacket, isNavigationPaused)
         if not isNavigationInProgress:
             break
@@ -95,7 +95,7 @@ def main():
               str(linkedMap.nodesDict[route[routeIdxOfNextNode]].location[1]) + ')')
         
         # to print the current heading and the expected heading
-        print(stringHelper.INFO + ' ' + stringHelper.highlight('     Heading Info:     ') + ' ', end='')
+        print(stringHelper.INFO + ' ' + stringHelper.highlight(' Heading Info: ') + ' ', end='')
         print(str(navigator.currHeading) + ' ', end='')
         print('(expected: ' + str(navigator.expectedHeading) + '), ', end='')
         
