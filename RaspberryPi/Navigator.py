@@ -105,10 +105,23 @@ class Navigator():
             return False
         
         # to calculate `expectedHeading`
-        self.expectedHeading = algorithms.computeBearing(
-                self.myMap.getNode(self.route[self.clearedRouteIdx]).location,
-                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location
-                ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
+        if self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 2201 and \
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 2217:
+            self.expectedHeading = algorithms.computeBearing(
+                    self.myMap.getNode(1229).location,
+                    self.myMap.getNode(1231).location
+                    ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
+        elif self.myMap.getNode(self.route[self.clearedRouteIdx]).nodeId == 1231 and \
+                self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).nodeId == 1229:
+            self.expectedHeading = algorithms.computeBearing(
+                    self.myMap.getNode(2217).location,
+                    self.myMap.getNode(2201).location
+                    ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
+        else:
+            self.expectedHeading = algorithms.computeBearing(
+                    self.myMap.getNode(self.route[self.clearedRouteIdx]).location,
+                    self.myMap.getNode(self.route[self.clearedRouteIdx + 1]).location
+                    ) + 45 # @author chen-zhuo warning: hard-coded offset; assumes `northAt` is 315 for all maps
         
         # if `IS_SNAP_TO_GRAPH_EDGE` is True, do offset accordingly
         if IS_SNAP_TO_GRAPH_EDGE:
