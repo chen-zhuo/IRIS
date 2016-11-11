@@ -31,6 +31,7 @@ class Navigator():
         self.currHeading = 0
 #         self.prevHeading = 0
         self.expectedHeading = 0
+        self.headingOffset = 0
         
         self.numStepsWalked = 0
         self.prevNumStepsWalked = 0
@@ -49,6 +50,7 @@ class Navigator():
         # to calculate `currHeading`
         self.initialHeading = dataPacket.initialHeading
         self.currHeading = (self.initialHeading + (dataPacket.numRightTurns - dataPacket.numLeftTurns) * 45) % 360
+        self.currHeading = (self.currHeading + self.headingOffset) % 360
         
         # to calculate `currLocation`
         if not isNavigationPaused:

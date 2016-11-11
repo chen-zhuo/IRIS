@@ -10,8 +10,8 @@ import audioOutput
 import keypadInput
 # import math
 from Navigator import Navigator, STEP_LENGTH
-# from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
-from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
+from DummyPiMegaCommunicator import PiMegaCommunicator # <---------- use this when debugging on Pi only
+# from SimplePiMegaCommunicator import PiMegaCommunicator # <---------- use this when communicating with Mega
 import stringHelper
 # from threading import Thread
 from time import sleep
@@ -171,7 +171,8 @@ def main():
         
         # if the user input is '5', assume current heading is the expected heading (update heading offset)
         if userInput == '5':
-            navigator.currHeading = navigator.expectedHeading
+            navigator.headingOffset += navigator.currHeading - navigator.expectedHeading
+            navigator.headingOffset = navigator.headingOffset % 360
         
         # if the user input is '9', give detailed audio feedback
         if userInput == '9':
@@ -185,7 +186,7 @@ def main():
             stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
             
             audioOutput.playAudio('stepsRemaining')
-            audioOutput.playInt(str(int(stepsRemainingToNextNode)))
+            audioOutput.playInt(int(stepsRemainingToNextNode))
             
             # give 'door expected' feedback if necessary
             if navigator.route[navigator.clearedRouteIdx + 1] == 1210:
@@ -213,6 +214,10 @@ def main():
                 audioOutput.playInt(5)
                 audioOutput.playAudio('then')
                 audioOutput.playInt(9)
+            
+            # print
+            print(stringHelper.INFO + ' ' + stringHelper.highlight(' Detailed Feedback: ') + ' Steps Remaining: ' + \
+                  str(stepsRemainingToNextNode))
         
         # if the user input is '0', toggle on/off steps counting
         if userInput == '0':
