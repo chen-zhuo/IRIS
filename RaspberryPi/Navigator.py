@@ -115,6 +115,7 @@ class Navigator():
             
             # to give stepsRemainingToNextNode audio feedback
             if self.clearedRouteIdx != len(self.route) - 1:
+                print('lalala')
                 straightLineDistanceToNextNode = algorithms.computeDistance(self.currLocation,
                         self.myMap.nodesDict[self.route[self.clearedRouteIdx + 1]].location)
                 stepsRemainingToNextNode = int(int(straightLineDistanceToNextNode) // STEP_LENGTH)
