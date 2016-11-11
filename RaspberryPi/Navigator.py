@@ -12,7 +12,7 @@ import stringHelper
 import audioOutput
 
 IS_SNAP_TO_GRAPH_EDGE = True
-STEP_LENGTH = 54
+STEP_LENGTH = 58
 NODE_REACHED_THRESHOLD = 100
 
 class Navigator():
