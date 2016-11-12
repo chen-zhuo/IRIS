@@ -16,7 +16,7 @@ import stringHelper
 # from threading import Thread
 from time import sleep
 
-IS_FAST_DEBUG_MODE = True
+IS_FAST_DEBUG_MODE = False
 HARDCODED_SRC_NODE_ID = 1211
 HARDCODED_DEST_NODE_ID = 1216
 
@@ -62,6 +62,7 @@ def main():
     audioOutput.playAudio('heading+0_soundEffect')
     audioOutput.playAudio('heading+45_soundEffect')
 #     audioOutput.playAudio('heading+180_soundEffect')
+    sleep(2)
     
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
