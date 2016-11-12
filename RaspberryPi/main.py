@@ -65,7 +65,7 @@ def main():
     audioOutput.playAudio('heading+0_soundEffect')
     audioOutput.playAudio('heading+45_soundEffect')
 #     audioOutput.playAudio('heading+180_soundEffect')
-    sleep(2)
+    sleep(4)
     
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
