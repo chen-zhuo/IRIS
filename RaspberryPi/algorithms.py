@@ -48,19 +48,27 @@ def downloadAndParseMap(buildingId, buildingStorey):
     fileName = 'mapOfBuilding' + str(buildingId) + 'Storey' + str(buildingStorey) + '.json'
     
     # to download map from Internet; if no Internet access, use cached map
-    try:
-        fileNameWithPath = './Downloads/' + fileName
-        with urllib.request.urlopen(url) as response, open(fileNameWithPath, 'wb') as file:
-            shutil.copyfileobj(response, file)
-        with open(fileNameWithPath) as jsonFile:
-            rawMap = json.load(jsonFile)
-    except IOError:
-        print(stringHelper.WARNING + ' at algorithms.downloadAndParseMap(): Failed to download map; using caches ' +
+#     try:
+#         fileNameWithPath = './Downloads/' + fileName
+#         with urllib.request.urlopen(url) as response, open(fileNameWithPath, 'wb') as file:
+#             shutil.copyfileobj(response, file)
+#         with open(fileNameWithPath) as jsonFile:
+#             rawMap = json.load(jsonFile)
+#     except IOError:
+#         print(stringHelper.WARNING + ' at algorithms.downloadAndParseMap(): Failed to download map; using caches ' +
+#               'instead.')
+#         fileNameWithPath = './Downloads/Caches/' + fileName
+#         with open(fileNameWithPath) as jsonFile:
+#             rawMap = json.load(jsonFile)
+#         fileNameWithPath = './Downloads/Caches/' + fileName
+    
+    # just use cache
+    print(stringHelper.WARNING + ' at algorithms.downloadAndParseMap(): Failed to download map; using caches ' +
               'instead.')
-        fileNameWithPath = './Downloads/Caches/' + fileName
-        with open(fileNameWithPath) as jsonFile:
-            rawMap = json.load(jsonFile)
-        fileNameWithPath = './Downloads/Caches/' + fileName
+    fileNameWithPath = './Downloads/Caches/' + fileName
+    with open(fileNameWithPath) as jsonFile:
+        rawMap = json.load(jsonFile)
+    fileNameWithPath = './Downloads/Caches/' + fileName
     
     northAt = int(rawMap['info']['northAt'])
     myMap = Map(buildingId, buildingStorey, northAt)
