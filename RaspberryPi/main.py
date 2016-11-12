@@ -36,11 +36,7 @@ def main():
         audioOutput.playAudio('welcomeToIris')
 #         print(stringHelper.AUDIO + ' Playing arpeggio audio test...')
 #         audioOutput.playAudio('arpeggio_soundEffect')
-        audioOutput.playAudio('heading-45_soundEffect')
-        audioOutput.playAudio('heading+0_soundEffect')
-        audioOutput.playAudio('heading+45_soundEffect')
-        audioOutput.playAudio('heading+180_soundEffect')
-        sleep(4)
+        sleep(2)
         
         srcNodeId = int(keypadInput.waitAndGetKeypadInputWithAudioPrompt(
                 'plsKeyInOriginNodeIdFollowedByTheHashKey'))
@@ -61,6 +57,11 @@ def main():
     
     print(stringHelper.AUDIO + ' Navigation started.')
     audioOutput.playAudio('navigationStarted')
+    
+    audioOutput.playAudio('heading-45_soundEffect')
+    audioOutput.playAudio('heading+0_soundEffect')
+    audioOutput.playAudio('heading+45_soundEffect')
+#     audioOutput.playAudio('heading+180_soundEffect')
     
     isNavigationInProgress = True
     isNavigationPaused = False # when paused, ignore any steps that the user performs
